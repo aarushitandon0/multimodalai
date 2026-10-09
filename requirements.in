@@ -30,6 +30,7 @@ python-multipart
 streamlit
 plotly
 kaleido
+matplotlib           # eval.figures (PNG 200 dpi + SVG) and scripts/feature_demo.py
 pytest
 ruff
 black

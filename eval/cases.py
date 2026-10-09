@@ -239,6 +239,14 @@ class Case:
         duration: Wall duration of the recording in seconds, which is the
             denominator of the false-alarm rate of spec 14.3 (and differs from
             :attr:`speech_duration`, which excludes the outer silence).
+        origin: ``clean`` | ``injected`` | ``human``. Human takes are test-only
+            (spec 7.3), which the harness enforces on this field.
+        same_channel: Whether the comparison behind :attr:`z_by_unit` was within
+            one channel, which is the only case in which the channel-sensitive
+            triggers may fire (CLAUDE.md invariant 7). Carried here because a
+            consumer that re-detects the case - :mod:`eval.run_loto` does, once
+            the fold is tuned - has to make the same decision again.
+        tier: ``gold`` | ``silver`` | ``bronze``, when the corpus records one.
     """
 
     file_id: str
@@ -254,6 +262,9 @@ class Case:
     speech_duration: float
     frames: Any | None = None
     duration: float = 0.0
+    origin: str = "injected"
+    same_channel: bool = True
+    tier: str = ""
 
     def as_classifier_case(self) -> ClassifierCase:
         """The same recording as the classifier's input (spec 10.6)."""
@@ -263,7 +274,7 @@ class Case:
             regions=self.regions,
             z_by_unit=self.z_by_unit,
             truth=self.truth,
-            origin="injected",
+            origin=self.origin,
         )
 
     def as_calibration_case(self, *, config: Config | None = None) -> CalibrationCase:
@@ -281,7 +292,7 @@ class Case:
                 else 0.0
             ),
             n_flaws=self.n_flaws,
-            origin="injected",
+            origin=self.origin,
         )
 
 

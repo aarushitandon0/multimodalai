@@ -183,8 +183,41 @@ def test_a_fold_report_writes_one_json_per_fold(tmp_path):
 
 
 def test_the_dataset_corpus_refuses_with_what_is_missing(config):
-    with pytest.raises(CorpusUnavailable, match="make data"):
+    from eval.dataset_corpus import is_available
+
+    if is_available(config):  # pragma: no cover - only on a built checkout
+        pytest.skip("this checkout has a built dataset")
+    with pytest.raises(CorpusUnavailable) as caught:
         run_fold(config=config, held_out="s1_gettysburg", corpus="dataset")
+    message = str(caught.value)
+    # The refusal is actionable: every missing piece is named with its real
+    # path and the target that produces it (prompt 19).
+    assert "not built in this checkout" in message
+    assert "data.alignments" in message and "make align" in message
+    assert "--corpus synthetic" in message
+
+
+def test_the_dataset_refusal_lists_real_paths_not_config_keys(config):
+    from eval.dataset_corpus import describe_missing, is_available
+
+    if is_available(config):  # pragma: no cover - only on a built checkout
+        pytest.skip("this checkout has a built dataset")
+    message = describe_missing(config)
+    assert str(config.path("data.alignments")) in message
+
+
+def test_a_dataset_variant_without_speaker_normalisation_is_refused(config):
+    from eval.dataset_corpus import is_available
+
+    if not is_available(config):  # pragma: no cover - only on a built checkout
+        pytest.skip("needs a built dataset; eval/dataset_corpus has the full test")
+    with pytest.raises(NotImplementedError):
+        run_fold(
+            config=config,
+            held_out="s1_gettysburg",
+            corpus="dataset",
+            variant=Variant(speaker_normalisation=False),
+        )
 
 
 # --------------------------------------------------------------------------- #
@@ -211,6 +244,42 @@ def test_one_fold_runs_end_to_end_and_fits_only_on_the_training_text(config, tmp
     assert payload["splits"]["human"]["available"] is False
     # Severity is graded over the ladder, so a rank correlation exists.
     assert payload["severity"]["n"] > 3
+
+
+def test_the_fold_carries_the_per_event_records_the_figures_need(config):
+    report = run_fold(
+        config=config,
+        held_out="syn_a",
+        texts=("syn_a", "syn_b"),
+        variant=Variant(name="smoke", tune=False),
+    )
+    injected = report.payload["splits"]["injected"]
+    diagnostics = injected["diagnostics"]
+    assert set(diagnostics) == {"pairs", "false_negatives", "false_positives"}
+    # The per-event records and the aggregates come from the same matching, so
+    # the pair count is the IoU-matched n that the MAE was measured over.
+    assert len(diagnostics["pairs"]) == injected["boundaries"]["iou_matched"]["n"]
+    for pair in diagnostics["pairs"]:
+        assert {"file_id", "label", "onset_error_ms", "offset_error_ms", "iou"} <= set(pair)
+    # Every held-out file is described, so a figure can group by label and rung.
+    cases = report.payload["cases"]
+    assert cases
+    assert all(
+        {"label", "level", "origin", "severity_s", "n_regions"} <= set(c) for c in cases.values()
+    )
+    assert all(case["origin"] == "injected" for case in cases.values())
+
+
+def test_the_synthetic_corpus_is_compared_within_one_channel(config):
+    # The synthetic readers share a channel, which is what lets `mumbling` fire
+    # at all; on the dataset the same check turns the spectral triggers off.
+    report = run_fold(
+        config=config,
+        held_out="syn_a",
+        texts=("syn_a", "syn_b"),
+        variant=Variant(name="smoke", tune=False, classifier=False),
+    )
+    assert all(case["same_channel"] for case in report.payload["cases"].values())
 
 
 def test_a_rules_only_fold_reports_no_classifier(config):

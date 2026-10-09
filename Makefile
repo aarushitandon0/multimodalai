@@ -25,7 +25,8 @@ FEATURE_ARGS   ?=
 DEMO_ARGS      ?=
 # e.g. make components COMPONENT_ARGS="--seconds 30 --model tiny"
 COMPONENT_ARGS ?=
-# Extra flags for `make eval`, e.g. make eval EVAL_ARGS="--corpus dataset"
+# Extra flags for `make eval` / `make ablations`, e.g.
+#   make eval EVAL_ARGS="--corpus dataset"
 EVAL_ARGS      ?=
 ifeq ($(OS),Windows_NT)
   PY       := $(VENV)/Scripts/python.exe
@@ -42,7 +43,7 @@ PORT_APP   ?= 8501
 SRC := src tests eval scripts app
 
 .PHONY: help setup setup-mfa lock data download provenance features envelope eval components \
-        ablations figures app api test lint format reproduce demo clean clean-cache \
+        ablations figures failures app api test lint format reproduce demo clean clean-cache \
         qc qc-report package package-check feature-demo features-sample cards examples \
         check-env smoke-align mfa-version align align-report build-clean inject \
         envelope-synthetic tuning classifier rubric
@@ -183,11 +184,14 @@ components: ## Component-validity checks (pitch/alignment/rate) -> results/compo
 eval: ## Leave-one-text-out evaluation -> results/metrics.json + metrics.md
 	$(PY) -m eval.run_loto --out results/metrics.json $(EVAL_ARGS)
 
-ablations: ## Ablation table -> results/ablations.json
-	@echo "TODO(phase7): $(PY) -m eval.ablations --out results/ablations.json"
+ablations: ## Ablation table (spec 14.2) -> results/ablations.json + ablations.md
+	$(PY) -m eval.ablations --out results/ablations.json $(EVAL_ARGS)
 
-figures: ## Render docs/figures/* from results/
-	@echo "TODO(phase7): $(PY) -m eval.figures --out docs/figures"
+figures: ## Render docs/figures/* (PNG 200 dpi + SVG) from results/metrics.json
+	$(PY) -m eval.figures --out docs/figures
+
+failures: ## Three largest misses with suspected causes -> results/failures.md
+	$(PY) -m eval.failures --out results/failures.md
 
 ## ---------------------------------------------------------------------------
 ## Serving
@@ -230,6 +234,7 @@ reproduce: ## Regenerate every number in the report from raw data, deterministic
 	$(MAKE) envelope
 	$(MAKE) eval
 	$(MAKE) ablations
+	$(MAKE) failures
 	$(MAKE) figures
 	@echo "TODO(phase7): $(PY) -m eval.metrics --determinism --runs 2 --out results/determinism.json"
 

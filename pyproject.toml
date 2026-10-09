@@ -49,6 +49,7 @@ dependencies = [
   "streamlit",
   "plotly",
   "kaleido",
+  "matplotlib",
 ]
 
 [project.optional-dependencies]

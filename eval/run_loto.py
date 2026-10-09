@@ -50,11 +50,13 @@ from pathlib import Path
 from typing import Any
 
 from eval.cases import Case, FoldCases, build_fold_cases
+from eval.dataset_corpus import CorpusUnavailable, DatasetCorpus
 from eval.metrics import (
     ScoredEvent,
     boundary_errors,
     check_targets,
     crosscheck_event_f1,
+    event_diagnostics,
     false_positives_per_minute,
     mean_sd,
     pr_curve,
@@ -65,6 +67,7 @@ from eval.metrics import (
     typing_metrics,
 )
 from rostrum.config import Config, code_version, load_config, set_seeds
+from rostrum.data.splits import TEST_ONLY_ORIGINS as _SPLIT_TEST_ONLY_ORIGINS
 from rostrum.detect.classifier import (
     ClassifierError,
     FlawClassifier,
@@ -90,7 +93,9 @@ logger = logging.getLogger("eval.run_loto")
 
 __all__ = [
     "DEFAULT_TEXTS",
+    "TEST_ONLY_ORIGINS",
     "CorpusUnavailable",
+    "DatasetCorpus",
     "FoldReport",
     "LeakageError",
     "Variant",
@@ -110,12 +115,12 @@ SCHEMA: str = "rostrum.eval.metrics.v1"
 """Written into ``results/metrics.json`` so a consumer can check what it has."""
 
 
+TEST_ONLY_ORIGINS: tuple[str, ...] = tuple(_SPLIT_TEST_ONLY_ORIGINS)
+"""Origins that may never be fitted on; ``rostrum.data.splits`` owns the list."""
+
+
 class LeakageError(AssertionError):
     """A test file reached a fitting call (spec 7.3, CLAUDE.md invariant 11)."""
-
-
-class CorpusUnavailable(RuntimeError):
-    """The requested corpus is not present in this checkout."""
 
 
 @dataclass(frozen=True)
@@ -249,34 +254,66 @@ def _synthetic_fold(
     )
 
 
-def _dataset_fold(*, config: Config, held_out: str) -> FoldCases:
-    """Build one fold of the real corpus, or explain what is missing.
+_DATASET_CACHE: dict[tuple[str, bool], DatasetCorpus] = {}
+"""One loaded corpus per (config hash, lean) so N folds read the tables once."""
+
+
+def dataset_corpus(config: Config, *, lean: bool = False) -> DatasetCorpus:
+    """The real corpus, loaded once per process.
+
+    Args:
+        config: Loaded config.
+        lean: Load lean feature entries; tests only.
+
+    Returns:
+        The cached :class:`~eval.dataset_corpus.DatasetCorpus`.
 
     Raises:
-        CorpusUnavailable: Always, until ``make data`` has run. The message
-            lists the directories that are empty, because the usual reason is
-            that Montreal Forced Aligner is not installed on this machine and
-            the alignments - and therefore the labels and the cached features -
-            do not exist.
+        CorpusUnavailable: ``make data`` or ``make features`` has not run; the
+            message lists what is missing and what produces each piece.
     """
-    missing: list[str] = []
-    for key, pattern in (
-        ("dataset.alignments", "*.TextGrid"),
-        ("dataset.labels", "*.json"),
-    ):
-        try:
-            directory = config.path(key)
-        except Exception:  # pragma: no cover - a config without that key
-            missing.append(key)
-            continue
-        if not directory.is_dir() or not any(directory.glob(pattern)):
-            missing.append(f"{key} ({directory})")
-    raise CorpusUnavailable(
-        "the dataset corpus is not built in this checkout"
-        + (f"; empty or absent: {', '.join(missing)}" if missing else "")
-        + ". Run `make data` (needs the mfa conda env), then re-run `make eval`. "
-        "Until then use --corpus synthetic, whose numbers are generated and must be "
-        "labelled as such."
+    key = (str(config.hash), bool(lean))
+    corpus = _DATASET_CACHE.get(key)
+    if corpus is None:
+        corpus = DatasetCorpus.load(config, lean=lean)
+        _DATASET_CACHE[key] = corpus
+    return corpus
+
+
+def _dataset_fold(
+    *,
+    config: Config,
+    held_out: str,
+    variant: Variant,
+    lean: bool = False,
+    corpus_data: DatasetCorpus | None = None,
+) -> FoldCases:
+    """Build one fold of the real corpus under ``variant``.
+
+    Raises:
+        CorpusUnavailable: The corpus is not built, or the held-out text has no
+            envelope.
+        NotImplementedError: ``variant.speaker_normalisation`` is off. On the
+            dataset that ablation cannot be run from cached tables: speaker
+            normalisation happens *inside* feature extraction (F0 in semitones
+            re the speaker's median, energy in dB re their voiced median -
+            CLAUDE.md invariants 5 and 6), so removing it means re-extracting,
+            which ``make features`` does not produce. :mod:`eval.ablations`
+            reports the row as unavailable on this corpus and quotes the
+            synthetic simulation instead.
+    """
+    if not variant.speaker_normalisation:
+        raise NotImplementedError(
+            "ablation 4 (no speaker normalisation) cannot be run on the dataset corpus: "
+            "normalisation is applied inside feature extraction, so it would need a second "
+            "`make features` pass with it switched off"
+        )
+    corpus = corpus_data if corpus_data is not None else dataset_corpus(config, lean=lean)
+    return corpus.fold(
+        config=config,
+        held_out=held_out,
+        refine=variant.refine,
+        envelope_size=1 if variant.single_reference else None,
     )
 
 
@@ -300,8 +337,14 @@ def _redetect(
     thresholds: RegionThresholds,
     refinement: RefinementSettings | None,
 ) -> list[Region]:
-    """Re-run region formation for one case at the fold's tuned thresholds."""
-    signals, _ = trigger_signals(case.z_by_unit, config=config, same_channel=True)
+    """Re-run region formation for one case at the fold's tuned thresholds.
+
+    ``same_channel`` comes from the case, not from a constant: on the dataset a
+    participant compared against a multi-source envelope is not channel-matched,
+    and the spectral and voice-quality triggers must stay off for it (CLAUDE.md
+    invariant 7).
+    """
+    signals, _ = trigger_signals(case.z_by_unit, config=config, same_channel=case.same_channel)
     regions = build_regions(signals, case.z_by_unit, config=config, thresholds=thresholds)
     if refinement is not None and refinement.enabled:
         regions = refine_regions(regions, case.frames, settings=refinement)
@@ -312,7 +355,7 @@ def _tuning_cases(cases: Sequence[Case], *, config: Config) -> list[TuningCase]:
     """Training cases in the form the threshold search wants."""
     out: list[TuningCase] = []
     for case in cases:
-        signals, _ = trigger_signals(case.z_by_unit, config=config, same_channel=True)
+        signals, _ = trigger_signals(case.z_by_unit, config=config, same_channel=case.same_channel)
         out.append(
             TuningCase(
                 file_id=case.file_id,
@@ -383,6 +426,14 @@ def _split_metrics(
     events_block = crosscheck_event_f1(reference, predicted)
     boundaries = boundary_errors(reference, predicted)
     curve = pr_curve(reference, scored)
+    diagnostics = event_diagnostics(
+        reference,
+        predicted,
+        scores={
+            (item.event.file_id, item.event.t_start, item.event.t_end): item.score
+            for item in scored
+        },
+    )
 
     # Typing: the rule's label and the classifier's, over the regions that
     # matched a truth flaw. build_examples does the matching, which keeps this
@@ -416,7 +467,18 @@ def _split_metrics(
         "events": events_block,
         "event_f1": float(events_block["rostrum"]["f1"]),
         "boundaries": boundaries,
-        "onset_offset_mae_ms": float(boundaries["iou_matched"]["mae_ms"]),
+        # Undefined, not zero, when nothing matched: BoundaryErrors defaults its
+        # means to 0.0 with n=0, which would otherwise read as a perfect 0 ms
+        # edge placement for a run that detected nothing at all (the single-
+        # reference ablation does exactly that).
+        "onset_offset_mae_ms": (
+            float(boundaries["iou_matched"]["mae_ms"])
+            if int(boundaries["iou_matched"]["n"]) > 0
+            else None
+        ),
+        # Per-event records, for the onset histogram and the failure analysis
+        # of prompt 20; the aggregates above are computed from the same pairs.
+        "diagnostics": diagnostics,
         "pr_curve": curve,
         "typing": {
             "rule": rule_typing,
@@ -432,7 +494,12 @@ def _split_metrics(
 
 
 def _classifier_case(case: Case, regions: Sequence[Region]) -> Any:
-    """The case as a :class:`~rostrum.detect.classifier.ClassifierCase` with ``regions``."""
+    """The case as a :class:`~rostrum.detect.classifier.ClassifierCase` with ``regions``.
+
+    The case's own ``origin`` is carried through, which is what makes
+    :func:`~rostrum.detect.classifier.fit_fold`'s ``train_on`` filter able to
+    hold human takes out of the fit (spec 7.3).
+    """
     from rostrum.detect.classifier import ClassifierCase
 
     return ClassifierCase(
@@ -441,7 +508,7 @@ def _classifier_case(case: Case, regions: Sequence[Region]) -> Any:
         regions=list(regions),
         z_by_unit=case.z_by_unit,
         truth=case.truth,
-        origin="injected",
+        origin=case.origin,
     )
 
 
@@ -494,6 +561,8 @@ def run_fold(
     texts: Sequence[str] = DEFAULT_TEXTS,
     variant: Variant | None = None,
     corpus: str = "synthetic",
+    lean: bool = False,
+    corpus_data: DatasetCorpus | None = None,
 ) -> FoldReport:
     """Fit on the fold's training texts, then evaluate the held-out text once.
 
@@ -504,6 +573,14 @@ def run_fold(
         variant: Which pipeline configuration to run; the full system by
             default.
         corpus: ``"synthetic"`` or ``"dataset"``.
+        lean: Load lean feature-cache entries for the dataset corpus. Tests
+            only: a lean entry has a different cache key from a full one, so a
+            reported number must never come from one.
+        corpus_data: An already-loaded dataset corpus to fold, instead of the
+            one this ``config`` would open. :mod:`eval.ablations` passes the
+            corpus it loaded under the **base** config, because the feature
+            cache key includes the config hash and a variant that overrides a
+            detection threshold would otherwise re-extract every file.
 
     Returns:
         A :class:`FoldReport`.
@@ -516,10 +593,30 @@ def run_fold(
     bundle = (
         _synthetic_fold(config=config, held_out=held_out, texts=texts, variant=variant)
         if corpus == "synthetic"
-        else _dataset_fold(config=config, held_out=held_out)
+        else _dataset_fold(
+            config=config,
+            held_out=held_out,
+            variant=variant,
+            lean=lean,
+            corpus_data=corpus_data,
+        )
     )
     spec = RegionFeatureSpec.from_config(config)
-    train, test = bundle.train(), bundle.test()
+    test = bundle.test()
+    # Fitting sees the training texts minus the test-only origins. Dropping
+    # human takes here rather than relying on each fitter's own filter is what
+    # lets the leakage guard below be an assertion about *inputs*: anything in
+    # `fitted_on` was genuinely offered to a fit.
+    train = [case for case in bundle.train() if case.origin not in TEST_ONLY_ORIGINS]
+    withheld = [case.file_id for case in bundle.train() if case.origin in TEST_ONLY_ORIGINS]
+    if withheld:
+        logger.info(
+            "fold %s: %d training-text file(s) withheld from every fit, origin in %s: %s",
+            bundle.fold,
+            len(withheld),
+            list(TEST_ONLY_ORIGINS),
+            withheld[:5],
+        )
     fitted_on: list[str] = []
 
     # -- fit: thresholds ----------------------------------------------------
@@ -588,7 +685,8 @@ def run_fold(
         fitted_on,
         [case.file_id for case in test],
         fold=bundle.fold,
-        origins=dict.fromkeys((c.file_id for c in bundle.cases), "injected"),
+        test_only_origins=TEST_ONLY_ORIGINS,
+        origins={case.file_id: case.origin for case in bundle.cases},
     )
 
     # -- score the held-out text -------------------------------------------
@@ -610,7 +708,9 @@ def run_fold(
 
     flawed = [case for case in test if case.truth]
     clean = [case for case in test if not case.truth]
-    human = [case for case in test if getattr(case, "origin", "injected") == "human"]
+    human_ids = {case.file_id for case in flawed if case.origin == "human"}
+    human = [case for case in flawed if case.file_id in human_ids]
+    injected = [case for case in flawed if case.file_id not in human_ids]
 
     payload: dict[str, Any] = {
         "schema": "rostrum.eval.fold.v1",
@@ -645,7 +745,7 @@ def run_fold(
         "leakage_check": audit,
         "splits": {
             "injected": _split_metrics(
-                [case for case in flawed if case not in human],
+                injected,
                 detected,
                 config=config,
                 classifier=classifier,
@@ -665,6 +765,26 @@ def run_fold(
             {case.file_id: case.duration for case in clean},
         ),
         "severity": _severity_block(flawed, scores, config=config),
+        # What each held-out file is, so a figure can group by label and rung
+        # and a failure can be named without re-reading the corpus (prompt 20).
+        "cases": {
+            case.file_id: {
+                "text_id": case.text_id,
+                "origin": case.origin,
+                "tier": case.tier,
+                "label": case.label,
+                "level": case.level,
+                "category": case.category,
+                "n_flaws": case.n_flaws,
+                "same_channel": bool(case.same_channel),
+                "duration_s": round(float(case.duration), 3),
+                "speech_duration_s": round(float(case.speech_duration), 3),
+                "n_truth": len(case.truth),
+                "n_regions": len(detected[case.file_id]),
+                "severity_s": (round(float(case.truth[0].s), 4) if case.truth else 0.0),
+            }
+            for case in sorted(test, key=lambda c: c.file_id)
+        },
         "scores": {
             "overall": {file_id: round(value, 4) for file_id, value in sorted(overall.items())},
             "categories": {
@@ -698,7 +818,7 @@ def _calibration_case(case: Case, regions: Sequence[Region], *, config: Config) 
             else 0.0
         ),
         n_flaws=case.n_flaws,
-        origin="injected",
+        origin=case.origin,
     )
 
 
@@ -714,7 +834,7 @@ def _sex_register(config: Config) -> dict[str, str]:
     import csv
 
     try:
-        path = config.path("dataset.root") / "speakers.csv"
+        path = config.path("data.dir") / "speakers.csv"
     except Exception:  # pragma: no cover - a config without that key
         return {}
     if not path.is_file():
@@ -749,7 +869,11 @@ def _fold_target_values(payload: Mapping[str, Any], split: str) -> dict[str, flo
     severity = payload.get("severity", {}).get("pooled", {})
     return {
         "event_f1_200ms": float(block["event_f1"]),
-        "onset_offset_mae_ms": float(block["onset_offset_mae_ms"]),
+        "onset_offset_mae_ms": (
+            None
+            if block["onset_offset_mae_ms"] is None
+            else float(block["onset_offset_mae_ms"])
+        ),
         "flaw_type_macro_f1": float(block["typing"]["macro_f1"]),
         "severity_spearman_rho": severity.get("rho"),
         "false_positives_per_min_on_clean": payload.get("clean", {}).get("fp_per_min"),
@@ -781,6 +905,10 @@ def aggregate(
         "sed_eval_available": sed_eval_available(),
         "n_folds": len(reports),
         "folds": [report.fold for report in reports],
+        # The held-out texts, in fold order: the caller may not have passed a
+        # text list (the corpora supply their own default), so this is the only
+        # record of what was actually folded over.
+        "texts": [report.held_out for report in reports],
         "splits": {},
         "targets": {},
         "per_fold": {report.fold: report.payload for report in reports},
@@ -874,35 +1002,82 @@ def metrics_markdown(payload: Mapping[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def corpus_texts(
+    config: Config, *, corpus: str, texts: Sequence[str] | None = None, lean: bool = False
+) -> tuple[str, ...]:
+    """The texts to fold over: the caller's, or the corpus's own.
+
+    Args:
+        config: Loaded config.
+        corpus: ``"synthetic"`` or ``"dataset"``.
+        texts: An explicit list, which wins when given.
+        lean: Passed through when the dataset has to be opened to answer.
+
+    Returns:
+        The text ids, in fold order.
+
+    Raises:
+        CorpusUnavailable: The dataset corpus is not built.
+    """
+    if texts:
+        return tuple(texts)
+    if corpus == "synthetic":
+        return DEFAULT_TEXTS
+    return dataset_corpus(config, lean=lean).texts
+
+
 def run_loto(
     *,
     config: Config,
-    texts: Sequence[str] = DEFAULT_TEXTS,
+    texts: Sequence[str] | None = None,
     variant: Variant | None = None,
     corpus: str = "synthetic",
     out: Path | None = None,
     write_folds: bool = True,
+    lean: bool = False,
+    corpus_data: DatasetCorpus | None = None,
 ) -> dict[str, Any]:
     """Run every fold, aggregate, and write ``metrics.json`` / ``metrics.md``.
 
     Args:
         config: Loaded config.
-        texts: Texts to fold over.
+        texts: Texts to fold over. ``None`` means the corpus's own texts -
+            :data:`DEFAULT_TEXTS` for the synthetic corpus, every text with
+            reference readings for the dataset.
         variant: Pipeline configuration; the full system by default.
         corpus: ``"synthetic"`` or ``"dataset"``.
         out: Where to write the JSON; ``results/metrics.json`` by default.
             ``None`` with ``write_folds=False`` still returns the payload.
         write_folds: Also write one ``fold_<text>.json`` per fold.
+        lean: Lean feature-cache entries for the dataset corpus; tests only.
+        corpus_data: An already-loaded dataset corpus; see :func:`run_fold`.
 
     Returns:
         The aggregate payload.
     """
     variant = variant or Variant()
+    if texts is None and corpus_data is not None:
+        texts = corpus_data.texts
+    fold_texts = corpus_texts(config, corpus=corpus, texts=texts, lean=lean)
+    if len(fold_texts) < 2:
+        logger.warning(
+            "only %d text(s) in the %s corpus: a leave-one-text-out fold then has %d training "
+            "text(s), so nothing can be fitted across texts",
+            len(fold_texts),
+            corpus,
+            len(fold_texts) - 1,
+        )
     reports: list[FoldReport] = []
-    for held_out in texts:
+    for held_out in fold_texts:
         logger.info("fold: holding out %s", held_out)
         report = run_fold(
-            config=config, held_out=held_out, texts=texts, variant=variant, corpus=corpus
+            config=config,
+            held_out=held_out,
+            texts=fold_texts,
+            variant=variant,
+            corpus=corpus,
+            lean=lean,
+            corpus_data=corpus_data,
         )
         reports.append(report)
 
@@ -937,7 +1112,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         default="synthetic",
         help="synthetic graded corpus (default) or the real dataset",
     )
-    parser.add_argument("--texts", nargs="*", default=list(DEFAULT_TEXTS))
+    parser.add_argument(
+        "--texts",
+        nargs="*",
+        default=None,
+        help="texts to fold over; default: the corpus's own",
+    )
     parser.add_argument("--no-refine", action="store_true", help="skip boundary refinement")
     parser.add_argument("--no-classifier", action="store_true", help="rules only")
     parser.add_argument("--no-tune", action="store_true", help="use the config's thresholds")
@@ -971,7 +1151,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         payload = run_loto(
             config=config,
-            texts=tuple(args.texts),
+            texts=tuple(args.texts) if args.texts else None,
             variant=variant,
             corpus=args.corpus,
             out=args.out,
@@ -979,6 +1159,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     except CorpusUnavailable as error:
         print(f"cannot evaluate: {error}", file=sys.stderr)
         return 2
+    except NotImplementedError as error:
+        print(f"cannot evaluate: {error}", file=sys.stderr)
+        return 4
     except LeakageError as error:
         print(f"LEAKAGE: {error}", file=sys.stderr)
         return 3

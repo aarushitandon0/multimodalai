@@ -69,6 +69,7 @@ __all__ = [
     "check_targets",
     "crosscheck_event_f1",
     "event_based_metrics",
+    "event_diagnostics",
     "false_positives_per_minute",
     "mean_sd",
     "pr_curve",
@@ -446,6 +447,107 @@ def boundary_errors(
         ).to_dict(),
         "collar_matched": _errors_from_pairs(collar_pairs, "collar").to_dict(),
         "min_iou": float(min_iou),
+    }
+
+
+def event_diagnostics(
+    reference: Sequence[Event],
+    predicted: Sequence[Event],
+    *,
+    min_iou: float = DEFAULT_MIN_IOU,
+    onset_collar_s: float = DEFAULT_ONSET_COLLAR_S,
+    offset_collar_s: float = DEFAULT_OFFSET_COLLAR_S,
+    offset_collar_frac: float = DEFAULT_OFFSET_COLLAR_FRAC,
+    scores: Mapping[tuple[str, float, float], float] | None = None,
+) -> dict[str, list[dict[str, Any]]]:
+    """The individual matches and misses behind the aggregate numbers.
+
+    :func:`boundary_errors` returns means, which is what the targets table
+    needs and what a histogram and a failure analysis cannot be built from
+    (prompt 20). This returns the per-event records instead: one row per
+    IoU-matched pair with its signed errors, one per reference the detector
+    missed, and one per prediction that matched nothing.
+
+    Matching is :func:`~rostrum.detect.tune.match_events`'s, so the misses
+    counted here are exactly the FN and FP of the reported event-F1.
+
+    Args:
+        reference: Ground-truth events.
+        predicted: Detected events.
+        min_iou: Overlap a pair needs to appear in ``pairs``.
+        onset_collar_s: Onset collar for deciding FN and FP.
+        offset_collar_s: Absolute part of the offset collar.
+        offset_collar_frac: Relative part of the offset collar.
+        scores: ``{(file_id, t_start, t_end): detection score}``, attached to
+            each false positive so the worst one can be found. Spans are
+            matched on 3-decimal rounding, as every output time is.
+
+    Returns:
+        ``{"pairs": [...], "false_negatives": [...], "false_positives": [...]}``.
+        Times are seconds to 3 decimals, errors milliseconds to 1 decimal.
+    """
+    lookup = {
+        (str(file_id), round(float(start), 3), round(float(end), 3)): float(value)
+        for (file_id, start, end), value in (scores or {}).items()
+    }
+
+    def score_of(event: Event) -> float | None:
+        key = (str(event.file_id), round(float(event.t_start), 3), round(float(event.t_end), 3))
+        return lookup.get(key)
+
+    pairs = [
+        {
+            "file_id": ref.file_id,
+            "label": ref.label,
+            "ref_start": round(float(ref.t_start), 3),
+            "ref_end": round(float(ref.t_end), 3),
+            "pred_start": round(float(pred.t_start), 3),
+            "pred_end": round(float(pred.t_end), 3),
+            "onset_error_ms": round((float(pred.t_start) - float(ref.t_start)) * 1000.0, 1),
+            "offset_error_ms": round((float(pred.t_end) - float(ref.t_end)) * 1000.0, 1),
+            "iou": round(iou(ref.t_start, ref.t_end, pred.t_start, pred.t_end), 4),
+            "score": score_of(pred),
+        }
+        for ref, pred in _iou_pairs(list(reference), list(predicted), min_iou)
+    ]
+
+    assigned = match_events(
+        reference,
+        predicted,
+        onset_collar_s=onset_collar_s,
+        offset_collar_s=offset_collar_s,
+        offset_collar_frac=offset_collar_frac,
+    )
+    misses: list[dict[str, Any]] = []
+    spurious: list[dict[str, Any]] = []
+    for _, unmatched_predictions, unmatched_references in assigned.values():
+        for event in unmatched_references:
+            misses.append(
+                {
+                    "file_id": event.file_id,
+                    "label": event.label,
+                    "t_start": round(float(event.t_start), 3),
+                    "t_end": round(float(event.t_end), 3),
+                }
+            )
+        for event in unmatched_predictions:
+            spurious.append(
+                {
+                    "file_id": event.file_id,
+                    "label": event.label,
+                    "t_start": round(float(event.t_start), 3),
+                    "t_end": round(float(event.t_end), 3),
+                    "score": score_of(event),
+                }
+            )
+
+    def key(row: Mapping[str, Any]) -> tuple[Any, ...]:
+        return (row["file_id"], row["t_start"], row["label"])
+
+    return {
+        "pairs": sorted(pairs, key=lambda row: (row["file_id"], row["ref_start"], row["label"])),
+        "false_negatives": sorted(misses, key=key),
+        "false_positives": sorted(spurious, key=key),
     }
 
 

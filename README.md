@@ -1416,24 +1416,38 @@ make classifier          # fit the per-fold flaw-type classifier, macro-F1 plus 
 make rubric              # calibrate k_c per fold, print clean and L1 to L4 scores
 make cards               # render explanation cards -> results/cards_demo.json
 make components          # pitch, alignment and rate validity -> results/components.json
-make eval                # leave-one-text-out -> results/metrics.json
-make ablations           # ablation table -> results/ablations.json
-make figures             # render docs/figures/* from results/
+make eval                # leave-one-text-out -> results/metrics.json + metrics.md
+make ablations           # the five ablations of spec 14.2 -> results/ablations.{json,md}
+make failures            # the three largest misses -> results/failures.{md,json}
+make figures             # render docs/figures/* (PNG 200 dpi + SVG) from results/
 make demo                # one analysis per operating mode -> results/examples/
 ```
+
+`make eval` and `make ablations` run on the generated corpus by default and say so
+in every file they write. Point them at the real dataset with
+`EVAL_ARGS="--corpus dataset"`; without a built dataset they refuse and list what
+is missing and the target that produces each piece, rather than reporting a number
+they cannot stand behind.
 
 ### 15.4 Ablations
 
 The harness reports with and without each design decision, so that no choice has
 to be taken on faith.
 
-| Ablation | Question it answers |
+`make ablations` runs each row as a **full leave-one-text-out run** with one thing
+changed, through the same harness as the headline result, and writes the table with
+each row's delta against the full system to `results/ablations.md`.
+
+| Ablation (`eval/ablations.py`) | Question it answers |
 |---|---|
-| Single reference against the full envelope | does the distribution actually beat one "correct" reading? |
-| With and without speaker normalisation | how much of the performance is the semitone and z-score transforms? |
-| With and without PELT boundary refinement | does change-point refinement improve onset and offset MAE? |
-| `extend_on: smoothed` against `raw` | how much does the smoothing policy cost region extent? |
-| With and without the classifier | does the learned second opinion improve typing over the rules alone? |
+| 1. Single reference against the full envelope | does the distribution actually beat one "correct" reading? Gold where the corpus has one, else one reading drawn with a fixed seed |
+| 2. Rules only, against rules plus the classifier | does the learned second opinion improve typing over the rules alone? |
+| 3. With and without PELT boundary refinement | does change-point refinement improve onset and offset MAE? |
+| 4. With and without speaker normalisation | how much of the performance is the semitone and z-score transforms? Simulated on the generated corpus, and **not available** on the dataset: normalisation happens inside feature extraction, so ablating it there needs a second `make features` pass |
+| 5. Human test takes against synthetic | how much does performance drop on flaws a speaker produced rather than ones we injected? |
+
+`extend_on: smoothed` against `raw` is exposed as a config choice rather than a
+table row; §13.3 reports what it costs.
 
 ### 15.5 Programmatic use
 
@@ -1484,8 +1498,8 @@ src/rostrum/
   types.py               dataclasses and the output schema
   config.py              config loading, hashing, code version
 app/                     Streamlit dashboard
-eval/                    metrics, leave-one-text-out, synthetic corpora,
-                         component validation
+eval/                    metrics, leave-one-text-out, ablations, figures,
+                         failure analysis, synthetic corpora, component validation
 scripts/                 the dataset build pipeline, one script per stage
 dataset/                 audio, texts, alignments, labels, QC, provenance,
                          LICENSES.csv, MANIFEST.csv, splits, datasheet
