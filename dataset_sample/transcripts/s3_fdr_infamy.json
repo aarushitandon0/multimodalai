@@ -1,0 +1,17 @@
+{
+  "text_id": "s3_fdr_infamy",
+  "title": "Day of Infamy address to Congress",
+  "speech_date": "1941-12-08",
+  "author": "Franklin D. Roosevelt",
+  "edition": "TODO(human)",
+  "source": "TODO(human) - transcribe from a public-domain source: the NARA / FDR Library copy of the reading text, linked from the Commons file page",
+  "verbatim": "TODO(human)",
+  "display": "TODO(human)",
+  "gap_labels": null,
+  "notes": [
+    "Paste the verbatim words as delivered (not the prepared text) into `verbatim`,",
+    "one line, and the punctuated version into `display`.",
+    "Draft it with ASR and correct by ear: the alignment is only as good as this file.",
+    "Only the excerpt named by excerpt_start_s/excerpt_end_s in SOURCES.yaml is needed."
+  ]
+}

@@ -1,0 +1,228 @@
+# Injection engine parameters (plan 4.2-4.4).
+# Every number a flawed file depends on lives here. The resolved values are
+# copied verbatim into labels/<file_id>.json so any file can be regenerated.
+
+seed: 1337 # master seed; per-file seed = stable_hash(file_id) ^ seed, recorded in the label
+
+# --- Severity ladder (plan 4.4) ---------------------------------------------
+# s is the single knob that every parameter formula below consumes.
+severity:
+  L0: 0.00 # clean source, no edit
+  L1: 0.15 # "almost perfect" - barely perceptible
+  L2: 0.35 # noticeable to an attentive listener
+  L3: 0.60 # clearly flawed
+  L4: 0.90 # egregious / botched
+
+# --- Splicing invariants (plan 4.2) -----------------------------------------
+splice:
+  crossfade_ms: 10.0 # raised-cosine, applied both sides of every cut
+  crossfade_window: "hann" # a Hann half-window is the raised cosine
+  snap_to_zero_crossing: true
+  zero_crossing_search_ms: 2.0 # furthest a boundary may be nudged to find one
+  edits_at_word_boundaries_only: true
+
+# Inserted silence is looped room tone, never digital zeros - a detector can
+# cheat on exact zeros. Room tone is harvested from the recording's own pauses.
+room_tone:
+  source: "self" # sample from the same recording
+  min_donor_gap_s: 0.40 # only harvest from gaps at least this long
+  donor_margin_ms: 50.0 # trim this much off each end of the donor gap
+  loop_crossfade_ms: 20.0
+  gain_db: 0.0 # match the donor level exactly
+
+# --- Per-label parameter formulas (plan 4.3) --------------------------------
+# `formula` strings are evaluated by rostrum.inject.engine with only `s` in
+# scope. They stay strings so the label JSON can record formula AND value.
+labels:
+  rushing:
+    category: "pace"
+    method: "psola_lengthen" # Praat "Lengthen (overlap-add)"
+    span_unit: "words"
+    span_words: [3, 10] # inclusive; sampled with the per-file seed
+    params:
+      factor: "1 - 0.45 * s" # s=0.90 -> 0.595
+    bounds:
+      factor: [0.55, 1.0]
+    valid_span:
+      require_no_internal_pause_over_s: 0.50
+      exclude_first_n_words: 2
+      exclude_last_n_words: 2
+      within_one_sentence: true # a span may not cross a `boundary` gap
+
+  dragging:
+    category: "pace"
+    method: "psola_lengthen"
+    span_unit: "words"
+    span_words: [3, 10]
+    params:
+      factor: "1 + 0.8 * s" # s=0.90 -> 1.72
+    bounds:
+      factor: [1.0, 1.8]
+    valid_span:
+      require_no_internal_pause_over_s: 0.50
+      exclude_first_n_words: 2
+      exclude_last_n_words: 2
+      within_one_sentence: true
+
+  missing_pause:
+    category: "pausing"
+    method: "shrink_gap"
+    span_unit: "gap"
+    params:
+      keep_fraction: "1 - 0.95 * s" # s=0.90 -> keeps 0.145 of the pause
+    bounds:
+      keep_fraction: [0.05, 1.0]
+    valid_span:
+      gap_label: ["boundary"] # only rhetorical pauses may be removed
+      min_gap_s: 0.30 # spec 5.2: shorten a boundary pause that is >= 300 ms when clean
+
+  hesitation_pause:
+    category: "pausing"
+    method: "insert_room_tone"
+    span_unit: "gap"
+    params:
+      duration_s: "0.3 + 1.7 * s" # s=0.90 -> 1.83 s
+    bounds:
+      duration_s: [0.30, 2.00]
+    valid_span:
+      gap_label: ["none"] # mid-clause only, no syntactic boundary
+      max_existing_gap_s: 0.15
+
+  monotone:
+    category: "intonation"
+    method: "psola_pitch_compress"
+    span_unit: "phrase"
+    params:
+      # f_new = m * (f / m) ** exponent, with m = phrase median F0 in Hz
+      exponent: "1 - 0.9 * s" # s=0.90 -> 0.19, i.e. 81% range compression
+    bounds:
+      exponent: [0.10, 1.0]
+    valid_span:
+      min_phrase_words: 5 # spec 5.2: 1 phrase, 5-15 words
+      max_phrase_words: 15
+      min_voiced_frames: 40
+      min_voiced_fraction: 0.60 # prompt: >= 60% of the phrase's frames must be voiced
+      min_phrase_f0_range_st: 4.0 # no point flattening an already-flat phrase
+
+  misplaced_stress:
+    category: "emphasis"
+    method: "move_prominence"
+    span_unit: "word_pair" # (function word boosted, content word damped)
+    params:
+      f0_shift_st: "4.0 * s" # s=0.90 -> +3.6 st on the function word
+      gain_db: "4.0 * s"
+      duration_factor: "1 + 0.3 * s"
+      inverse_scale: 1.0 # same magnitude, opposite sign, on the content word
+    bounds:
+      f0_shift_st: [0.0, 4.0]
+      gain_db: [0.0, 4.0]
+      duration_factor: [1.0, 1.3]
+    valid_span:
+      function_word_pos: ["DET", "PRON", "AUX", "ADP", "CCONJ", "SCONJ", "PART"]
+      content_word_pos: ["NOUN", "VERB", "ADJ", "ADV", "PROPN"]
+      same_phrase: true # spec 5.2: both words lie in one phrase
+      content_word_selection: "most_prominent_in_phrase"
+      require_content_word_prominent: true
+      # The POS lists above are the intent; span selection uses this fixed
+      # closed-class list, so no tagger (and no tagger version) can change
+      # which files the dataset contains.
+      function_words:
+        [a, an, the, of, to, in, on, at, by, for, from, with, into, onto, over,
+         under, as, than, that, this, these, those, it, its, he, she, they,
+         them, their, we, us, our, you, your, i, my, me, his, her, who, whom,
+         whose, which, what, and, or, but, nor, so, yet, if, because, while,
+         when, where, although, though, unless, until, is, are, was, were, be,
+         been, being, am, do, does, did, have, has, had, shall, will, should,
+         would, can, could, may, might, must, not, no, there, here, up, out,
+         down, off, upon, toward, towards, about, between, among, through]
+      # Prominence is read off the clean file; until features/prominence.py
+      # lands (CWT, spec 9.1) the engine uses this weighted proxy. The weights
+      # are a design choice, documented as such.
+      prominence_proxy:
+        weights: { energy_db: 1.0, f0_max_st: 1.0, duration_per_syllable: 0.5 }
+        min_phrase_words: 3
+
+  low_energy:
+    category: "energy"
+    method: "gain_ramp"
+    span_unit: "phrase"
+    params:
+      end_gain_db: "-18.0 * s" # s=0.90 -> -16.2 dB at the span end
+      ramp: "linear_db"
+    bounds:
+      end_gain_db: [-18.0, 0.0]
+    valid_span:
+      span_words: [4, 12] # spec 5.2: 4-12 words
+      prefer_phrase_final: true
+      require_phrase_final: true # prompt: the span ends at a `boundary` gap
+
+  # Clarity is NOT synthesised: a low-pass filter models a bad microphone, not
+  # bad articulation (plan 4.3). Human-recorded only.
+  mumbling:
+    category: "clarity"
+    method: "human_recorded_only"
+    synthesisable: false
+    notes: >
+      Hand-labelled in Praat TextGrids with a 1-3 severity rating. A filtered
+      proxy, if ever added, must be labelled `clarity_proxy` and reported
+      separately - never as `mumbling`.
+
+# --- Composite files (plan 4.4) ---------------------------------------------
+composite:
+  levels: ["L2", "L4"]
+  files_per_level: 2 # spec 5.4: 2 files at L2 and 2 at L4 per clean file
+  n_flaws: [3, 5]
+  min_separation_s: 1.00 # spec 5.4: non-overlapping, >= 1 s apart
+  distinct_labels: true
+  # One greedy pass can block itself: a 10-word `dragging` span taken first can
+  # leave no room for the remaining flaws. Each attempt re-draws the label order
+  # and the spans from the same seeded stream, so the retry is deterministic.
+  placement_attempts: 8
+
+# --- QC gates: a failing file is dropped, not kept (plan 4.2) ---------------
+qc:
+  realign:
+    enabled: true
+    target_boundary_err_ms: 20.0 # spec 5.1: agreement target, reported not enforced
+    max_boundary_err_ms: 50.0 # spec 5.4: reject the file if ANY word boundary exceeds this
+    report_percentiles: [50, 95, 100]
+    log_rejections: true # spec 5.4: rejections are logged, not silently dropped
+  utmos:
+    enabled: true
+    # Reject near-perfect files whose naturalness collapsed: at L1 the edit must
+    # be inaudible, so a large MOS drop means the artifact IS the flaw.
+    max_drop_by_level:
+      L1: 0.30
+      L2: 0.60
+      L3: 1.00
+      L4: 1.50
+  peak_dbfs_max: -1.0
+  require_exact_time_map: true
+
+# --- Human annotation (spec 6.2) --------------------------------------------
+# Annotation parameters live in this file because they consume two things it
+# already owns: the `severity` ladder and the label -> category map under
+# `labels`. Read by rostrum.data.annotation; no script hard-codes them.
+annotation:
+  guide_version: "1.0" # bumped whenever ANNOTATION_GUIDE.md changes a definition
+  tier_name: "flaws" # interval tier the annotator fills in
+  separator: ":" # interval text is "<label>:<severity>"
+  # Annotators work on a 1-3 scale; these are the ladder rungs each maps to.
+  # L1 ("barely perceptible") is deliberately unreachable by hand - a flaw a
+  # listener cannot hear is not one a human can mark reliably - and L0 means
+  # "no flaw", which is an empty interval, not a label.
+  severity_levels:
+    1: "L2"
+    2: "L3"
+    3: "L4"
+  min_duration_s: 0.050 # an interval shorter than this is a mis-click, not a flaw
+  # Human takes are test-only (CLAUDE.md invariant 11); recorded in every
+  # imported label JSON so a training loader cannot pick them up by accident.
+  split: "test"
+  agreement:
+    # Spec 14.1 / 6.2: event-F1 with a 200 ms onset collar, offset collar
+    # max(200 ms, 20% of the reference event length).
+    onset_collar_s: 0.200
+    offset_collar_s: 0.200
+    offset_collar_frac: 0.20
+    min_double_annotated_frac: 0.30 # spec 6.2: >= 30% of human files, two annotators

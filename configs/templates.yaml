@@ -1,0 +1,205 @@
+# Explanation templates (spec 12).
+#
+# Contract: rostrum.explain renders these with the Region/evidence values ONLY.
+# No LLM runs in the judging loop (CLAUDE.md inv. 12); an LLM may at most
+# rephrase a rendered string at temperature 0, with the output cached and
+# committed. Every number in a rendered card comes from DSP.
+#
+# Placeholders are filled by rostrum.explain.templates.region_fields() and
+# friends, which guarantee that EVERY key listed under a section below is
+# present for every label - a template can therefore never render with a hole
+# in it (tests/test_explain_cards.py asserts this for all eight labels).
+#
+# Keys available in `headline`, `rationale`, `fix` and `uncertain`:
+#   region_id t_start t_end duration           times in seconds
+#   words                                      the words the region covers
+#   label category level s confidence          the verdict
+#   mode n_readers envelope_n                  what it was compared against
+#   feature value median sigma z abs_z unit    the PRIMARY evidence row
+#   direction delta target gap_label           derived from that row
+#   variant clf_label clf_prob                 classifier bookkeeping
+#
+# Keys available in `evidence_clause`:  feature value median sigma z abs_z
+#                                       unit direction delta gap_label
+# Keys available in `context`:          words repeat_text n_occurrences
+#                                       punctuation position gap_label
+#                                       sentence_idx n_sentences
+# Keys available in `reference_behaviour`: k n threshold median sigma feature
+#                                       unit words
+
+version: 1
+
+# One-line headline above each card.
+headline: "[{t_start}-{t_end} s] {category} - {label} ({level}, confidence {confidence})"
+
+# Per-label rationale sentences: the mathematical delta in words.
+rationale:
+  rushing: >-
+    Across "{words}" the speaking rate reaches {value} {unit}, {abs_z} sigma
+    above the skilled readers' {median} {unit} here.
+  dragging: >-
+    Across "{words}" the speaking rate falls to {value} {unit}, {abs_z} sigma
+    below the skilled readers' {median} {unit} here.
+  missing_pause: >-
+    The {gap_label} pause after "{word_before}" lasts {value} {unit} where the
+    skilled readers held {median} {unit} before "{word_after}", {abs_z} sigma
+    short of the envelope.
+  hesitation_pause: >-
+    There is a {value} {unit} silence between "{word_before}" and
+    "{word_after}" where the text asks for no break and the skilled readers
+    left {median} {unit}, {abs_z} sigma above the envelope.
+  monotone: >-
+    Over "{words}" the pitch range is {value} {unit}, {abs_z} sigma below the
+    skilled readers' {median} {unit}, so the phrase is read on close to one
+    note.
+  misplaced_stress: >-
+    Within "{words}" the prominence of the stressed word is {value}
+    ({abs_z} sigma {direction} the skilled readers' {median}), so the emphasis
+    lands on a different word from the one the readers stress.
+  low_energy: >-
+    Across "{words}" the relative loudness is {value} {unit}, {abs_z} sigma
+    below the skilled readers' {median} {unit}.
+  mumbling: >-
+    Across "{words}" the clarity composite - rate, loudness, vowel length and
+    cepstral peak prominence together - is driven by {feature} at {value}
+    {unit}, {abs_z} sigma {direction} this speaker's own clear speech
+    ({median} {unit}).
+
+# Variant wording, used instead of `rationale[label]` when the signal fired on
+# its variant (spec 10.3: `fading` is `low_energy` detected on the slope).
+rationale_variant:
+  fading: >-
+    Across "{words}" the loudness falls at {value} {unit}, {abs_z} sigma
+    steeper than the skilled readers' {median} {unit}, so the phrase fades
+    away rather than holding its level.
+
+# Per-label actionable fix: feedback that says how to fix beats feedback that
+# only flags (spec 12).
+fix:
+  rushing: >-
+    Slow "{words}" to about {target} {unit}, which is {delta} {unit} slower
+    than this {duration} s stretch is read now.
+  dragging: >-
+    Lift "{words}" to about {target} {unit}, {delta} {unit} faster than now;
+    keep the diction and let the phrase move.
+  missing_pause: >-
+    Hold a pause of about {target} {unit} after "{word_before}", before
+    starting "{word_after}".
+  hesitation_pause: >-
+    Carry "{word_before} {word_after}" through in one breath: the readers
+    leave about {target} {unit} here, so cut roughly {delta} {unit} of
+    silence.
+  monotone: >-
+    Open the pitch range across "{words}" to about {target} {unit} - take the
+    key word up and let the phrase fall away after it.
+  misplaced_stress: >-
+    Move the stress inside "{words}" onto the word the readers lift, and take
+    the prominence back towards {target}.
+  low_energy: >-
+    Support "{words}" with more breath and bring the level back to about
+    {target} {unit}.
+  mumbling: >-
+    Open the vowels and finish the consonants across "{words}"; this speaker's
+    own clear-speech value here is about {target} {unit}.
+
+fix_variant:
+  fading: >-
+    Keep the level up to the end of "{words}": the readers lose only
+    {target} {unit}, so plan the breath for the whole phrase.
+
+# Appended to the rationale when the classifier disagrees with the rule at high
+# probability (detect.classifier.UNCERTAIN_TAG). The rule label still stands;
+# the card says the type is uncertain rather than asserting one (spec 10.6).
+uncertain: >-
+    The type is uncertain: the rule reads this as {label} while the classifier
+    reads it as {clf_label} at p = {clf_prob}.
+
+# How an additional evidence row is phrased after the rationale.
+evidence_phrase:
+  default: >-
+    {feature} is {value} {unit} against a reader median of {median} {unit}
+    ({z} sigma)
+  gap: >-
+    the {gap_label} pause here is {value} {unit} against {median} {unit}
+    ({z} sigma)
+
+# Text-context clauses, selected by the text annotations (gap label,
+# punctuation, repeated n-grams / anaphora).
+context:
+  anaphora: >-
+    Repeated phrase ("{repeat_text}", {n_occurrences} times in this text),
+    {position_phrase}.
+  parallel_structure: >-
+    Part of a parallel construction ("{repeat_text}", {n_occurrences} times in
+    this text), {position_phrase}.
+  clause_boundary: "At a clause boundary marked by \"{punctuation}\"."
+  sentence_final: "At the end of sentence {sentence_idx} of {n_sentences}."
+  sentence_initial: "At the start of sentence {sentence_idx} of {n_sentences}."
+  mid_clause: "Mid-clause, where the text marks no break."
+  list_item: >-
+    Inside a list of three or more items, {position_phrase}.
+  none: ""
+
+# Fragments the clauses above embed, so a position is worded once.
+position_phrase:
+  sentence_initial: "at the start of sentence {sentence_idx} of {n_sentences}"
+  sentence_final: "at the end of sentence {sentence_idx} of {n_sentences}"
+  clause_boundary: "after a clause boundary"
+  mid_clause: "mid-clause"
+
+# What the skilled readers did at this spot. Appended to the context sentence;
+# every number comes from the envelope's raw reference values.
+reference_behaviour:
+  pause: >-
+    {k} of {n} skilled readers paused at least {threshold} {unit} here.
+  pause_none: >-
+    Only {k} of {n} skilled readers paused at all here.
+  rate: "The readers' median rate here is {median} {unit}."
+  default: >-
+    The readers' median {feature} here is {median} {unit} (spread {sigma}
+    {unit}, n = {n}).
+
+# Mode badges (spec 13).
+mode_badge:
+  reference: "Reference - {n_readers} readers"
+  norm: "Norm-based - lower confidence"
+  reject: "Audio and transcript do not match"
+
+mode_note:
+  reference: >-
+    Compared against {n_readers} skilled readings of this same text.
+  norm: >-
+    This text is not in the reference library, so the comparison is against
+    pooled norms over all skilled readings rather than this text's own
+    envelope; treat the numbers as indicative and read the channel-sensitive
+    features (clarity, voice quality) as information only.
+  reject: >-
+    The transcript does not match the audio (word error rate {wer}), so no
+    flaw region or score is reported.
+
+# Units and formatting used when rendering numbers into the strings above.
+formatting:
+  time_decimals: 2
+  z_decimals: 1
+  rate_decimals: 1
+  seconds_decimals: 2
+  db_decimals: 1
+  semitone_decimals: 1
+  probability_decimals: 2
+  # Decimals per display unit (features/names.py DISPLAY_UNITS). A feature
+  # whose unit is not listed falls back to `default_decimals`.
+  unit_decimals:
+    "s": 2
+    "syll/s": 1
+    "st": 1
+    "st/s": 1
+    "z": 1
+    "dB": 1
+    "dB/s": 1
+    "dB/kHz": 1
+    "Hz": 0
+    "x median": 2
+    "x speaker rate": 2
+    "fraction of word": 2
+    "": 2
+  default_decimals: 2

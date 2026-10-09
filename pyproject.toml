@@ -1,0 +1,115 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rostrum"
+version = "0.1.0"
+description = "Contrastive speech analytics and temporal flaw grounding"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+license = { text = "MIT" }
+keywords = ["speech", "prosody", "forced-alignment", "sound-event-detection", "feedback"]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Multimedia :: Sound/Audio :: Analysis",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Private :: Do Not Upload",
+]
+
+# Runtime deps are listed loosely here and pinned exactly in requirements.txt.
+# Install for development with: pip install -r requirements.txt && pip install -e .
+dependencies = [
+  "numpy",
+  "scipy",
+  "pandas",
+  "soundfile",
+  "librosa",
+  "soxr",
+  "pyloudnorm",
+  "praat-parselmouth",
+  "tgt",
+  "praatio",
+  "silero-vad",
+  "torch",
+  "torchcrepe",
+  "opensmile",
+  "PyWavelets",
+  "ruptures",
+  "scikit-learn",
+  "sed_eval",
+  "sed_scores_eval",
+  "faster-whisper",
+  "pyyaml",
+  "fastapi",
+  "uvicorn",
+  "python-multipart",
+  "streamlit",
+  "plotly",
+  "kaleido",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "black"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+rostrum = ["py.typed"]
+
+# --------------------------------------------------------------------------- #
+# Lint / format
+# --------------------------------------------------------------------------- #
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "eval", "scripts", "app"]
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "W",   # pycodestyle warnings
+  "I",   # isort
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "C4",  # comprehensions
+  "SIM", # flake8-simplify
+  "RUF",
+]
+ignore = [
+  "E501", # line length is black's job
+  "B008", # FastAPI depends-in-defaults is idiomatic
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Re-exports in package inits are intentional.
+"src/rostrum/__init__.py" = ["F401"]
+"tests/*" = ["B011"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["rostrum"]
+
+# --------------------------------------------------------------------------- #
+# Tests
+# --------------------------------------------------------------------------- #
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-q --strict-markers --strict-config"
+filterwarnings = ["default"]
+markers = [
+  "slow: takes more than a few seconds",
+  "needs_mfa: requires the separate `mfa` conda environment",
+  "needs_audio: requires audio files not committed to the repository",
+]

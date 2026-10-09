@@ -1,0 +1,239 @@
+# Rostrum dataset sources (spec 4.2). Read by scripts/download_sources.py.
+#
+# HUMAN STEP: open each `page_url`, then
+#   1. copy the direct audio link into the matching `download_url`
+#      (replace the literal string "TODO(human)");
+#   2. save the licence statement shown on that page as a PDF or PNG into
+#      dataset/provenance/ under the exact `provenance` filename below;
+#   3. run `python scripts/download_sources.py`.
+#
+# Licence policy (spec 4.1, hard rules, enforced in code):
+#   * `licence` must be non-empty and must quote what the page actually says.
+#   * Any licence naming ND / NoDerivatives is refused: flawed versions are
+#     derivative works.
+#   * Anything from TED is refused outright (CC BY-NC-ND and no edits, [R8]).
+#   * Never invent a URL or a licence status. Leave TODO(human) and ask.
+#
+# Field reference
+#   id                    short source id, used as the raw subdirectory name
+#   text_id               the text these readings share (envelope key)
+#   tier                  gold | silver | bronze (spec 4.2)
+#   page_url              the human-readable page the licence is stated on
+#   licence               the licence text AS STATED ON THAT PAGE
+#   licence_evidence_url  optional second URL backing the licence claim
+#   provenance            filename under dataset/provenance/ holding the PDF/screenshot
+#   files[]               one entry per audio file:
+#       file_id           dataset-wide unique id; becomes the WAV stem
+#       reader            speaker/reader name as credited on the page
+#       download_url      direct link to the audio asset ("TODO(human)" until filled)
+#       excerpt_start_s   trim start in the *downloaded* file; null = from the beginning
+#       excerpt_end_s     trim end; null = to the end
+#       notes             optional, free text
+
+version: 1
+retrieved_on: "2026-10-04"
+
+sources:
+  # ------------------------------------------------------------------ S1 ----
+  - id: S1
+    text_id: s1_gettysburg
+    title: The Gettysburg Address, 150th Anniversary
+    tier: silver
+    speech_date: "1863-11-19"
+    page_url: https://librivox.org/the-gettysburg-address-150th-anniversary-by-abraham-lincoln/
+    licence: >-
+      LibriVox recordings are Public Domain in the USA. If you are not in the
+      USA, please verify the copyright status of these works in your own country
+      before downloading, otherwise you may be violating copyright laws.
+    licence_evidence_url: https://archive.org/details/gettysburgaddress_150anniv_1311_librivox # item licenseurl = CC Public Domain Mark 1.0
+    provenance: S1_librivox_gettysburg_150th.html
+    expected_files: 15
+    notes: >-
+      15 volunteer readers of one text - this collection is what makes a
+      statistical envelope possible rather than a single "correct" reading
+      (spec 4.2, 10.2). Each reading is short; keep the whole file.
+    files:
+      - { file_id: s1_lv01, reader: "Ann Boulais", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_amb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv02, reader: "Drew Johnson", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_dj_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv03, reader: "David Lawrence", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_dl_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv04, reader: "Ernst Pattynama", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_eep_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv05, reader: "Frances Brown", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_fb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv06, reader: "Julia Niedermaier", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_jn_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv07, reader: "Laurie Anne Walden", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_law_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv08, reader: "Lucretia B.", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_lb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv09, reader: "MaryAnn", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_mas_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv10, reader: "Maria Kasper", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_mk_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv11, reader: "Phil Chenevert", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_pc_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv12, reader: "Ray Kasper (1938-2017)", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_rk_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv13, reader: "Sue Anderson", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_sa_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv14, reader: "TriciaG", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_tg_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s1_lv15, reader: "Winston Tharp", download_url: "https://archive.org/download/gettysburgaddress_150anniv_1311_librivox/gettysburgaddress_lincoln_wt_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+
+  # ----------------------------------------------------------------- S1b ----
+  - id: S1b
+    text_id: s1_gettysburg
+    title: The Gettysburg Address (version 2)
+    tier: silver
+    speech_date: "1863-11-19"
+    page_url: http://librivox.org/the-gettysburg-address-by-abraham-lincoln-version-2/
+    licence: >-
+      LibriVox recordings are Public Domain in the USA. If you are not in the
+      USA, please verify the copyright status of these works in your own country
+      before downloading, otherwise you may be violating copyright laws.
+    licence_evidence_url: https://archive.org/details/gettysburg_johng_librivox
+    provenance: S1b_librivox_gettysburg_v2.html
+    expected_files: 1
+    notes: One extra envelope member for the same text (spec 4.2, [R5b]).
+    files:
+      - { file_id: s1_lv16, reader: John Greenman, download_url: "https://archive.org/download/gettysburg_johng_librivox/gettysburg_address.mp3", excerpt_start_s: null, excerpt_end_s: null }
+
+  # ------------------------------------------------------------------ S2 ----
+  - id: S2
+    text_id: s2_jfk_inaugural
+    title: Inaugural Address of John F. Kennedy (JFKWHA-001)
+    tier: gold
+    speech_date: "1961-01-20"
+    page_url: https://www.jfklibrary.org/asset-viewer/archives/jfkwha-001
+    licence: >-
+      TODO(human) - copy the page's Copyright Status field verbatim. Research
+      recorded the page as stating "Copyright Status: Public Domain"; confirm it
+      still does before downloading.
+    licence_evidence_url: null
+    provenance: S2_jfk_library_jfkwha001.pdf
+    expected_files: 1
+    notes: >-
+      Use the page's "Download Audio File" link. The recording opens with the
+      swearing-in ceremony, so excerpt_start_s/excerpt_end_s MUST be filled with
+      a 90-150 s window of the address itself (spec 4.2 trimming note).
+    files:
+      - {
+          file_id: s2_jfk_gold,
+          reader: John F. Kennedy,
+          download_url: "TODO(human)",
+          excerpt_start_s: "TODO(human)",
+          excerpt_end_s: "TODO(human)", # pick a 90-150 s window of the address itself
+        }
+
+  # ------------------------------------------------------------------ S3 ----
+  - id: S3
+    text_id: s3_fdr_infamy
+    title: Franklin D. Roosevelt, Day of Infamy address to Congress
+    tier: gold
+    speech_date: "1941-12-08"
+    page_url: https://commons.wikimedia.org/wiki/File:Roosevelt_Pearl_Harbor.ogg
+    licence: >-
+      Public domain. Commons licence box: "This work is in the public domain in
+      the United States because it was published in the United States between
+      1931 and 1977, inclusive, without a copyright notice." The file page also
+      records that NARA claims the entire speech to be "Unrestricted".
+    licence_evidence_url: https://www.presidentialtimeline.org/html/record_id-80.html
+    provenance: S3_commons_roosevelt_pearl_harbor.html
+    expected_files: 1
+    notes: >-
+      The national anthem follows the speech, so excerpt_end_s cuts it (spec 4.2).
+      Boundary found by ASR over the 521.2 s original: the address ends at
+      ~410.9 s ("...a state of war has existed between the United States and the
+      Japanese Empire"), an announcer says "Ladies and gentlemen, the National
+      Anthem" at ~419.9 s, and the anthem runs to the end. excerpt_end_s = 413.0
+      sits in the gap between the two. The speech starts at 0.0 s with no
+      introduction. Confirm by ear before the final dataset build.
+      Downloaded as the original .ogg from the Commons file page, not a re-encode.
+    files:
+      - {
+          file_id: s3_fdr_gold,
+          reader: Franklin D. Roosevelt,
+          download_url: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Roosevelt_Pearl_Harbor.ogg",
+          excerpt_start_s: 0,
+          excerpt_end_s: 413.0, # see notes above; TODO(verify) by ear before the final build
+        }
+
+  # ------------------------------------------------------------------ S4 ----
+  # Optional (spec 4.2 lists S4 as a candidate). Delete this block if unused.
+  - id: S4
+    text_id: s4_lincoln_second_inaugural
+    title: American Civil War Collection Vol. 1, ch. 1 - Lincoln Second Inaugural
+    tier: silver
+    speech_date: "1865-03-04"
+    optional: true
+    page_url: "TODO(human)" # search the LibriVox catalogue for the collection page [R7d]
+    licence: >-
+      TODO(human) - public domain (LibriVox) is expected, but the spec requires
+      verifying this particular page before use.
+    licence_evidence_url: null # TODO(human): the Gettysburg cover PDF previously here does not cover this collection
+    provenance: S4_librivox_civil_war_vol1_ch1.pdf
+    expected_files: 1
+    notes: Chapter 1 only. Skipped unless there is time (spec 4.5).
+    files:
+      - { file_id: s4_lv01, reader: John Stamper, download_url: "TODO(human)", excerpt_start_s: null, excerpt_end_s: null }
+
+  # ---------------------------------------------------------------- TEAM ----
+  # Bronze tier: our own readings of the same public-domain texts (spec 4.4).
+  # Three sources because a source carries one `text_id`; all of their audio
+  # lives in one folder via `raw_subdir: team`.
+  #
+  # Licence: our own recordings, released under CC BY 4.0 with written consent -
+  # one signed line per person in dataset/CONSENT.md (spec 4.1 rule 1).
+  # No audio may be added here before that person's CONSENT.md line exists.
+  #
+  # HUMAN STEP, per take:
+  #   1. record as described in dataset/audio/raw/team/README.md;
+  #   2. save it as dataset/audio/raw/team/<file_id>.wav;
+  #   3. add a `files:` entry below, copying this template:
+  #        - { file_id: tm01_s1_clean, reader: "Full Name", download_url: "LOCAL(team recording)",
+  #            excerpt_start_s: null, excerpt_end_s: null, notes: "phone X, room Y, 2026-10-05" }
+  #      file_id convention: <speaker>_<text>_clean, speaker ids tm01, tm02, ...
+  #      Keep the same speaker id across that person's takes - the channel rule
+  #      (CLAUDE.md invariant 7) compares a speaker only against their own takes.
+  #   4. run: python scripts/build_clean.py --only team_s1 team_s2 team_s3
+  #
+  # `download_url: "LOCAL(team recording)"` documents that there is nothing to
+  # fetch; scripts/build_clean.py finds the file by its id, and the downloader
+  # leaves it alone because the audio is already there.
+
+  - id: team_s1
+    text_id: s1_gettysburg
+    title: Rostrum team reading - Gettysburg Address
+    tier: bronze
+    speech_date: "1863-11-19"
+    optional: true
+    raw_subdir: team
+    page_url: https://github.com/aarushitandon/rostrum # TODO(verify): the public repo/dataset URL
+    licence: "CC BY 4.0 (consent in CONSENT.md)"
+    licence_evidence_url: null
+    provenance: team_consent.md
+    expected_files: null # target 3-4; set it once the takes exist
+    notes: >-
+      3-4 team readings of the full text, plus the flawed takes of spec 6.1
+      (which are registered as origin=human, not here). Recording setup and
+      file naming: dataset/audio/raw/team/README.md.
+    files: []
+
+  - id: team_s2
+    text_id: s2_jfk_inaugural
+    title: Rostrum team reading - JFK inaugural excerpt
+    tier: bronze
+    speech_date: "1961-01-20"
+    optional: true
+    raw_subdir: team
+    page_url: https://github.com/aarushitandon/rostrum # TODO(verify): the public repo/dataset URL
+    licence: "CC BY 4.0 (consent in CONSENT.md)"
+    licence_evidence_url: null
+    provenance: team_consent.md
+    expected_files: null # target 3-4; set it once the takes exist
+    notes: Reads the same excerpt as s2_jfk_gold, so the envelope has R >= 4.
+    files: []
+
+  - id: team_s3
+    text_id: s3_fdr_infamy
+    title: Rostrum team reading - FDR Day of Infamy excerpt
+    tier: bronze
+    speech_date: "1941-12-08"
+    optional: true
+    raw_subdir: team
+    page_url: https://github.com/aarushitandon/rostrum # TODO(verify): the public repo/dataset URL
+    licence: "CC BY 4.0 (consent in CONSENT.md)"
+    licence_evidence_url: null
+    provenance: team_consent.md
+    expected_files: null # target 3-4; set it once the takes exist
+    notes: Reads the same excerpt as s3_fdr_gold, so the envelope has R >= 4.
+    files: []

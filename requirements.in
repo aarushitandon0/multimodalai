@@ -1,0 +1,33 @@
+# Unpinned source list. `make lock` regenerates requirements.txt from this.
+numpy
+scipy
+pandas
+soundfile
+librosa
+soxr                 # resampler used directly by rostrum.io.audio (spec 4.6)
+pyloudnorm
+praat-parselmouth
+tgt
+praatio
+silero-vad
+torch                # also hosts the UTMOS QC model, pulled at build time via
+                     # torch.hub.load("tarepan/SpeechMOS:v1.2.0", "utmos22_strong")
+                     # - pinned in rostrum.inject.qc.UTMOS_HUB_REPO, not a pip package
+torchcrepe
+opensmile
+PyWavelets
+ruptures
+scikit-learn
+sed_eval
+sed_scores_eval
+faster-whisper
+pyyaml
+fastapi
+uvicorn
+python-multipart
+streamlit
+plotly
+kaleido
+pytest
+ruff
+black

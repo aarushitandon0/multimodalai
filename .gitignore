@@ -1,0 +1,97 @@
+# --- Dataset -----------------------------------------------------------------
+# The full corpus (hundreds of WAVs plus injected variants) is too large for
+# git. It is published via the public mirror linked in dataset/README.md and
+# rebuilt by `make data`. The small committed subset in dataset_sample/ is
+# tracked, and so is the documentation that makes the dataset citable.
+dataset/*
+!dataset/README.md
+!dataset/SOURCES.yaml
+!dataset/LICENSES.csv
+!dataset/MANIFEST.csv
+!dataset/CONSENT.md
+!dataset/ANNOTATION_GUIDE.md
+!dataset/texts/
+!dataset/splits/
+!dataset/provenance/
+!dataset/qc/
+!dataset/checksums.sha256
+# The recording protocol for team takes; their audio stays out (see *.wav below).
+!dataset/audio/
+dataset/audio/*
+!dataset/audio/raw/
+dataset/audio/raw/*
+!dataset/audio/raw/team/
+dataset/audio/raw/team/*
+!dataset/audio/raw/team/README.md
+
+# Audio and alignment artefacts anywhere outside dataset_sample/
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.ogg
+!dataset_sample/**/*.wav
+!dataset_sample/**/*.TextGrid
+
+# --- Caches and generated outputs --------------------------------------------
+.cache/
+results/*
+!results/.gitkeep
+docs/figures/*
+!docs/figures/.gitkeep
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Environments
+.venv/
+venv/
+env/
+.conda/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# --- MFA ---------------------------------------------------------------------
+# MFA writes a corpus database and temp directories per run.
+MFA/
+*.mfa_tmp/
+
+# --- Models ------------------------------------------------------------------
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# --- Editors / OS ------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Secrets -----------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+
+# --- Scratch ---------------------------------------------------------------
+# Hand-run demos and listening checks; regenerate with the script inside.
+scratch/

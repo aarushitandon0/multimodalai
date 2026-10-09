@@ -1,0 +1,10 @@
+file_id,text_id,tier,origin,label,level,duration_s,split_fold
+s1_lv01,s1_gettysburg,silver,clean,,,122.415,loto_s1_gettysburg
+s1_lv02,s1_gettysburg,silver,clean,,,110.605,loto_s1_gettysburg
+s1_lv03,s1_gettysburg,silver,clean,,,133.215,loto_s1_gettysburg
+s1_lv04,s1_gettysburg,silver,clean,,,165.625,loto_s1_gettysburg
+s1_lv05,s1_gettysburg,silver,clean,,,125.615,loto_s1_gettysburg
+s1_lv06,s1_gettysburg,silver,clean,,,119.185,loto_s1_gettysburg
+s1_lv07,s1_gettysburg,silver,clean,,,116.716,loto_s1_gettysburg
+s1_lv08,s1_gettysburg,silver,clean,,,163.145,loto_s1_gettysburg
+s3_fdr_gold,s3_fdr_infamy,gold,clean,,,413.000,loto_s3_fdr_infamy

@@ -1,0 +1,94 @@
+# Filesystem layout. Every path is relative to the repository root unless absolute.
+# Read by rostrum.config into Config.paths; no module hard-codes a path.
+
+root: "."
+
+# Full dataset (git-ignored; published via the public mirror linked in README).
+# Layout follows spec 7.4.
+data:
+  dir: "dataset"
+  texts: "dataset/texts" # <text_id>.json: verbatim, display, gap_labels
+  audio_raw: "dataset/audio/raw" # pre-normalisation downloads
+  audio_clean: "dataset/audio/clean"
+  audio_injected: "dataset/audio/injected"
+  audio_human_flawed: "dataset/audio/human_flawed"
+  room_tone: "dataset/audio/room_tone"
+  alignments: "dataset/alignments"
+  labels: "dataset/labels"
+  events_tsv: "dataset/labels/events.tsv"
+  splits: "dataset/splits/loto.json"
+  licenses: "dataset/LICENSES.csv"
+  manifest: "dataset/MANIFEST.csv" # file_id,text_id,tier,origin,label,level,duration_s,split_fold
+  consent: "dataset/CONSENT.md"
+  annotation_guide: "dataset/ANNOTATION_GUIDE.md"
+  # Annotation workflow (spec 6.2): annotate_prepare.py fills `todo`,
+  # annotators copy their finished TextGrids into `done` (flat, or under
+  # done/<annotator>/ when a file is double-annotated).
+  annotation: "dataset/annotation"
+  annotation_todo: "dataset/annotation/todo"
+  annotation_done: "dataset/annotation/done"
+  provenance: "dataset/provenance" # licence screenshots / PDFs
+  qc_dir: "dataset/qc"
+  qc_utmos: "dataset/qc/utmos.csv"
+  qc_realign: "dataset/qc/realign.csv"
+  qc_rejections: "dataset/qc/rejections.csv"
+  # Hand-labelled word boundaries for the alignment validation (spec 8, 14.1).
+  # Columns: file_id,word_idx,true_onset,true_offset[,word]
+  # Labelled in Praat; `python -m eval.validate_alignment --write-template`
+  # writes the header.
+  qc_hand_boundaries: "dataset/qc/hand_boundaries.csv"
+  qc_agreement: "dataset/qc/agreement.md" # inter-annotator event-F1 and kappa
+  checksums: "dataset/checksums.sha256"
+
+# Tiny committed subset used by tests, CI and the determinism check.
+sample:
+  dir: "dataset_sample"
+  audio: "dataset_sample/audio"
+  transcripts: "dataset_sample/transcripts"
+  labels: "dataset_sample/labels"
+  alignments: "dataset_sample/alignments"
+
+cache:
+  dir: ".cache"
+  features: ".cache/features" # one directory per cache key (see extract_all)
+  envelopes: ".cache/envelopes" # one file per (text_id, fold)
+  models: ".cache/models" # classifier + isotonic calibrator
+  asr: ".cache/asr"
+  analyses: ".cache/analyses" # one JSON per analysis_id (pipeline.analyze)
+
+results:
+  dir: "results"
+  metrics: "results/metrics.json"
+  # Component-validity numbers for the report (spec 14.1 "Components"):
+  # Praat-CREPE pitch agreement, MFA boundary error, rate cross-check.
+  components: "results/components.json"
+  ablations: "results/ablations.json"
+  # Hysteresis thresholds and the refinement penalty chosen per LOTO fold on
+  # that fold's TRAINING texts only (spec 10.4(5)).
+  tuning: "results/tuning.json"
+  loto: "results/loto" # per-fold raw outputs
+  determinism: "results/determinism.json"
+  # One AnalysisResult JSON per example run of the pipeline (spec 13).
+  examples: "results/examples"
+
+docs:
+  dir: "docs"
+  figures: "docs/figures"
+
+mfa:
+  # Invoked as `conda run -n <env_name> mfa ...` (see environment.mfa.yml).
+  env_name: "mfa"
+  acoustic_model: "english_us_arpa"
+  dictionary: "english_us_arpa"
+  # Optional project dictionary of extra pronunciations, used instead of
+  # `dictionary` when set. Fill this when `mfa validate` reports OOV words.
+  extra_dict: null
+  corpus_dir: ".cache/mfa/corpus"
+  output_dir: ".cache/mfa/aligned"
+  num_jobs: 1 # >1 makes MFA output ordering nondeterministic
+  qc:
+    # scripts/align_report.py flags a file when
+    #   (<unk> + zero-length + never-aligned words) / aligned words
+    # exceeds this. Above 2% the word-index correspondence between renditions
+    # of one text is no longer safe to compare (spec 8, validation row).
+    max_unaligned_frac: 0.02

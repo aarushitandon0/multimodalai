@@ -1,0 +1,34 @@
+# Montreal Forced Aligner lives in its OWN conda environment.
+#
+# Why separate: MFA pins Kaldi, OpenFst, pynini and an older numpy/scipy stack
+# through conda-forge. Installing it beside librosa/torch/streamlit reliably
+# breaks one side or the other. Rostrum therefore shells out:
+#
+#     conda run -n mfa mfa align <corpus> english_us_arpa english_us_arpa <out>
+#
+# (see configs/paths.yaml -> mfa, and src/rostrum/align/).
+#
+# Create / update:
+#     make setup-mfa
+#   or
+#     conda env create -f environment.mfa.yml
+#     conda run -n mfa mfa model download acoustic english_us_arpa
+#     conda run -n mfa mfa model download dictionary english_us_arpa
+#
+# MFA is the only aligner used, for labels and at runtime (CLAUDE.md inv. 4).
+# torchaudio.functional.forced_align is NOT an option: removed in torchaudio 2.9.
+#
+# TODO(verify): no conda on this machine yet, so the pins below are the
+# intended versions and have not been resolved by a solver here. Run
+# `make setup-mfa` on a machine with conda/mamba, then replace the version
+# below with the output of `conda run -n mfa mfa version` and record the
+# resolved build in docs/ (references.md section 9 asks for exact versions).
+
+name: mfa
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - montreal-forced-aligner=3.2.1 # TODO(verify) against `conda search -c conda-forge montreal-forced-aligner`
+  - sqlite
+  - postgresql # MFA 3.x uses a local postgres for its corpus database

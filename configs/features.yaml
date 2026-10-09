@@ -1,0 +1,183 @@
+# Feature extraction (spec 9). The frame grid is global and must never be
+# overridden per-feature: 10 ms hop / 25 ms window everywhere (CLAUDE.md inv. 3).
+#
+# Frame features are aggregated to three units (spec 9):
+#   word   - one MFA word interval
+#   gap    - one inter-word silence
+#   phrase - the span between two `boundary` gaps
+
+units: ["word", "gap", "phrase"]
+phrase_definition: "between_boundary_gaps" # spec 9
+
+frame:
+  hop_s: 0.010
+  window_s: 0.025
+  sample_rate: 16000
+  n_fft: 512 # 32 ms at 16 kHz, zero-padded from the 25 ms window
+  window: "hann"
+  center: false # frame i starts at i*hop, so word slicing is exact
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  dtype: "float32" # internal; 16-bit PCM on disk
+  target_lufs: -23.0
+  peak_ceiling_dbfs: -1.0
+  trim_silence_keep_s: 0.300
+
+# --- Pitch: two-pass speaker-adaptive range (plan 6.2) ----------------------
+pitch:
+  engine: "parselmouth" # Praat autocorrelation, the primary extractor
+  method: "ac"
+  pass1:
+    floor_hz: 50.0
+    ceiling_hz: 700.0
+  pass2:
+    # floor = q1_scale * Q1, ceiling = q3_scale * Q3 of the pass-1 voiced F0.
+    q1_scale: 0.75
+    q3_scale: 1.50
+    min_floor_hz: 40.0
+    max_ceiling_hz: 800.0
+  silence_threshold: 0.03
+  voicing_threshold: 0.45
+  octave_cost: 0.01
+  octave_jump_cost: 0.35
+  voiced_unvoiced_cost: 0.14
+  min_voiced_frames_for_pass2: 50 # otherwise keep the pass-1 range and flag it
+  # Cross-check against a neural tracker; disagreeing frames leave the stats.
+  crosscheck:
+    enabled: true
+    engine: "torchcrepe"
+    model: "full"
+    agreement_cents: 50.0
+    exclude_disagreeing_frames: true
+    report_agreement_rate: true
+  interpolate_unvoiced:
+    for_visualisation: true
+    for_cwt: true
+    for_statistics: false # never interpolate before computing statistics
+
+energy:
+  engine: "parselmouth" # Praat intensity; librosa RMS kept as a cross-check
+  rms_crosscheck: true
+  min_pitch_hz: 50.0 # Praat intensity analysis window is tied to this
+  floor_db: -70.0
+
+# --- Rate (plan 6.1) --------------------------------------------------------
+rate:
+  unit: "syllables_per_second"
+  syllable_source: "mfa_vowel_phones" # vowel nuclei from the MFA phone tier
+  crosscheck: "de_jong_wempe" # syllable-nuclei script, reported not substituted
+  local_window_words: 3 # +/- 3 words around the target word
+  exclude_pauses_over_s: 0.250 # articulation rate, not speaking rate
+
+# --- Pauses (plan 6.1, 7.3) -------------------------------------------------
+pauses:
+  min_pause_s: 0.250 # fluency-research threshold (plan 7.3)
+  source: "mfa_gaps"
+  refine_with_vad: true
+  vad:
+    engine: "silero-vad"
+    threshold: 0.5
+    min_silence_duration_ms: 100
+    speech_pad_ms: 30
+
+# --- Prominence (plan 6.1) --------------------------------------------------
+prominence:
+  engine: "cwt" # continuous wavelet transform over F0 + energy + duration
+  wavelet: "mexh"
+  # Scale bank: 12 scales per octave over 5 octaves starting at a 0.1 s period,
+  # i.e. 61 scales covering 0.1-3.2 s - a short syllable to a short phrase.
+  min_period_s: 0.100
+  scales_per_octave: 12
+  n_octaves: 5
+  components: ["f0_semitones", "energy_db", "word_duration_norm"]
+  component_weights: [1.0, 0.5, 1.0] # spec 9.1: F0 1.0, energy 0.5, duration 1.0
+  normalise_components: true # z-score each before summing
+
+spectral:
+  centroid: true
+  flux: true
+  tilt: true # slope of the log-magnitude spectrum
+  band_energy_ratios: [[0, 1000], [1000, 4000]] # spec 9.1: 0-1 k / 1-4 k Hz
+  rolloff_percent: 0.85
+
+mfcc:
+  n_mfcc: 13
+  n_mels: 40
+  fmin_hz: 20.0
+  fmax_hz: 8000.0
+  deltas: true
+  delta_deltas: true
+  cmvn: "per_utterance" # cepstral mean and variance normalisation
+
+voice_quality:
+  engine: "parselmouth"
+  hnr: true
+  jitter_local: true
+  shimmer_local: true
+  cpp: true # cepstral peak prominence
+  voiced_frames_only: true
+
+egemaps:
+  engine: "opensmile"
+  feature_set: "eGeMAPSv02"
+  feature_level: "Functionals"
+  unit: "phrase"
+
+# --- Speaker normalisation (plan 6.3, CLAUDE.md inv. 5-6) -------------------
+normalisation:
+  f0:
+    transform: "semitones_re_speaker_median" # 12*log2(f0 / median_f0_speaker)
+    reference: "speaker_median_over_recording"
+  energy:
+    transform: "db_re_voiced_median_then_zscore"
+    reference: "speaker_voiced_median_over_recording"
+  rate:
+    report_absolute: true
+    also_relative_to: "speaker_global_articulation_rate"
+  mfcc_spectral:
+    transform: "cmvn_per_utterance"
+  pitch_range:
+    # Phrase F0 max minus utterance-final low F0, in semitones (plan 6.3).
+    method: "max_minus_utterance_final_low_st"
+  pitch_variation:
+    method: "std_semitones" # never the Hz-ratio PVQ, which is sex-biased
+
+# --- The channel rule (plan 6.4, CLAUDE.md inv. 7) --------------------------
+# Channel-sensitive features may only be compared within one channel: a clean
+# file vs its own edit, or a speaker's clean take vs their own flawed take.
+channel_rule:
+  channel_robust:
+    - "word_duration"
+    - "gap_duration"
+    - "rate_local"
+    - "f0_semitones"
+    - "f0_range_st"
+    - "f0_std_st"
+    - "energy_rel_z"
+    - "prominence"
+  channel_sensitive:
+    - "spectral_tilt"
+    - "spectral_centroid"
+    - "spectral_flux"
+    - "band_energy_ratio"
+    - "hnr"
+    - "jitter_local"
+    - "shimmer_local"
+    - "cpp"
+    - "mfcc"
+  enforce: true # comparing across channels raises, it does not warn
+
+cache:
+  # Per-unit tables go to parquet (float64, index and column order round-trip
+  # exactly); frame curves to parquet too; provenance to meta.json. One
+  # directory per cache key = sha256(audio sha256 + config hash + alignment
+  # fingerprint + option set) - see rostrum.features.extract_all.
+  format: "parquet"
+  compress: true
+  # spec 16: round before hashing so tiny float differences across machines do
+  # not break the determinism test. Times get 3 dp; feature values 4 sig. figs.
+  round_significant_figures: 4
+  round_time_decimals: 3
+  version: 1 # bump to invalidate every cached feature file

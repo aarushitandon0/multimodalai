@@ -1,0 +1,352 @@
+# Envelope comparison, region formation and flaw typing (spec 10, 13).
+# Thresholds here are DEFAULTS; under leave-one-text-out they are re-fit on the
+# training folds only and the fitted values are written to results/loto/.
+
+seed: 1337
+
+# --- Envelope (plan 7.2) ----------------------------------------------------
+envelope:
+  centre: "median"
+  spread: "mad"
+  mad_scale: 1.4826 # consistency constant: 1.4826*MAD estimates sigma for normals
+  # sigma_floor_k = this percentile of sigma for feature k across all words of
+  # all TRAINING texts. Prevents division by a near-zero spread.
+  sigma_floor_percentile: 25
+  sigma_floor_scope: "training_texts_only" # leakage guard (CLAUDE.md inv. 10-11)
+  min_references: 3 # below this, the text cannot form an envelope
+  time_normalise_per_word: true # so several readers can be averaged for overlays
+  # Canonical feature names (see src/rostrum/features/names.py) that enter the
+  # envelope, per unit. Channel-robust only: these are compared against the
+  # multi-speaker envelope (spec 9.3). Counts and coverage fractions are
+  # excluded by names.numeric_feature_columns, not listed here.
+  features:
+    word:
+      - "word_duration"
+      - "duration_per_syllable"
+      - "duration_rel_median"
+      - "rate_local"
+      - "rate_relative"
+      - "f0_semitones"
+      - "f0_max_st"
+      - "f0_min_st"
+      - "f0_range_st"
+      - "f0_std_st"
+      - "f0_slope_st_s"
+      - "energy_rel_z"
+      - "energy_peak_z"
+      - "energy_mean_db_rel"
+      - "energy_slope_db_s"
+      - "prominence"
+      - "prominence_peak_rel"
+    gap:
+      - "gap_duration"
+    phrase:
+      - "phrase_duration"
+      - "phrase_rate"
+      - "phrase_f0_range_st"
+      - "phrase_f0_max_st"
+  # Added only when the comparison is within one channel (clean file vs its own
+  # edit, or one speaker's clean take vs their flawed take). CLAUDE.md inv. 7.
+  channel_sensitive_features:
+    word:
+      - "spectral_tilt"
+      - "spectral_centroid"
+      - "spectral_flux"
+      - "band_energy_ratio"
+      - "hnr"
+      - "jitter_local"
+      - "shimmer_local"
+      - "cpp"
+    gap: []
+    phrase: []
+  # Frame curves for the dashboard overlay: each reader's curve inside a word is
+  # time-normalised to this many points, then median and 1.4826*MAD per point.
+  curves:
+    n_points: 20
+    signals: ["f0_st", "energy_z", "rate_local_syll_per_s"]
+
+# --- Deviation z-scores (plan 7.2) ------------------------------------------
+# z = (x - median_r) / max(mad_scale * MAD_r, sigma_floor_k)
+deviation:
+  clip_abs_z: 12.0 # guards against a single pathological word
+  # lambda_k: weights in the combined word deviation D_w = sqrt(sum_k lambda_k z_k^2).
+  # Equal within each rubric family; documented design choice.
+  lambda:
+    rate_local: 1.0
+    gap_duration: 1.0
+    f0_range_st: 1.0
+    f0_std_st: 1.0
+    prominence: 1.0
+    energy_rel_z: 1.0
+  smoothing:
+    median_filter_words: 3
+    # Spec 10.4(1) smooths over 3 units to absorb a single-unit alignment
+    # artefact. Two cases must opt out or they become undetectable:
+    #   * the pause labels occupy exactly ONE gap, so a 3-gap median replaces
+    #     the flaw with its neighbours - the same reason they are exempt from
+    #     the minimum-duration rule in 10.4(3);
+    #   * a phrase is already ~6 words, so a 3-phrase median smooths over ~18
+    #     words, far wider than the artefact the filter exists to absorb.
+    exempt_labels: ["missing_pause", "hesitation_pause"]
+    exempt_units: ["phrase"]
+
+# --- Region formation: hysteresis (plan 7.4) --------------------------------
+regions:
+  tau_in: 2.5 # enter a region when |z| > tau_in
+  tau_out: 1.5 # stay in while |z| > tau_out
+  # Which score the STAY condition reads. Spec 10.4 applies the 3-unit median
+  # smoother (step 1) before the hysteresis (step 2), so "smoothed" is the
+  # literal reading and is the default.
+  #
+  # It has a measurable cost. At the edge of a real deviation the 3-point
+  # window holds one in-flaw value, the edge unit and the next unit, and its
+  # median is max(edge, next) - so a unit whose own measurement is well below
+  # tau_out can be pulled above it by its neighbour, and the region dilates by
+  # one unit (~0.4 s for a word). That exceeds the 300 ms refinement limit and
+  # the offset collar, so the event is scored as a miss AND a false positive.
+  # Measured on the synthetic corpus: `dragging` scores 0.00 F1 with
+  # "smoothed" and recovers with "raw", because 2 of 3 overshoots are pure
+  # smoothing artefacts (see docs/ and scripts/detect_report.py --extend-on).
+  #
+  # "raw" uses the smoothed score to TRIGGER (which is what step 1 is for -
+  # stopping a single-unit artefact from opening a region) and the unsmoothed
+  # score to EXTEND, so a region's extent is set by measurements that unit
+  # actually produced. Reported as an ablation rather than silently adopted.
+  extend_on: "smoothed" # "smoothed" (spec 10.4 literal) | "raw"
+  merge_gap_s: 0.200 # merge two regions separated by less than this
+  min_duration_s: 0.250 # drop shorter regions...
+  min_duration_exempt_labels: # ...except pause flaws, which are single gaps
+    - "missing_pause"
+    - "hesitation_pause"
+  boundary_from: "word_edges" # onset of first word, offset of last word
+  boundary_from_gap_labels: "gap_edges" # spec 10.4: pause flaws take the gap edges
+
+# --- Boundary refinement (plan 7.5) -----------------------------------------
+refinement:
+  enabled: true
+  engine: "ruptures"
+  search: "pelt"
+  cost: "rbf"
+  penalty: 3.0
+  window_s: 0.300 # search +/- this around each initial boundary
+  max_shift_s: 0.300 # discard a refinement that moves further than this
+  # PELT must actually return a change point inside the window; when it finds
+  # none, the raw boundary is kept rather than nudged to the window edge.
+  require_exit_threshold_crossing: true
+  # Frame curve (a column of FeatureBundle.frames) that each label's primary
+  # feature is refined on. rate and gap duration have no frame-rate measurement
+  # of their own, so they borrow the closest frame-level correlate this project
+  # computes: the prominence composite (which carries F0, energy and normalised
+  # duration) for rate, and the relative-energy curve for a pause edge, where
+  # the change point genuinely is the speech/silence transition.
+  frame_signal:
+    rate_local: "prominence_composite"
+    gap_duration: "energy_db_rel"
+    f0_range_st: "f0_st"
+    f0_std_st: "f0_st"
+    f0_semitones: "f0_st"
+    energy_rel_z: "energy_z"
+    energy_slope_db_s: "energy_z"
+    prominence: "prominence_response"
+    spectral_tilt: "spectral_tilt_db_per_khz"
+    clarity_composite: "energy_z"
+  frame_signal_fallback: "energy_z"
+  min_size_frames: 3 # ruptures Pelt min_size; 3 frames = 30 ms
+  jump_frames: 1 # evaluate every frame inside the window
+  # The eval harness always reports with AND without refinement (ablation 3).
+  report_ablation: true
+
+# --- Per-label detection rules (plan 7.2-7.3) -------------------------------
+# Each label fires on the signed z of its primary feature, gated by text context.
+rules:
+  rushing:
+    feature: "rate_local"
+    direction: "above" # z > tau_in
+  dragging:
+    feature: "rate_local"
+    direction: "below"
+  missing_pause:
+    feature: "gap_duration"
+    direction: "below"
+    require_gap_label: ["boundary"]
+  hesitation_pause:
+    feature: "gap_duration"
+    direction: "above"
+    require_gap_label: ["none"]
+    min_absolute_gap_s: 0.250 # fluency-research pause threshold
+  monotone:
+    # spec 10.3: phrase pitch-range z < -tau AND phrase F0-std z < -tau.
+    feature: "f0_range_st"
+    also_require:
+      feature: "f0_std_st"
+      direction: "below"
+    direction: "below"
+    unit: "phrase"
+  misplaced_stress:
+    # spec 10.3: prominence-rank correlation within the phrase against the
+    # envelope median ranking falls below rho_min; the region is localised to
+    # the words with the largest |delta prominence|.
+    feature: "prominence"
+    direction: "either"
+    unit: "phrase"
+    method: "prominence_rank_correlation"
+    rank_correlation: "spearman"
+    rho_min: 0.5
+    localise_to_largest_delta: true
+    n_localise_words: 2
+  low_energy:
+    feature: "energy_rel_z"
+    direction: "below"
+    # spec 10.3/11: `fading` is the same label detected via a falling energy
+    # slope rather than a low level. Reported as a variant so the taxonomy
+    # stays at eight labels; the card says which one fired.
+    variant_fading:
+      feature: "energy_slope_db_s"
+      direction: "below"
+      label_suffix: "fading"
+  mumbling:
+    # spec 10.3: a same-channel clarity composite - rate down, intensity down,
+    # vowel duration down, CPP down, spectral tilt steeper.
+    method: "clarity_composite"
+    composite_features:
+      rate_local: "below"
+      energy_rel_z: "below"
+      vowel_duration_norm: "below"
+      cpp: "below"
+      spectral_tilt: "steeper"
+    composite_weights: [1.0, 1.0, 1.0, 1.0, 1.0]
+    direction: "either"
+    channel_sensitive: true # same-channel comparison only, else not reported
+
+# --- Expected-pause model (plan 7.3) ----------------------------------------
+gap_labels:
+  boundary_punctuation: [".", ";", ":", "!", "?", "--", "—"]
+  minor_punctuation: [","]
+  default: "none"
+  use_dependency_parse: false # optional spaCy clause boundaries; off by default
+  # A blank line in the display transcript is a boundary even without a mark.
+  paragraph_is_boundary: true
+
+# --- Text context for the explanation cards (spec 12) -----------------------
+# rostrum.text.rhetoric annotates the transcript alone: sentences, repeated
+# word sequences (anaphora / parallelism) and comma lists. Nothing here enters
+# a z-score; it only decides which context clause a card prints.
+rhetoric:
+  min_ngram: 2 # a repeated single word is noise, not a figure
+  max_ngram: 8
+  min_occurrences: 2
+  min_list_items: 3 # "x, y and z" is a list; "x, y" is not
+  # A repeated sequence made only of these is an accident of English, not a
+  # rhetorical figure ("of that", "in a"), so it is not reported.
+  function_words:
+    - "a"
+    - "an"
+    - "and"
+    - "are"
+    - "as"
+    - "at"
+    - "be"
+    - "but"
+    - "by"
+    - "for"
+    - "from"
+    - "have"
+    - "in"
+    - "is"
+    - "it"
+    - "of"
+    - "on"
+    - "or"
+    - "that"
+    - "the"
+    - "this"
+    - "to"
+    - "was"
+    - "we"
+    - "were"
+    - "with"
+
+# --- Flaw-type classifier (plan 7.6) ---------------------------------------
+classifier:
+  enabled: true
+  model: "HistGradientBoostingClassifier"
+  random_state: 0 # spec 10.6
+  max_iter: 200
+  learning_rate: 0.1
+  max_leaf_nodes: 15
+  l2_regularization: 1.0
+  early_stopping: false # keeps runs bit-identical
+  features: # spec 10.6
+    - "mean_z_per_feature"
+    - "max_z_per_feature"
+    - "region_duration_s"
+    - "gap_label_one_hot"
+    - "position_in_phrase"
+  # spec 10.6: when the rule and the classifier disagree, the card shows the
+  # RULE label and reports the classifier probability beside it.
+  on_disagreement: "show_rule_label_with_clf_prob"
+  severity_calibration:
+    method: "isotonic"
+    out_of_bounds: "clip"
+  # Trained on injected flaws from training texts only; human takes are test-only.
+  train_on: ["injected"]
+  test_on: ["injected", "human_flawed"]
+
+# --- Operating modes (plan 8.5) ---------------------------------------------
+modes:
+  reference:
+    requires_text_id: true
+    min_references: 4 # spec 13: R >= 4
+    min_transcript_match: 0.95 # spec 13: normalised string match
+    badge: "Reference - n readers"
+  norm:
+    # Unknown text: pooled norms across all good renditions, plus within-speaker
+    # change points. The UI must badge this as lower confidence.
+    badge: "Norm-based - lower confidence"
+    # spec 9.3/13: channel-sensitive features are reported but never fire.
+    channel_sensitive_informational_only: true
+  reject:
+    max_wer: 0.25 # ASR-vs-transcript WER above this means they do not match
+    # A WER this high means the recogniser heard a different text; below it the
+    # analysis proceeds but the figure is reported in the result.
+    max_unaligned_word_fraction: 0.10
+    badge: "red_banner" # spec 13
+
+# --- Threshold fitting under leave-one-text-out (plan 7.4) -----------------
+threshold_search:
+  enabled: true
+  objective: "event_f1" # 200 ms onset collar, DCASE convention
+  tau_in_grid: [2.0, 2.25, 2.5, 2.75, 3.0, 3.5]
+  tau_out_grid: [1.0, 1.25, 1.5, 1.75, 2.0]
+  constraint_tau_out_lt_tau_in: true
+  fit_scope: "training_folds_only"
+  penalty_grid: [1.0, 3.0, 5.0, 10.0] # ruptures PELT penalty (refinement.penalty)
+  onset_collar_s: 0.200 # DCASE event-based convention
+  offset_collar_s: 0.200 # combined with offset_collar_frac as a max()
+  offset_collar_frac: 0.20 # 20% of the reference event's length (spec 14.1)
+
+# --- Transcript mismatch check (spec 8, 13) --------------------------------
+# faster-whisper transcribes the audio and the WER against the supplied
+# transcript decides Reject mode. ASR is NEVER used for timing (CLAUDE.md
+# inv. 4): forced alignment is MFA's job alone.
+asr:
+  enabled: true
+  model: "tiny.en" # the test is "same text?", not "transcribe it well"
+  device: "cpu"
+  compute_type: "int8"
+  beam_size: 5 # fixed, so two runs agree (inv. 13)
+  language: "en"
+  local_files_only: true # no network at inference (inv. 13); pre-fetch weights
+
+# --- Operating-mode pipeline (spec 13) --------------------------------------
+pipeline:
+  # Normalised string similarity (difflib ratio over aligner tokens) above
+  # which an upload is treated as a rendition of a library text.
+  text_match_threshold: 0.95
+  # Curves returned for the dashboard overlay (spec 15.2). The participant's
+  # within-word curve is DTW-warped onto the reference timeline (spec 10.1).
+  curves:
+    enabled: true
+    dtw: true
+    signals: ["f0_st", "energy_z"]
+  cache_results: true

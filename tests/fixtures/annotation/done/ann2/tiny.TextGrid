@@ -1,0 +1,200 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0.000
+xmax = 2.400
+tiers? <exists>
+size = 4
+item []:
+    item [1]:
+        class = "IntervalTier"
+        name = "words"
+        xmin = 0.000
+        xmax = 2.400
+        intervals: size = 9
+        intervals [1]:
+            xmin = 0.000
+            xmax = 0.200
+            text = ""
+        intervals [2]:
+            xmin = 0.200
+            xmax = 0.480
+            text = "four"
+        intervals [3]:
+            xmin = 0.480
+            xmax = 0.830
+            text = "score"
+        intervals [4]:
+            xmin = 0.830
+            xmax = 0.990
+            text = "and"
+        intervals [5]:
+            xmin = 0.990
+            xmax = 1.140
+            text = ""
+        intervals [6]:
+            xmin = 1.140
+            xmax = 1.520
+            text = "seven"
+        intervals [7]:
+            xmin = 1.520
+            xmax = 1.870
+            text = "years"
+        intervals [8]:
+            xmin = 1.870
+            xmax = 2.190
+            text = "ago"
+        intervals [9]:
+            xmin = 2.190
+            xmax = 2.400
+            text = ""
+    item [2]:
+        class = "IntervalTier"
+        name = "phones"
+        xmin = 0.000
+        xmax = 2.400
+        intervals: size = 25
+        intervals [1]:
+            xmin = 0.000
+            xmax = 0.200
+            text = ""
+        intervals [2]:
+            xmin = 0.200
+            xmax = 0.300
+            text = "F"
+        intervals [3]:
+            xmin = 0.300
+            xmax = 0.400
+            text = "AO1"
+        intervals [4]:
+            xmin = 0.400
+            xmax = 0.480
+            text = "R"
+        intervals [5]:
+            xmin = 0.480
+            xmax = 0.580
+            text = "S"
+        intervals [6]:
+            xmin = 0.580
+            xmax = 0.640
+            text = "K"
+        intervals [7]:
+            xmin = 0.640
+            xmax = 0.760
+            text = "AO1"
+        intervals [8]:
+            xmin = 0.760
+            xmax = 0.830
+            text = "R"
+        intervals [9]:
+            xmin = 0.830
+            xmax = 0.900
+            text = "AH0"
+        intervals [10]:
+            xmin = 0.900
+            xmax = 0.950
+            text = "N"
+        intervals [11]:
+            xmin = 0.950
+            xmax = 0.990
+            text = "D"
+        intervals [12]:
+            xmin = 0.990
+            xmax = 1.140
+            text = "sil"
+        intervals [13]:
+            xmin = 1.140
+            xmax = 1.230
+            text = "S"
+        intervals [14]:
+            xmin = 1.230
+            xmax = 1.330
+            text = "EH1"
+        intervals [15]:
+            xmin = 1.330
+            xmax = 1.400
+            text = "V"
+        intervals [16]:
+            xmin = 1.400
+            xmax = 1.460
+            text = "AH0"
+        intervals [17]:
+            xmin = 1.460
+            xmax = 1.520
+            text = "N"
+        intervals [18]:
+            xmin = 1.520
+            xmax = 1.600
+            text = "Y"
+        intervals [19]:
+            xmin = 1.600
+            xmax = 1.700
+            text = "IH1"
+        intervals [20]:
+            xmin = 1.700
+            xmax = 1.780
+            text = "R"
+        intervals [21]:
+            xmin = 1.780
+            xmax = 1.870
+            text = "Z"
+        intervals [22]:
+            xmin = 1.870
+            xmax = 1.950
+            text = "AH0"
+        intervals [23]:
+            xmin = 1.950
+            xmax = 2.020
+            text = "G"
+        intervals [24]:
+            xmin = 2.020
+            xmax = 2.190
+            text = "OW1"
+        intervals [25]:
+            xmin = 2.190
+            xmax = 2.400
+            text = ""
+    item [3]:
+        class = "IntervalTier"
+        name = "flaws"
+        xmin = 0.000
+        xmax = 2.400
+        intervals: size = 5
+        intervals [1]:
+            xmin = 0.000
+            xmax = 0.280
+            text = ""
+        intervals [2]:
+            xmin = 0.280
+            xmax = 1.050
+            text = "rushing:3"
+        intervals [3]:
+            xmin = 1.050
+            xmax = 1.140
+            text = ""
+        intervals [4]:
+            xmin = 1.140
+            xmax = 2.190
+            text = "dragging:2"
+        intervals [5]:
+            xmin = 2.190
+            xmax = 2.400
+            text = ""
+    item [4]:
+        class = "IntervalTier"
+        name = "flaws_2"
+        xmin = 0.000
+        xmax = 2.400
+        intervals: size = 3
+        intervals [1]:
+            xmin = 0.000
+            xmax = 1.520
+            text = ""
+        intervals [2]:
+            xmin = 1.520
+            xmax = 1.870
+            text = "low_energy:1"
+        intervals [3]:
+            xmin = 1.870
+            xmax = 2.400
+            text = ""

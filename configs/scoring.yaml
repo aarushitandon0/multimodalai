@@ -1,0 +1,108 @@
+# Rubric scoring (spec 11). Six categories, 0-10 each, overall = unweighted mean.
+
+seed: 1337
+
+# --- category -> labels map (spec 11, CLAUDE.md taxonomy) -------------------
+# Every label in configs/injection.yaml must appear exactly once here.
+categories:
+  pace:
+    labels: ["rushing", "dragging"]
+    anchor: "NSDA / Toastmasters: speed"
+    primary_features: ["rate_local"]
+  pausing:
+    labels: ["missing_pause", "hesitation_pause"]
+    anchor: "Toastmasters: effective use of pauses"
+    primary_features: ["gap_duration"]
+  intonation:
+    labels: ["monotone"]
+    anchor: "NSDA / Toastmasters: pitch / tone variety"
+    primary_features: ["f0_range_st", "f0_std_st"]
+  emphasis:
+    labels: ["misplaced_stress"]
+    anchor: "Toastmasters: vocal variety to emphasise"
+    primary_features: ["prominence"]
+  energy:
+    labels: ["low_energy"]
+    # spec 11 writes this category as "low_energy, fading". The taxonomy is
+    # eight labels, so `fading` is a variant of low_energy distinguished by a
+    # falling energy slope (see detection.yaml rules.low_energy.variant_fading)
+    # and is surfaced in the card text, not as a separate label.
+    variants: ["fading"]
+    anchor: "NSDA / Toastmasters: volume"
+    primary_features: ["energy_rel_z", "energy_slope_db_s"]
+  clarity:
+    labels: ["mumbling"]
+    anchor: "NSDA / Toastmasters: clarity"
+    primary_features: ["spectral_tilt", "hnr", "cpp", "mfcc"]
+    channel_sensitive: true # suppressed entirely when no same-channel reference exists
+
+category_order: ["pace", "pausing", "intonation", "emphasis", "energy", "clarity"]
+
+# --- Category score (plan 8.2) ---------------------------------------------
+# M_c = (1/T_speech) * sum_{j in c} dur_j * mean((|z| - tau_out)_+ over j)
+# S_c = 10 * exp(-k_c * M_c)
+score:
+  max: 10.0
+  formula: "10 * exp(-k_c * M_c)"
+  excess_z_baseline: 1.5 # the tau_out in (|z| - tau_out)_+; keep in step with detection.yaml
+  t_speech: "speech_duration_excluding_leading_trailing_silence"
+  overall: "mean_of_categories"
+  overall_weights: "equal" # stated design choice, not an oversight
+  round_decimals: 2
+  suppressed_category_policy: "exclude_from_mean" # e.g. clarity with no same-channel ref
+
+# k_c is CALIBRATED on training texts so a single-flaw L2 file scores ~6/10 in
+# its own category (plan 8.2). These are starting values; make eval overwrites
+# them into results/loto/<fold>/k_c.json.
+k_c:
+  pace: 1.0
+  pausing: 1.0
+  intonation: 1.0
+  emphasis: 1.0
+  energy: 1.0
+  clarity: 1.0
+
+calibration:
+  per_fold: true # spec 11: k_c is calibrated per LOTO fold
+  target_level: "L2"
+  target_score: 6.0
+  fit_scope: "training_texts_only" # leakage guard
+  solver: "brentq"
+  k_bounds: [0.01, 50.0]
+
+# --- Confidence band (plan 8.4) --------------------------------------------
+confidence:
+  method: "leave_one_reference_out" # drop each envelope member once, recompute
+  statistic: "mean_and_std" # spec 11: report mean +/- std across recomputations
+  display: "score +/- band" # e.g. "7.2 +/- 0.4"
+  round_decimals: 1
+
+# --- Raw descriptors shown beside the score (plan 8.3) ---------------------
+descriptors:
+  - name: "articulation_rate_syll_s"
+    with_envelope_range: true
+  - name: "pitch_variation_st"
+    with_envelope_range: true
+  - name: "mean_length_of_runs_syll" # syllables between pauses > 250 ms
+    with_envelope_range: true
+  - name: "pause_rate_per_min"
+    split_by_gap_label: true # boundary vs mid-clause
+    with_envelope_range: true
+
+# --- Pre-registered targets (spec 14.3); make eval checks against these ----
+# Recorded so the metrics report states targets vs achieved without hand-editing.
+targets:
+  synthetic:
+    event_f1_200ms: 0.75
+    onset_offset_mae_ms: 150.0
+    flaw_type_macro_f1: 0.70
+    severity_spearman_rho: -0.85
+    false_positives_per_min_on_clean: 1.0
+    male_female_score_gap_points: 0.5
+    utmos_drop_at_l1: 0.30
+  human:
+    event_f1_200ms: 0.50
+    onset_offset_mae_ms: 250.0
+    flaw_type_macro_f1: 0.50
+    severity_spearman_rho: -0.70
+    false_positives_per_min_on_clean: 1.0

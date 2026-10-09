@@ -1,0 +1,78 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A later push supersedes an in-flight run on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned so any result whose ordering touches hash() of a string is
+  # reproducible (CLAUDE.md invariant 13).
+  PYTHONHASHSEED: "0"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  lint:
+    name: lint (ruff + black)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      # Lint needs neither torch nor librosa, so install only the linters.
+      - name: Install linters
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install \
+            "$(grep -iE '^ruff==' requirements.txt || echo ruff)" \
+            "$(grep -iE '^black==' requirements.txt || echo black)"
+
+      - run: ruff check src tests eval scripts app
+
+      - run: black --check src tests eval scripts app
+
+  test:
+    name: test (py3.11)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: System libraries
+        # libsndfile for soundfile; ffmpeg for decoding in the data pipeline.
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libsndfile1 ffmpeg
+
+      - name: Install pinned dependencies
+        # The CPU torch index keeps the download to a few hundred MB instead of
+        # pulling the full CUDA build, which does not fit the runner cache.
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --extra-index-url https://download.pytorch.org/whl/cpu \
+            -r requirements.txt
+          python -m pip install -e . --no-deps
+
+      - name: Import check
+        run: python -c "import rostrum; print(rostrum.__version__)"
+
+      - name: Config loads
+        run: |
+          python -c "from rostrum import load_config; c = load_config(); print('config', c.hash[:12])"
+
+      - name: pytest
+        run: python -m pytest -q

@@ -1,0 +1,36 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+0
+1.2
+<exists>
+2
+"IntervalTier"
+"words"
+0
+1.2
+5
+0
+0.1
+""
+0.1
+0.4
+"we"
+0.4
+0.6
+""
+0.6
+0.95
+"hold"
+0.95
+1.2
+"these"
+"TextTier"
+"marks"
+0
+1.2
+2
+0.3
+"a"
+0.9
+"b"
