@@ -25,6 +25,8 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
+import numpy as np
+
 from eval.synthetic import Flaw, Recording, build_corpus, make_recording
 from rostrum.detect.classifier import ClassifierCase, TruthFlaw
 from rostrum.detect.refine import RefinementSettings, refine_regions
@@ -43,9 +45,11 @@ __all__ = [
     "GRADED_LABELS",
     "LEVELS",
     "REFERENCE_LEVEL",
+    "SPEAKER_OFFSET_COLUMNS",
     "Case",
     "FoldCases",
     "build_fold_cases",
+    "denormalise_speaker",
     "graded_participants",
     "severity_multiplier",
 ]
@@ -122,6 +126,90 @@ def graded_participants(
 
 
 # --------------------------------------------------------------------------- #
+# Ablation 4: undoing speaker normalisation
+# --------------------------------------------------------------------------- #
+
+
+SPEAKER_OFFSET_COLUMNS: dict[str, tuple[str, ...]] = {
+    "shift_st": ("f0_mean_st", "f0_max_st", "f0_min_st", "f0_st"),
+    "shift_level": (
+        "energy_mean_z",
+        "energy_peak_z",
+        "energy_mean_db_rel",
+        "energy_z",
+        "energy_db_rel",
+    ),
+    "scale_rate": ("rate_local_syll_per_s", "rate_relative"),
+    "scale_duration": ("word_duration_s", "duration_per_syllable_s", "duration_rel_median"),
+}
+"""Which columns a speaker's habitual pitch, loudness and tempo move.
+
+A *shift* applies to the pitch and level columns and an inverse *scale* to the
+duration columns, which is what those quantities do between two speakers.
+Spreads - ``f0_range_st``, ``f0_std_st``, every ``*_slope_*`` - are differences
+within one recording and a habitual offset cancels in them, so they are absent
+here on purpose.
+"""
+
+
+def denormalise_speaker(
+    tables: Mapping[str, Any],
+    frames: Any | None,
+    *,
+    speaker_id: str,
+    seed: int,
+) -> tuple[dict[str, Any], Any | None]:
+    """Re-inject the between-speaker offsets speaker normalisation removes.
+
+    Ablation 4 of spec 14.2 asks what the system scores **without** speaker
+    normalisation. On the real corpus that means comparing raw Hz and raw dB;
+    on this generated corpus the tables are already expressed re the speaker's
+    own median (:mod:`eval.synthetic` emits ``*_st`` and ``*_z`` columns), so
+    the ablation is run the other way round - each speaker is given back a
+    habitual pitch, loudness and tempo of their own, which is exactly the
+    variance CLAUDE.md invariants 5 and 6 exist to remove. Any number from this
+    ablation must be labelled as the simulation it is.
+
+    The offsets are drawn from ``seed`` and the speaker id, so one speaker gets
+    the same voice in every fold and every run (CLAUDE.md invariant 13).
+
+    Args:
+        tables: ``{unit: FeatureTable}``; copied, never mutated.
+        frames: The recording's frame curves, or ``None``.
+        speaker_id: Whose habitual values these are.
+        seed: Master seed.
+
+    Returns:
+        ``(tables, frames)`` with the offsets applied.
+    """
+    rng = np.random.default_rng(abs(hash((int(seed), str(speaker_id)))) % (2**32))
+    shift_st = float(rng.uniform(-3.0, 3.0))
+    shift_level = float(rng.uniform(-2.5, 2.5))
+    rate_scale = float(rng.uniform(0.85, 1.15))
+
+    def apply(table: Any) -> Any:
+        out = table.copy()
+        for column in SPEAKER_OFFSET_COLUMNS["shift_st"]:
+            if column in out.columns:
+                out[column] = out[column] + shift_st
+        for column in SPEAKER_OFFSET_COLUMNS["shift_level"]:
+            if column in out.columns:
+                out[column] = out[column] + shift_level
+        for column in SPEAKER_OFFSET_COLUMNS["scale_rate"]:
+            if column in out.columns:
+                out[column] = out[column] * rate_scale
+        for column in SPEAKER_OFFSET_COLUMNS["scale_duration"]:
+            if column in out.columns:
+                out[column] = out[column] / rate_scale
+        return out
+
+    return (
+        {unit: apply(table) for unit, table in tables.items()},
+        None if frames is None else apply(frames),
+    )
+
+
+# --------------------------------------------------------------------------- #
 # One detected recording
 # --------------------------------------------------------------------------- #
 
@@ -144,6 +232,13 @@ class Case:
         speech_duration: :math:`T_{speech}`: first word onset to last word
             offset, which is ``scoring.score.t_speech`` ("excluding leading and
             trailing silence").
+        frames: The recording's frame curves. Boundary refinement needs them, so
+            a consumer that re-detects this case at other thresholds - as
+            :mod:`eval.run_loto` does once a fold is tuned - cannot work without
+            them being carried here.
+        duration: Wall duration of the recording in seconds, which is the
+            denominator of the false-alarm rate of spec 14.3 (and differs from
+            :attr:`speech_duration`, which excludes the outer silence).
     """
 
     file_id: str
@@ -157,6 +252,8 @@ class Case:
     truth: list[TruthFlaw]
     tables: Mapping[str, Any]
     speech_duration: float
+    frames: Any | None = None
+    duration: float = 0.0
 
     def as_classifier_case(self) -> ClassifierCase:
         """The same recording as the classifier's input (spec 10.6)."""
@@ -255,6 +352,8 @@ def build_fold_cases(
     n_words: int = 24,
     refine: bool = True,
     thresholds: RegionThresholds | None = None,
+    envelope_size: int | None = None,
+    speaker_offsets: bool = False,
 ) -> FoldCases:
     """Build, detect and label one fold's graded corpus.
 
@@ -270,9 +369,20 @@ def build_fold_cases(
         n_words: Words per text.
         refine: Run ruptures boundary refinement.
         thresholds: Detection thresholds; the config's defaults when ``None``.
+        envelope_size: Keep only this many readers per text in the envelope.
+            ``1`` is ablation 1 of spec 14.2, "single reference vs envelope";
+            it needs ``detection.envelope.min_references`` overridden to 1 or
+            the envelope refuses to build, which is the guard working.
+        speaker_offsets: Give every speaker a habitual pitch, loudness and tempo
+            of their own before comparing, which is ablation 4 - see
+            :func:`denormalise_speaker`.
 
     Returns:
         A :class:`FoldCases`.
+
+    Raises:
+        rostrum.envelope.build.EnvelopeError: ``envelope_size`` is below
+            ``detection.envelope.min_references``.
     """
     references, _ = build_corpus(
         texts=texts, n_readers=n_readers, n_words=n_words, seed=config.seed
@@ -280,8 +390,25 @@ def build_fold_cases(
     train_texts = tuple(t for t in texts if t != held_out)
     fold = f"loto_{held_out}"
 
+    if envelope_size is not None:
+        references = {
+            text: list(members)[: int(envelope_size)] for text, members in references.items()
+        }
+
+    reference_frames: dict[str, Any] = {}
+    reference_data: dict[str, Mapping[str, Any]] = {}
+    for text in texts:
+        for r in references[text]:
+            tables, frames = (
+                denormalise_speaker(r.tables, r.frames, speaker_id=r.file_id, seed=config.seed)
+                if speaker_offsets
+                else (dict(r.tables), r.frames)
+            )
+            reference_data[r.file_id] = tables
+            reference_frames[r.file_id] = frames
+
     refs = [
-        Reference(file_id=r.file_id, channel_id=r.channel_id, tables=r.tables)
+        Reference(file_id=r.file_id, channel_id=r.channel_id, tables=reference_data[r.file_id])
         for text in texts
         for r in references[text]
     ]
@@ -291,7 +418,7 @@ def build_fold_cases(
         fold=fold,
         train_texts=train_texts,
         config=config,
-        frames={r.file_id: r.frames for text in texts for r in references[text]},
+        frames=reference_frames,
         word_spans={r.file_id: r.word_spans for text in texts for r in references[text]},
     )
 
@@ -307,7 +434,9 @@ def build_fold_cases(
         train_texts=train_texts,
         envelopes=envelopes,
         thresholds=thresholds,
-        reference_tables={text: [r.tables for r in references[text]] for text in texts},
+        reference_tables={
+            text: [reference_data[r.file_id] for r in references[text]] for text in texts
+        },
     )
 
     for text in texts:
@@ -326,8 +455,18 @@ def build_fold_cases(
                 flaws=flaws,
                 with_channel_features=True,
             )
+            participant_tables, participant_frames = (
+                denormalise_speaker(
+                    recording.tables,
+                    recording.frames,
+                    speaker_id=f"{text}_participant",
+                    seed=config.seed,
+                )
+                if speaker_offsets
+                else (dict(recording.tables), recording.frames)
+            )
             z_by_unit = envelope_z(
-                recording.tables,
+                participant_tables,
                 envelopes[text],
                 config=config,
                 channel_matched=True,
@@ -336,14 +475,14 @@ def build_fold_cases(
             signals, skipped = trigger_signals(z_by_unit, config=config, same_channel=True)
             regions = build_regions(signals, z_by_unit, config=config, thresholds=thresholds)
             if settings is not None:
-                regions = refine_regions(regions, recording.frames, settings=settings)
+                regions = refine_regions(regions, participant_frames, settings=settings)
             if skipped:
                 logger.debug(
                     "%s: skipped %s",
                     recording.file_id,
                     [f"{s.label}:{s.reason}" for s in skipped],
                 )
-            words = recording.tables["word"]
+            words = participant_tables["word"]
             label = flaws[0].event_label if flaws else ""
             out.cases.append(
                 Case(
@@ -356,8 +495,10 @@ def build_fold_cases(
                     regions=regions,
                     z_by_unit=z_by_unit,
                     truth=_truth_for(recording, level, config),
-                    tables=recording.tables,
+                    tables=participant_tables,
                     speech_duration=float(words["t_end"].max()) - float(words["t_start"].min()),
+                    frames=participant_frames,
+                    duration=float(words["t_end"].max()),
                 )
             )
 

@@ -16,12 +16,13 @@ their onsets are within a 200 ms collar *and* their offsets are within
 3-second ``monotone`` region and a 300 ms ``missing_pause`` cannot reasonably be
 held to the same absolute tolerance.
 
-:func:`event_f1` is implemented here rather than called from ``sed_eval``. Two
-reasons, both worth stating in the report: ``sed_eval`` does not import in this
-project's environment (its NumPy 2 incompatibility), and the matching is 30
-lines of greedy assignment that is easier to unit-test than to pin. The
-convention it implements is the published one, and the eval harness cross-checks
-against ``sed_scores_eval`` for the threshold-free curve.
+:func:`event_f1` is implemented here rather than called from ``sed_eval``,
+because the tuning loop scores thousands of grid cells and the matching is 30
+lines of greedy assignment that is easier to unit-test, and far cheaper, than a
+``dcase_util`` container per cell. The convention it implements is the published
+one, and it is not taken on trust: :func:`eval.metrics.crosscheck_event_f1`
+scores the same event lists with ``sed_eval`` itself and the LOTO report carries
+both numbers plus their difference.
 
 **The grid** covers ``tau_in`` and ``tau_out`` from
 ``detection.threshold_search`` plus the refinement penalty, because the penalty
@@ -59,12 +60,14 @@ __all__ = [
     "DEFAULT_OFFSET_COLLAR_FRAC",
     "DEFAULT_ONSET_COLLAR_S",
     "Event",
+    "EventMatch",
     "MatchCounts",
     "TuningCase",
     "TuningResult",
     "event_f1",
     "events_from_regions",
     "grid_search",
+    "match_events",
     "read_tuning",
     "write_tuning",
 ]
@@ -199,6 +202,91 @@ def _matches(
     )
 
 
+@dataclass(frozen=True)
+class EventMatch:
+    """One reference event and the predicted event assigned to it.
+
+    Attributes:
+        reference: The ground-truth event.
+        predicted: The prediction that matched it within the collars.
+    """
+
+    reference: Event
+    predicted: Event
+
+    @property
+    def onset_error(self) -> float:
+        """Signed onset error in seconds, positive when the prediction is late."""
+        return float(self.predicted.t_start) - float(self.reference.t_start)
+
+    @property
+    def offset_error(self) -> float:
+        """Signed offset error in seconds, positive when the prediction is late."""
+        return float(self.predicted.t_end) - float(self.reference.t_end)
+
+
+def match_events(
+    reference: Sequence[Event],
+    predicted: Sequence[Event],
+    *,
+    onset_collar_s: float = DEFAULT_ONSET_COLLAR_S,
+    offset_collar_s: float = DEFAULT_OFFSET_COLLAR_S,
+    offset_collar_frac: float = DEFAULT_OFFSET_COLLAR_FRAC,
+) -> dict[str, tuple[list[EventMatch], list[Event], list[Event]]]:
+    """Assign predictions to references per label, greedily by onset distance.
+
+    This is the single matching implementation the project uses: :func:`event_f1`
+    counts its output and :mod:`eval.metrics` measures boundary error on the
+    pairs it returns, so the counts and the errors can never come from two
+    different notions of "matched".
+
+    Args:
+        reference: Ground-truth events.
+        predicted: Detected events.
+        onset_collar_s: Onset tolerance.
+        offset_collar_s: Absolute part of the offset tolerance.
+        offset_collar_frac: Relative part, as a fraction of the reference
+            event's length.
+
+    Returns:
+        ``{label: (matches, unmatched_predictions, unmatched_references)}`` over
+        every label present in either list.
+    """
+    labels = sorted({e.label for e in reference} | {e.label for e in predicted})
+    out: dict[str, tuple[list[EventMatch], list[Event], list[Event]]] = {}
+
+    for label in labels:
+        refs = sorted(
+            (e for e in reference if e.label == label), key=lambda e: (e.file_id, e.t_start)
+        )
+        preds = sorted(
+            (e for e in predicted if e.label == label), key=lambda e: (e.file_id, e.t_start)
+        )
+        taken = [False] * len(preds)
+        matches: list[EventMatch] = []
+        missed: list[Event] = []
+        for ref in refs:
+            best: int | None = None
+            best_distance = float("inf")
+            for i, pred in enumerate(preds):
+                if taken[i] or not _matches(
+                    ref, pred, onset_collar_s, offset_collar_s, offset_collar_frac
+                ):
+                    continue
+                distance = abs(pred.t_start - ref.t_start)
+                if distance < best_distance:
+                    best, best_distance = i, distance
+            if best is None:
+                missed.append(ref)
+            else:
+                taken[best] = True
+                matches.append(EventMatch(reference=ref, predicted=preds[best]))
+        spurious = [pred for i, pred in enumerate(preds) if not taken[i]]
+        out[label] = (matches, spurious, missed)
+
+    return out
+
+
 def event_f1(
     reference: Sequence[Event],
     predicted: Sequence[Event],
@@ -228,35 +316,17 @@ def event_f1(
         A dict with ``micro`` (pooled counts and rates), ``macro_f1`` (mean of
         the per-label F1 over labels present in either list) and ``per_label``.
     """
-    labels = sorted({e.label for e in reference} | {e.label for e in predicted})
-    per_label: dict[str, MatchCounts] = {label: MatchCounts() for label in labels}
-
-    for label in labels:
-        refs = sorted(
-            (e for e in reference if e.label == label), key=lambda e: (e.file_id, e.t_start)
-        )
-        preds = sorted(
-            (e for e in predicted if e.label == label), key=lambda e: (e.file_id, e.t_start)
-        )
-        taken = [False] * len(preds)
-        counts = per_label[label]
-        for ref in refs:
-            best: int | None = None
-            best_distance = float("inf")
-            for i, pred in enumerate(preds):
-                if taken[i] or not _matches(
-                    ref, pred, onset_collar_s, offset_collar_s, offset_collar_frac
-                ):
-                    continue
-                distance = abs(pred.t_start - ref.t_start)
-                if distance < best_distance:
-                    best, best_distance = i, distance
-            if best is None:
-                counts.fn += 1
-            else:
-                taken[best] = True
-                counts.tp += 1
-        counts.fp += int(len(preds) - sum(taken))
+    assigned = match_events(
+        reference,
+        predicted,
+        onset_collar_s=onset_collar_s,
+        offset_collar_s=offset_collar_s,
+        offset_collar_frac=offset_collar_frac,
+    )
+    per_label: dict[str, MatchCounts] = {
+        label: MatchCounts(tp=len(matches), fp=len(spurious), fn=len(missed))
+        for label, (matches, spurious, missed) in assigned.items()
+    }
 
     micro = MatchCounts(
         tp=sum(c.tp for c in per_label.values()),
