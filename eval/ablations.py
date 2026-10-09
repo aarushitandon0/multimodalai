@@ -52,7 +52,13 @@ from typing import Any
 
 from eval.dataset_corpus import CorpusUnavailable, DatasetCorpus
 from eval.run_loto import LeakageError, Variant, run_loto
-from rostrum.config import Config, code_version, load_config, set_seeds
+from rostrum.config import (
+    Config,
+    check_pythonhashseed,
+    code_version,
+    load_config,
+    set_seeds,
+)
 
 logger = logging.getLogger("eval.ablations")
 
@@ -555,6 +561,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         format="%(levelname)s %(name)s: %(message)s",
     )
     config = load_config()
+    # Invariant 13: anything that reaches hash() of a str is only
+    # reproducible with the seed pinned, so say so before producing numbers
+    # someone will quote.
+    check_pythonhashseed()
     set_seeds(config.seed)
     try:
         payload = run_ablations(

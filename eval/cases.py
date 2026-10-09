@@ -20,6 +20,7 @@ audio. Only the real S1 injected files answer that, and they need MFA.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
@@ -182,7 +183,14 @@ def denormalise_speaker(
     Returns:
         ``(tables, frames)`` with the offsets applied.
     """
-    rng = np.random.default_rng(abs(hash((int(seed), str(speaker_id)))) % (2**32))
+    # blake2b, not hash(): Python salts the hash of a str per process, so
+    # seeding from it makes this ablation reproducible only under
+    # PYTHONHASHSEED=0 and silently irreproducible outside the Makefile
+    # (invariant 13). A stable digest needs no environment to agree with itself.
+    digest = hashlib.blake2b(
+        f"{int(seed)}:{speaker_id}".encode(), digest_size=8
+    ).digest()
+    rng = np.random.default_rng(int.from_bytes(digest, "big") % (2**32))
     shift_st = float(rng.uniform(-3.0, 3.0))
     shift_level = float(rng.uniform(-2.5, 2.5))
     rate_scale = float(rng.uniform(0.85, 1.15))

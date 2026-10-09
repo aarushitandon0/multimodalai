@@ -66,7 +66,13 @@ from eval.metrics import (
     targets_markdown,
     typing_metrics,
 )
-from rostrum.config import Config, code_version, load_config, set_seeds
+from rostrum.config import (
+    Config,
+    check_pythonhashseed,
+    code_version,
+    load_config,
+    set_seeds,
+)
 from rostrum.data.splits import TEST_ONLY_ORIGINS as _SPLIT_TEST_ONLY_ORIGINS
 from rostrum.detect.classifier import (
     ClassifierError,
@@ -1046,8 +1052,9 @@ def run_loto(
             reference readings for the dataset.
         variant: Pipeline configuration; the full system by default.
         corpus: ``"synthetic"`` or ``"dataset"``.
-        out: Where to write the JSON; ``results/metrics.json`` by default.
-            ``None`` with ``write_folds=False`` still returns the payload.
+        out: Where to write the JSON, with the markdown beside it. ``None``
+            writes nothing and only returns the payload, which is what an
+            ablation row wants - it must not overwrite the headline metrics.
         write_folds: Also write one ``fold_<text>.json`` per fold.
         lean: Lean feature-cache entries for the dataset corpus; tests only.
         corpus_data: An already-loaded dataset corpus; see :func:`run_fold`.
@@ -1082,7 +1089,13 @@ def run_loto(
         reports.append(report)
 
     payload = aggregate(reports, config=config, corpus=corpus, variant=variant)
-    destination = out or (config.path("results.dir") / "metrics.json")
+    if out is None:
+        # A library call writes nothing. Defaulting to results/metrics.json here
+        # made every ablation row overwrite the headline run's metrics with its
+        # own ablated numbers, so `make ablations` left results/ describing the
+        # last variant that happened to run. The CLI resolves its own default.
+        return payload
+    destination = out
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(
         json.dumps(payload, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
@@ -1137,6 +1150,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         {"detection": {"envelope": {"min_references": 1}}} if args.single_reference else None
     )
     config = load_config(overrides=overrides)
+    # Invariant 13: anything that reaches hash() of a str is only
+    # reproducible with the seed pinned, so say so before producing numbers
+    # someone will quote.
+    check_pythonhashseed()
     set_seeds(config.seed)
 
     variant = Variant(
@@ -1148,13 +1165,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         tune=not args.no_tune,
         description="the system as specified" if args.name == "full" else args.name,
     )
+    # Resolved here, not inside run_loto: a library call with out=None writes
+    # nothing, so the CLI owns the default path.
+    destination = args.out or (config.path("results.dir") / "metrics.json")
     try:
         payload = run_loto(
             config=config,
             texts=tuple(args.texts) if args.texts else None,
             variant=variant,
             corpus=args.corpus,
-            out=args.out,
+            out=destination,
         )
     except CorpusUnavailable as error:
         print(f"cannot evaluate: {error}", file=sys.stderr)
@@ -1166,7 +1186,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"LEAKAGE: {error}", file=sys.stderr)
         return 3
 
-    destination = args.out or (config.path("results.dir") / "metrics.json")
     print(metrics_markdown(payload))
     print(f"wrote {destination} and {destination.with_suffix('.md')}")
     return 0
