@@ -1365,6 +1365,26 @@ make lint         # ruff + black --check
 
 `make help` lists every target.
 
+**Two install notes, both load-bearing for `make eval`:**
+
+* `sed_eval` imports `pkg_resources`, which setuptools removed in version 81, so
+  `setuptools<81` is pinned. Without it `import sed_eval` raises
+  `ModuleNotFoundError: pkg_resources` and the event-F1 cross-check silently
+  falls back to Rostrum's own matcher.
+* `sed_scores_eval` is an **optional** extra (`pip install -e '.[metrics]'`): it
+  ships no wheel and its build needs a C toolchain (MSVC on Windows).
+  `eval.metrics` computes the threshold-free PR curve itself and only
+  cross-checks PSDS against that package where it is installed.
+
+On Windows, **Smart App Control** blocks unsigned native extension modules, which
+shows up as `ImportError: DLL load failed ... An Application Control policy has
+blocked this file` from `pandas`, `scikit-learn`, `torch` or `Cython`. It affects
+newly published wheels, which have no reputation yet; installing a slightly older
+release of the offending package (for example `pandas==2.2.3`,
+`scikit-learn==1.5.2`, `torch==2.5.1`) clears it. The pinned
+`requirements.txt` is the resolution the Docker image uses, where the policy does
+not apply.
+
 ### 15.2 Dataset
 
 ```bash

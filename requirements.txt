@@ -113,6 +113,7 @@ ruptures==1.1.10
 scikit-learn==1.9.1
 scipy==1.17.1
 sed_eval==0.2.1
+setuptools<81  # sed_eval imports pkg_resources, removed in setuptools 81
 silero-vad==6.2.3
 simplejson==4.1.2
 six==1.17.0
@@ -138,5 +139,8 @@ validators==0.35.0
 watchdog==6.0.0
 websockets==16.1.1
 
-# --- Requires a C compiler; see the note at the top of this file. ---
+# --- Optional extra. Requires a C compiler; see the note at the top of this
+# file. eval.metrics computes the threshold-free PR curve itself and only
+# cross-checks against PSDS when this is installed, so a machine without a
+# toolchain can skip this line. ---
 sed_scores_eval==0.0.4

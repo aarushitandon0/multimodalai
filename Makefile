@@ -25,6 +25,8 @@ FEATURE_ARGS   ?=
 DEMO_ARGS      ?=
 # e.g. make components COMPONENT_ARGS="--seconds 30 --model tiny"
 COMPONENT_ARGS ?=
+# Extra flags for `make eval`, e.g. make eval EVAL_ARGS="--corpus dataset"
+EVAL_ARGS      ?=
 ifeq ($(OS),Windows_NT)
   PY       := $(VENV)/Scripts/python.exe
   BIN      := $(VENV)/Scripts
@@ -178,8 +180,8 @@ cards: ## Render explanation cards from five different labels -> results/cards_d
 components: ## Component-validity checks (pitch/alignment/rate) -> results/components.json
 	$(PY) -m eval.components $(COMPONENT_ARGS)
 
-eval: ## Leave-one-text-out evaluation -> results/metrics.json
-	@echo "TODO(phase7): $(PY) -m eval.run_loto --out results/metrics.json"
+eval: ## Leave-one-text-out evaluation -> results/metrics.json + metrics.md
+	$(PY) -m eval.run_loto --out results/metrics.json $(EVAL_ARGS)
 
 ablations: ## Ablation table -> results/ablations.json
 	@echo "TODO(phase7): $(PY) -m eval.ablations --out results/ablations.json"

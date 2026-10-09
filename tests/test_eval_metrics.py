@@ -67,9 +67,7 @@ def test_the_offset_collar_scales_with_the_reference_length():
 
 
 def test_events_never_match_across_files():
-    metrics = event_based_metrics(
-        [ev("rushing", 1.0, 2.0, "a")], [ev("rushing", 1.0, 2.0, "b")]
-    )
+    metrics = event_based_metrics([ev("rushing", 1.0, 2.0, "a")], [ev("rushing", 1.0, 2.0, "b")])
     assert metrics["micro"]["tp"] == 0
 
 

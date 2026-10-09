@@ -38,7 +38,9 @@ dependencies = [
   "ruptures",
   "scikit-learn",
   "sed_eval",
-  "sed_scores_eval",
+  # sed_eval imports pkg_resources, which setuptools removed in 81. Without
+  # this pin `import sed_eval` fails with ModuleNotFoundError: pkg_resources.
+  "setuptools<81",
   "faster-whisper",
   "pyyaml",
   "fastapi",
@@ -51,6 +53,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "black"]
+# sed_scores_eval ships no wheel and its build needs a C toolchain (MSVC on
+# Windows), so it is not a hard dependency: eval.metrics computes the
+# threshold-free PR curve itself and only *cross-checks* against PSDS where this
+# extra is installed. See eval/metrics.py's module docstring.
+metrics = ["sed_scores_eval"]
 
 [tool.setuptools]
 package-dir = { "" = "src" }

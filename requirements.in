@@ -19,7 +19,9 @@ PyWavelets
 ruptures
 scikit-learn
 sed_eval
-sed_scores_eval
+setuptools<81        # sed_eval imports pkg_resources, removed in setuptools 81
+# sed_scores_eval is an optional extra (`pip install -e .[metrics]`): it ships no
+# wheel and needs a C toolchain. eval.metrics only cross-checks against it.
 faster-whisper
 pyyaml
 fastapi

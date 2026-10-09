@@ -966,6 +966,6 @@ def targets_markdown(rows: Sequence[TargetRow], *, title: str = "") -> str:
     for row in rows:
         target = "-" if row.target is None else f"{row.target:g}"
         actual = "-" if row.actual is None else f"{row.actual:g}"
-        arrow = "≥" if row.direction == "higher" else "≤"
+        arrow = ">=" if row.direction == "higher" else "<="
         lines.append(f"| {row.label} | {arrow} {target} | {actual} | {row.verdict} | {row.note} |")
     return "\n".join(lines) + "\n"
