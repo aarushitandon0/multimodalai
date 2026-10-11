@@ -378,6 +378,18 @@ def run(
 
     scores = score_utmos(jobs, layout, scorer=scorer) if utmos else {}
 
+    # One MFA invocation for the whole batch, not one per file: MFA 3.x spends
+    # minutes per call on start-up alone (postgres + whole-corpus validate), so
+    # per-file corpora make the gate cost hours of start-up for a few hundred
+    # variants. A file MFA cannot align is absent from the cache and is gated as
+    # a re-alignment failure against its own file_id, exactly as before.
+    if realign and align_fn is None:
+        batch_dir = (work_root or layout.qc_dir / "realign") / "_batch"
+        cache = qc.mfa_realign_batch(
+            ((job.edited_wav, job.transcript, job.file_id) for job in jobs), batch_dir
+        )
+        align_fn = qc.cached_aligner(cache)
+
     verdicts: list[qc.QCVerdict] = []
     reports: list[qc.RealignReport] = []
     rejections: list[dict[str, str]] = []

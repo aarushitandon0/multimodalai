@@ -721,6 +721,64 @@ def pr_curve(
     }
 
 
+def _psds_score_dataframe(
+    items: Sequence[ScoredEvent],
+    duration: float,
+    event_classes: Sequence[str],
+) -> Any:
+    """Turn scored events for one file into a ``sed_scores_eval`` score frame.
+
+    ``sed_scores_eval`` 0.0.4 takes scores as a per-file ``pandas.DataFrame``
+    whose rows partition the file into contiguous segments - columns ``onset``,
+    ``offset``, then one column per event class - not as
+    ``(onset, offset, label, score)`` tuples. Every predicted boundary becomes a
+    change point, and a class column holds the highest score of the events of
+    that class overlapping the segment (0.0 where none do), which is the step
+    function the PSD-ROC sweep integrates over.
+
+    Args:
+        items: Scored predictions for this file only.
+        duration: Clean duration of the file in seconds; segments are clipped to it.
+        event_classes: Column order, the same for every file in the call.
+
+    Returns:
+        A score frame with ``len(timestamps) - 1`` rows.
+
+    Raises:
+        ValueError: If ``duration`` is not positive.
+    """
+    import pandas as pd
+
+    if not duration > 0:
+        raise ValueError(f"duration must be positive, got {duration!r}")
+
+    spans: list[tuple[float, float, int, float]] = []
+    column_of = {label: index for index, label in enumerate(event_classes)}
+    boundaries = {0.0, float(duration)}
+    for item in items:
+        start = min(max(float(item.event.t_start), 0.0), float(duration))
+        end = min(max(float(item.event.t_end), 0.0), float(duration))
+        if end <= start:
+            continue
+        label = str(item.event.label)
+        if label not in column_of:
+            continue
+        spans.append((start, end, column_of[label], float(item.score)))
+        boundaries.update((start, end))
+
+    timestamps = sorted(boundaries)
+    matrix = np.zeros((len(timestamps) - 1, len(event_classes)), dtype=float)
+    for start, end, column, score in spans:
+        for row in range(len(timestamps) - 1):
+            if timestamps[row] < end and timestamps[row + 1] > start:
+                matrix[row, column] = max(matrix[row, column], score)
+
+    frame = pd.DataFrame(matrix, columns=list(event_classes))
+    frame.insert(0, "offset", timestamps[1:])
+    frame.insert(0, "onset", timestamps[:-1])
+    return frame
+
+
 def psds_crosscheck(
     reference: Sequence[Event],
     predicted: Sequence[ScoredEvent],
@@ -758,19 +816,31 @@ def psds_crosscheck(
         ]
         for file_id in sorted(durations)
     }
-    scores = {
-        file_id: [
-            (
-                float(item.event.t_start),
-                float(item.event.t_end),
-                str(item.event.label),
-                float(item.score),
+    event_classes = sorted(
+        {str(e.label) for e in reference} | {str(item.event.label) for item in predicted}
+    )
+    if not event_classes:
+        return {
+            "available": False,
+            "reason": (
+                "sed_scores_eval needs at least one event class; neither the "
+                "reference nor the predictions name one"
+            ),
+        }
+    try:
+        scores = {
+            file_id: _psds_score_dataframe(
+                [item for item in predicted if item.event.file_id == file_id],
+                float(durations[file_id]),
+                event_classes,
             )
-            for item in predicted
-            if item.event.file_id == file_id
-        ]
-        for file_id in sorted(durations)
-    }
+            for file_id in sorted(durations)
+        }
+    except ValueError as exc:
+        return {
+            "available": False,
+            "reason": f"cannot build the sed_scores_eval score frames: {exc}",
+        }
     # Intersection-based PSDS, not a collar AUROC: sed_scores_eval 0.0.4 has no
     # `collar_based.auroc`, and PSDS is the threshold-free number this
     # cross-check is for. The collars become intersection thresholds - the
@@ -779,12 +849,6 @@ def psds_crosscheck(
     # Verified against the installed signature inside the Docker image.
     mean_len = float(np.mean([e.t_end - e.t_start for e in reference])) if reference else 1.0
     dtc = min(0.9, max(0.1, float(onset_collar_s) / mean_len)) if mean_len > 0 else 0.5
-    # TODO(verify): sed_scores_eval 0.0.4 wants `scores` as a per-file pandas
-    # DataFrame (onset, offset, one column per event class), not the list of
-    # (onset, offset, label, score) tuples built above - it raises
-    # "scores must be pandas.DataFrame but <class 'list'> was given."
-    # Until that conversion is written, report the cross-check as unavailable
-    # rather than substituting a number (the contract of this function).
     try:  # pragma: no cover - exercised only where the package is installed
         result = sed_scores_eval.intersection_based.psds(
             scores,
@@ -799,7 +863,7 @@ def psds_crosscheck(
         return {
             "available": False,
             "reason": (
-                "sed_scores_eval is installed but its score format is not wired up yet: "
+                "sed_scores_eval is installed but refused the inputs: "
                 f"{exc.__class__.__name__}: {exc}"
             ),
         }

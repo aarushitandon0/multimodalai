@@ -164,14 +164,64 @@ def load_clean_file(cfg: Config, row: ManifestRow, speaker_id: str = "") -> Clea
     return CleanFile(audio=np.asarray(audio, dtype=np.float64), sr=sr, alignment=alignment)
 
 
-def clean_rows(cfg: Config, *, text_id: str | None, only: set[str] | None) -> list[ManifestRow]:
+def cap_parents_per_text(rows: list[ManifestRow], max_per_text: int | None) -> list[ManifestRow]:
+    """Keep at most ``max_per_text`` clean parents per text, spread across readers.
+
+    The full 7-label x L1-L4 grid is generated for every parent that survives, so
+    capping parents (rather than labels or levels) keeps the severity ladder and
+    the label taxonomy complete while bounding the QC cost: every variant is
+    re-aligned with MFA, which is roughly real-time, so an uncapped 62-parent
+    build would need ~20 h of alignment.
+
+    Selection is deterministic and reader-spread, not "first N": rows are sorted
+    by ``file_id`` and sampled at an even stride, so a cap of 2 over readers
+    01..16 takes 01 and 09 rather than 01 and 02.
+
+    Args:
+        rows: clean manifest rows, any order.
+        max_per_text: cap per ``text_id``; ``None`` or <= 0 means no cap.
+
+    Returns:
+        The kept rows, sorted by ``(text_id, file_id)``.
+    """
+    if not max_per_text or max_per_text <= 0:
+        return sorted(rows, key=lambda r: (r.text_id, r.file_id))
+    by_text: dict[str, list[ManifestRow]] = {}
+    for row in sorted(rows, key=lambda r: (r.text_id, r.file_id)):
+        by_text.setdefault(row.text_id, []).append(row)
+    kept: list[ManifestRow] = []
+    for text_id, group in sorted(by_text.items()):
+        n = min(max_per_text, len(group))
+        stride = len(group) / n
+        picked = [group[int(i * stride)] for i in range(n)]
+        if len(group) > n:
+            logger.info(
+                "%s: capped %d clean parents to %d (%s)",
+                text_id,
+                len(group),
+                n,
+                ", ".join(r.file_id for r in picked),
+            )
+        kept.extend(picked)
+    return sorted(kept, key=lambda r: (r.text_id, r.file_id))
+
+
+def clean_rows(
+    cfg: Config,
+    *,
+    text_id: str | None,
+    only: set[str] | None,
+    max_per_text: int | None = None,
+) -> list[ManifestRow]:
     """Return the clean ``MANIFEST.csv`` rows to inject into, in file order."""
     rows = [r for r in read_manifest(cfg.path("data.manifest")) if r.origin == "clean"]
     if text_id:
         rows = [r for r in rows if r.text_id == text_id]
     if only:
         rows = [r for r in rows if r.file_id in only]
-    return sorted(rows, key=lambda r: (r.text_id, r.file_id))
+    if only:  # an explicit file list is never capped
+        return sorted(rows, key=lambda r: (r.text_id, r.file_id))
+    return cap_parents_per_text(rows, max_per_text)
 
 
 # --------------------------------------------------------------------------- #
@@ -422,6 +472,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--events-only", action="store_true", help="only rebuild labels/events.tsv and exit"
     )
+    p.add_argument(
+        "--max-parents-per-text",
+        type=int,
+        metavar="N",
+        help="cap clean parents per text (default: injection.plan.max_parents_per_text; "
+        "0 means no cap). Ignored when --only is given.",
+    )
     p.add_argument("-v", "--verbose", action="store_true", help="debug logging")
     return p.parse_args(argv)
 
@@ -439,7 +496,16 @@ def main(argv: list[str] | None = None) -> int:
         rebuild_events(cfg)
         return 0
 
-    rows = clean_rows(cfg, text_id=args.text_id, only=set(args.only) if args.only else None)
+    plan_cfg = cfg.injection.get("plan") or {}
+    max_per_text = args.max_parents_per_text
+    if max_per_text is None:
+        max_per_text = plan_cfg.get("max_parents_per_text")
+    rows = clean_rows(
+        cfg,
+        text_id=args.text_id,
+        only=set(args.only) if args.only else None,
+        max_per_text=int(max_per_text) if max_per_text else None,
+    )
     if not rows:
         logger.error(
             "nothing to generate: no clean rows in %s%s",

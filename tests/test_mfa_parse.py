@@ -489,3 +489,69 @@ def test_mfa_error_is_runtime_error() -> None:
 
     assert issubclass(MFAError, RuntimeError)
     assert issubclass(MFANotAvailableError, MFAError)
+
+
+# --------------------------------------------------------------------------- #
+# list_models
+# --------------------------------------------------------------------------- #
+
+
+def _stub_model_list(monkeypatch: pytest.MonkeyPatch, stdout: str) -> None:
+    """Make ``mfa model list`` return ``stdout`` without running MFA."""
+    from subprocess import CompletedProcess
+
+    import rostrum.align.mfa as mfa_mod
+
+    def fake(args: list[str], **kwargs: object) -> CompletedProcess[str]:
+        assert args[:2] == ["model", "list"]
+        return CompletedProcess(args=["mfa", *args], returncode=0, stdout=stdout, stderr="")
+
+    monkeypatch.setattr(mfa_mod, "_run_mfa_command", fake)
+
+
+def test_list_models_parses_mfa3_list_literal(monkeypatch: pytest.MonkeyPatch) -> None:
+    """MFA 3.2.1 prints a Python list literal; the models are there, not absent.
+
+    Regression: the name check is the gate in front of `make align`, so a parser
+    that returns [] here reports 'english_us_arpa is not downloaded' and refuses
+    to align a corpus that is perfectly alignable.
+    """
+    from rostrum.align.mfa import list_models
+
+    _stub_model_list(monkeypatch, "['english_us_arpa']\n")
+    assert list_models("acoustic") == ["english_us_arpa"]
+
+
+def test_list_models_parses_multi_entry_list_literal(monkeypatch: pytest.MonkeyPatch) -> None:
+    from rostrum.align.mfa import list_models
+
+    _stub_model_list(monkeypatch, "['english_us_arpa', 'english_mfa']\n")
+    assert list_models("acoustic") == ["english_us_arpa", "english_mfa"]
+
+
+def test_list_models_parses_empty_list_literal(monkeypatch: pytest.MonkeyPatch) -> None:
+    from rostrum.align.mfa import list_models
+
+    _stub_model_list(monkeypatch, "[]\n")
+    assert list_models("dictionary") == []
+
+
+def test_list_models_still_parses_one_name_per_line(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Older MFA builds print a bulleted list; both formats must keep working."""
+    from rostrum.align.mfa import list_models
+
+    _stub_model_list(monkeypatch, "english_us_arpa\n - english_mfa\n")
+    assert list_models("acoustic") == ["english_us_arpa", "english_mfa"]
+
+
+def test_list_models_ignores_warning_lines(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The real stdout carries a pkg_resources UserWarning ahead of the list."""
+    from rostrum.align.mfa import list_models
+
+    _stub_model_list(
+        monkeypatch,
+        "UserWarning: pkg_resources is deprecated as an API. See https://example/x\n"
+        "  from pkg_resources import resource_filename\n"
+        "['english_us_arpa']\n",
+    )
+    assert list_models("acoustic") == ["english_us_arpa"]

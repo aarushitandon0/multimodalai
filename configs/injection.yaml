@@ -13,6 +13,18 @@ severity:
   L3: 0.60 # clearly flawed
   L4: 0.90 # egregious / botched
 
+# --- Build plan (how many files to generate) ---------------------------------
+# The grid per surviving clean parent is fixed by the spec: 7 labels x L1-L4
+# plus 4 composites = 32 files. What is capped is the number of parents, so the
+# severity ladder and the label taxonomy stay complete for every text.
+#
+# Cost, not taste, sets the cap: scripts/qc_dataset.py re-aligns every generated
+# variant with MFA at num_jobs=1 (roughly real time), so all 62 clean parents
+# would be 1984 variants / ~20 h of alignment. 2 parents x 6 texts = 384 files
+# keeps the full grid for two readers of every text.
+plan:
+  max_parents_per_text: 2 # 0 or null = no cap; --max-parents-per-text overrides
+
 # --- Splicing invariants (plan 4.2) -----------------------------------------
 splice:
   crossfade_ms: 10.0 # raised-cosine, applied both sides of every cut

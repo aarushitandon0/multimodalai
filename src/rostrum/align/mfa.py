@@ -664,13 +664,21 @@ def list_models(kind: str = "acoustic", *, env_name: str = "mfa") -> list[str]:
     Used to check that the names in ``configs/paths.yaml`` (``english_us_arpa``)
     still exist before an alignment run, per the spec's day-1 note.
 
+    Two output formats are accepted, because they differ by MFA version and the
+    name check is the gate in front of every alignment run:
+
+    * MFA 3.x prints one Python list literal - ``['english_us_arpa']`` -
+      verified against ``mfa model list acoustic`` under MFA 3.2.1, which
+      offers no plain-text or JSON output flag;
+    * older builds print one name per line, optionally bulleted.
+
     Args:
         kind: ``acoustic``, ``dictionary``, ``g2p``, ``language_model`` or
             ``ivector`` - whatever ``mfa model list`` accepts.
         env_name: Conda environment holding MFA.
 
     Returns:
-        Model names, one per non-empty output line that looks like a name.
+        Model names, in the order MFA listed them.
 
     Raises:
         MFANotAvailableError: conda or the environment is missing.
@@ -679,9 +687,17 @@ def list_models(kind: str = "acoustic", *, env_name: str = "mfa") -> list[str]:
     out = _run_mfa_command(["model", "list", kind], env_name=env_name, timeout=300.0)
     names: list[str] = []
     for line in (out.stdout or "").splitlines():
-        token = line.strip().lstrip("-*• ").strip()
-        if token and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", token):
-            names.append(token)
+        stripped = line.strip()
+        # MFA 3.x: a list literal on one line. Split it into candidate tokens so
+        # the same name check below applies to both formats.
+        if stripped.startswith("[") and stripped.endswith("]"):
+            candidates = stripped[1:-1].split(",")
+        else:
+            candidates = [stripped]
+        for candidate in candidates:
+            token = candidate.strip().lstrip("-*• ").strip().strip("\"'").strip()
+            if token and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", token):
+                names.append(token)
     return names
 
 
@@ -755,7 +771,7 @@ def validate(
     extra_dict: str | Path | None = None,
     env_name: str = "mfa",
     num_jobs: int = 1,
-    timeout: float | None = 1800.0,
+    timeout: float | None = 14400.0,
     search_dirs: Sequence[str | Path] = (),
 ) -> ValidationReport:
     """Run ``mfa validate`` on a staged corpus and collect its OOV words.
@@ -831,7 +847,7 @@ def run_mfa(
     beam: int | None = None,
     retry_beam: int | None = None,
     extra_args: Sequence[str] = (),
-    timeout: float | None = 7200.0,
+    timeout: float | None = 21600.0,
 ) -> list[Path]:
     """Align a staged corpus, returning the TextGrids MFA wrote.
 

@@ -16,6 +16,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
+from rostrum.align.mfa import MFAError
 from rostrum.config import load_config
 from rostrum.data.manifest import ManifestRow, append_manifest, read_manifest
 from rostrum.inject import qc
@@ -519,3 +520,27 @@ def test_the_utmos_scorer_reads_a_wav_off_disk(tmp_path) -> None:
 
     assert score == pytest.approx(4.01)
     assert predictor.calls == [((1, 16_000), 16_000)]
+
+
+# --------------------------------------------------------------------------- #
+# Batched re-alignment (one MFA invocation for the whole QC pass)
+# --------------------------------------------------------------------------- #
+
+
+def test_mfa_realign_batch_empty_never_shells_out() -> None:
+    """An empty batch is a no-op: MFA must not be invoked to align nothing."""
+    assert qc.mfa_realign_batch([], Path("unused")) == {}
+
+
+def test_cached_aligner_serves_from_the_batch() -> None:
+    alignment = _alignment([("hello", 0.0, 0.5)], file_id="f1_rushing_L2")
+    aligner = qc.cached_aligner({"f1_rushing_L2": alignment})
+    got = aligner(Path("f1_rushing_L2.wav"), "hello", "f1_rushing_L2", Path("unused"))
+    assert got is alignment
+
+
+def test_cached_aligner_raises_mfa_error_for_a_file_mfa_dropped() -> None:
+    """A variant MFA produced no TextGrid for is gated as a failure, not crashed on."""
+    aligner = qc.cached_aligner({})
+    with pytest.raises(MFAError, match="no batch re-alignment for f1_rushing_L2"):
+        aligner(Path("f1_rushing_L2.wav"), "hello", "f1_rushing_L2", Path("unused"))

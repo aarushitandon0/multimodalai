@@ -51,7 +51,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from rostrum.align.mfa import prepare_corpus, read_textgrid, run_mfa
+from rostrum.align.mfa import MFAError, prepare_corpus, read_textgrid, run_mfa
 from rostrum.config import Config, load_config
 from rostrum.data.manifest import append_manifest, read_manifest
 from rostrum.types import Alignment
@@ -321,6 +321,98 @@ def mfa_realign(wav_path: Path, transcript: str, file_id: str, work_dir: Path) -
         acoustic_model=str(mfa_cfg["acoustic_model"]),
         dictionary=str(mfa_cfg["dictionary"]),
     )
+
+
+def mfa_realign_batch(
+    items: Iterable[tuple[Path, str, str]],
+    work_dir: Path,
+) -> dict[str, Alignment]:
+    """Align many edited WAVs in a single MFA invocation (invariant 4).
+
+    :func:`mfa_realign` stages a corpus of one file, which keeps a failure
+    attributable but pays MFA 3.x's start-up cost - a local postgres server and
+    a whole-corpus validate - once per file. That cost dominates: it is minutes
+    per call regardless of how short the file is, so re-aligning a few hundred
+    variants one at a time costs hours of pure start-up. Staging every file into
+    one corpus pays it once.
+
+    Attribution survives because MFA writes one TextGrid per input basename, so
+    a file that fails to align is simply absent from the returned mapping and
+    the caller reports it against its own ``file_id``.
+
+    Args:
+        items: ``(wav_path, transcript, file_id)`` triples.
+        work_dir: Scratch directory for the corpus and the TextGrids.
+
+    Returns:
+        ``file_id -> Alignment`` for every file MFA produced a TextGrid for.
+        Files MFA could not align are omitted, not raised for.
+
+    Raises:
+        rostrum.align.mfa.MFANotAvailableError: conda or the env is missing.
+        rostrum.align.mfa.MFAError: The whole batch failed to align.
+    """
+    triples = [(Path(wav), transcript, file_id) for wav, transcript, file_id in items]
+    if not triples:
+        return {}
+
+    cfg = load_config(apply_seeds=False)
+    mfa_cfg = cfg.paths["mfa"]
+    corpus_dir = Path(work_dir) / "corpus"
+    out_dir = Path(work_dir) / "aligned"
+
+    staged = prepare_corpus(triples, corpus_dir)
+    logger.info("re-aligning %d file(s) in one MFA corpus at %s", len(triples), corpus_dir)
+    grids = run_mfa(
+        corpus_dir,
+        out_dir,
+        acoustic=str(mfa_cfg["acoustic_model"]),
+        dictionary=str(mfa_cfg["dictionary"]),
+        extra_dict=mfa_cfg["extra_dict"],
+        env_name=str(mfa_cfg["env_name"]),
+        num_jobs=int(mfa_cfg["num_jobs"]),
+    )
+
+    out: dict[str, Alignment] = {}
+    for grid in grids:
+        file_id = Path(grid).stem
+        item = staged.get(file_id)
+        if item is None:  # a TextGrid we did not ask for; ignore it
+            continue
+        out[file_id] = read_textgrid(
+            grid,
+            file_id=file_id,
+            text=item.text,
+            aligner="mfa",
+            acoustic_model=str(mfa_cfg["acoustic_model"]),
+            dictionary=str(mfa_cfg["dictionary"]),
+        )
+    missing = [t[2] for t in triples if t[2] not in out]
+    if missing:
+        logger.warning("MFA produced no TextGrid for %d file(s): %s", len(missing), missing)
+    return out
+
+
+def cached_aligner(cache: Mapping[str, Alignment]) -> Aligner:
+    """Wrap a precomputed ``file_id -> Alignment`` map as an :class:`Aligner`.
+
+    Lets :func:`realign_check` consume a batch produced by
+    :func:`mfa_realign_batch` without changing how a single file is gated.
+
+    Args:
+        cache: Alignments by ``file_id``.
+
+    Returns:
+        An aligner that serves from ``cache`` and never shells out to MFA.
+    """
+
+    def _aligner(wav_path: Path, transcript: str, file_id: str, work_dir: Path) -> Alignment:
+        try:
+            return cache[file_id]
+        except KeyError as exc:
+            raise MFAError(f"no batch re-alignment for {file_id}") from exc
+
+    return _aligner
 
 
 def realign_check(

@@ -188,6 +188,12 @@ def align_batch(
     corpus_dir = cfg.path("mfa.corpus_dir")
     out_dir = cfg.path("mfa.output_dir")
     extra_dict = mfa_cfg["extra_dict"]
+    # Wall-clock budgets scale with total audio, not file count (num_jobs: 1).
+    configured = dict(mfa_cfg.get("timeouts") or {})
+    timeouts = {
+        "validate_s": float(configured.get("validate_s", 14400.0)),
+        "align_s": float(configured.get("align_s", 21600.0)),
+    }
 
     staged = prepare_corpus(items, corpus_dir)
     report = validate(
@@ -197,6 +203,7 @@ def align_batch(
         extra_dict=extra_dict,
         env_name=env,
         num_jobs=int(mfa_cfg["num_jobs"]),
+        timeout=timeouts["validate_s"],
     )
     if report.oov_words and not allow_oov:
         raise MFAError(
@@ -215,6 +222,7 @@ def align_batch(
         extra_dict=extra_dict,
         env_name=env,
         num_jobs=int(mfa_cfg["num_jobs"]),
+        timeout=timeouts["align_s"],
     )
     if not keep_corpus:
         shutil.rmtree(corpus_dir, ignore_errors=True)

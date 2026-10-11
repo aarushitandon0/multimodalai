@@ -86,6 +86,15 @@ mfa:
   corpus_dir: ".cache/mfa/corpus"
   output_dir: ".cache/mfa/aligned"
   num_jobs: 1 # >1 makes MFA output ordering nondeterministic
+  # Subprocess wall-clock budgets, in seconds. These are machine-speed
+  # allowances, not quality gates: `num_jobs: 1` means a whole-corpus validate
+  # or align is one single-threaded pass over every file, so the budget has to
+  # scale with total audio duration, not with file count. Measured on the
+  # 62-file / ~1.6 h clean corpus: validate needs well over 1800 s on a busy
+  # machine. Raise these rather than reducing the corpus or raising num_jobs.
+  timeouts:
+    validate_s: 14400
+    align_s: 21600
   qc:
     # scripts/align_report.py flags a file when
     #   (<unk> + zero-length + never-aligned words) / aligned words
