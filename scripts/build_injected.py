@@ -30,11 +30,11 @@ Inputs it needs, and what happens when they are missing:
   ``dataset/alignments/<file_id>.TextGrid`` - run ``scripts/align_clean.py``
   first; without the TextGrid a file is skipped, not guessed at.
 * **gap labels** (``boundary`` / ``minor`` / ``none``) come from the display
-  transcript's punctuation via ``rostrum.text``, which is not written yet. MFA
-  leaves every gap at ``"none"``, and four of the seven labels need a
-  ``boundary`` gap to exist, so until ``rostrum.text`` lands this script reports
-  those as rejections with the reason ``needs gap labels``. It does **not**
-  invent sentence structure from silence durations.
+  transcript's punctuation via ``rostrum.text`` (:func:`label_gaps`). MFA leaves
+  every gap at ``"none"``, and four of the seven labels need a ``boundary`` gap
+  to exist, so a recording whose text has no usable display transcript yields
+  only the three timing labels. Structure comes from the text; this script does
+  **not** invent sentence structure from silence durations.
 
 Usage::
 
@@ -73,8 +73,11 @@ from rostrum.data.manifest import ManifestRow, append_manifest, read_licenses, r
 from rostrum.inject import engine, qc
 from rostrum.inject.engine import CleanFile, InjectionResult, NoValidSpanError
 from rostrum.inject.ops import InjectionError
+from rostrum.features.pauses import apply_gap_labels
 from rostrum.io.audio import SAMPLE_RATE, load_any, write_wav16
 from rostrum.io.hashing import sha256_file
+from rostrum.text.gaps import counts as gap_label_counts
+from rostrum.text.gaps import gap_label_map
 from rostrum.types import Alignment
 
 logger = logging.getLogger("build_injected")
@@ -123,6 +126,65 @@ def _speaker_ids(cfg: Config) -> dict[str, str]:
     return out
 
 
+def display_transcript_for(file_id: str, text_id: str, texts_dir: Path) -> str:
+    """Return the *display* transcript for one recording, or ``""`` if none.
+
+    The display transcript is the one that still carries punctuation and
+    paragraphing, which is the whole input to the gap labeller (spec 7.1).
+    Lookup order mirrors :func:`scripts.align_clean.transcript_for`: a
+    per-reading override wins, then the text JSON's ``display`` field (falling
+    back to ``verbatim``), then the plain ``.txt``.
+
+    Args:
+        file_id: The recording's id.
+        text_id: The library text it is a rendition of.
+        texts_dir: ``dataset/texts``.
+
+    Returns:
+        The transcript as written, or an empty string when nothing usable
+        exists - in which case every gap keeps its default ``"none"``.
+    """
+    override = texts_dir / "overrides" / f"{file_id}.txt"
+    if override.is_file():
+        text = override.read_text(encoding="utf-8").strip()
+        if text:
+            return text
+    as_json = texts_dir / f"{text_id}.json"
+    if as_json.is_file():
+        data = json.loads(as_json.read_text(encoding="utf-8"))
+        for field_name in ("display", "verbatim"):
+            text = str(data.get(field_name) or "").strip()
+            if text and not text.startswith("TODO"):
+                return text
+    as_txt = texts_dir / f"{text_id}.txt"
+    if as_txt.is_file():
+        return as_txt.read_text(encoding="utf-8").strip()
+    return ""
+
+
+def label_gaps(cfg: Config, alignment: Alignment, row: ManifestRow) -> None:
+    """Attach text-derived ``boundary``/``minor``/``none`` labels to the gaps.
+
+    MFA leaves every gap unlabelled, and four of the seven flaw labels need the
+    phrase structure (``missing_pause`` and ``low_energy`` read it directly,
+    ``monotone`` and ``misplaced_stress`` through the phrases it induces), so
+    without this step those labels have no valid span anywhere.
+
+    Args:
+        cfg: Resolved config; supplies ``detection.gap_labels`` and the texts
+            directory.
+        alignment: The clean alignment, relabelled in place.
+        row: The recording's manifest row, for the transcript lookup.
+    """
+    display = display_transcript_for(row.file_id, row.text_id or "", cfg.path("data.texts"))
+    if not display:
+        logger.warning("%s: no display transcript; every gap stays 'none'", row.file_id)
+        return
+    labels = gap_label_map(display, n_gaps=len(alignment.gaps), config=cfg)
+    alignment.gaps = apply_gap_labels(alignment.gaps, labels)
+    logger.info("%s: gap labels %s", row.file_id, gap_label_counts(labels))
+
+
 def load_clean_file(cfg: Config, row: ManifestRow, speaker_id: str = "") -> CleanFile:
     """Load one clean recording and its alignment into a :class:`CleanFile`.
 
@@ -161,6 +223,7 @@ def load_clean_file(cfg: Config, row: ManifestRow, speaker_id: str = "") -> Clea
         duration=audio.size / float(sr),
     )
     alignment.tier = row.tier or None  # type: ignore[assignment]
+    label_gaps(cfg, alignment, row)
     return CleanFile(audio=np.asarray(audio, dtype=np.float64), sr=sr, alignment=alignment)
 
 

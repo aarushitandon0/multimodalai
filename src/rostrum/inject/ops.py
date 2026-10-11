@@ -155,6 +155,10 @@ PASS2_Q3_SCALE: float = 1.50
 PASS2_MIN_FLOOR_HZ: float = 40.0
 PASS2_MAX_CEILING_HZ: float = 800.0
 PASS2_MIN_VOICED_FRAMES: int = 50
+# Praat's autocorrelation window is 3 / floor long, so a clip shorter than that
+# cannot be analysed at that floor at all. Above this floor the "speaker range"
+# is a fiction (a 10 ms clip would need 300 Hz), so such a span is refused.
+MAX_ANALYSABLE_FLOOR_HZ: float = 180.0
 
 _PITCH_AC_ARGS: tuple[float, int, str, float, float, float, float, float] = (
     0.0,  # time step: 0 = Praat's default (ceiling-dependent)
@@ -429,6 +433,27 @@ def _draw_praat_seed(params: Params, rng: np.random.Generator | None) -> int:
     return int(rng.integers(0, 2**31 - 1))
 
 
+def min_analysable_floor_hz(n_samples: int, sr: int, *, margin: float = 1.02) -> float:
+    """Lowest pitch floor Praat can use on a clip of ``n_samples`` samples.
+
+    Praat's autocorrelation window is ``3 / floor`` seconds long and it refuses
+    a sound shorter than one window, so the floor is bounded below by
+    ``3 / duration``. ``margin`` keeps the result off the exact boundary, where
+    float rounding decides whether Praat accepts the call.
+
+    Args:
+        n_samples: Length of the clip.
+        sr: Sample rate.
+        margin: Safety factor on the boundary value.
+
+    Returns:
+        The floor in Hz, or ``0.0`` for an empty clip.
+    """
+    if n_samples <= 0 or sr <= 0:
+        return 0.0
+    return margin * 3.0 * sr / float(n_samples)
+
+
 def two_pass_pitch_range(
     audio: np.ndarray,
     sr: int,
@@ -472,6 +497,14 @@ def two_pass_pitch_range(
     Returns:
         ``(floor_hz, ceiling_hz)`` for the second pass.
     """
+    # A span shorter than Praat's 3 / floor analysis window makes "To Pitch (ac)"
+    # raise rather than return, and pass 2 would then be estimated from nothing
+    # anyway. Raise the floor to the shortest window the clip can carry, and
+    # report that floor back: the caller passes it straight to Praat.
+    floor_hz = max(float(floor_hz), min_analysable_floor_hz(_as_mono(audio).size, sr))
+    if floor_hz >= float(ceiling_hz):
+        return float(floor_hz), float(ceiling_hz)
+
     sound = _to_sound(audio, sr)
     pitch = call(
         sound,
@@ -496,7 +529,7 @@ def two_pass_pitch_range(
     if not (math.isfinite(q1) and math.isfinite(q3)) or q1 <= 0.0 or q3 <= 0.0:
         return float(floor_hz), float(ceiling_hz)
 
-    new_floor = max(float(min_floor_hz), q1_scale * q1)
+    new_floor = max(float(min_floor_hz), q1_scale * q1, float(floor_hz))
     new_ceiling = min(float(max_ceiling_hz), q3_scale * q3)
     if new_ceiling <= new_floor * 1.5:
         # A degenerate range would make PSOLA worse, not better.
@@ -836,6 +869,11 @@ def _psola_time_scale(chunk: np.ndarray, sr: int, factor: float, seed: int) -> n
     if abs(factor - 1.0) < 1e-12:
         return x.copy()
     floor_hz, ceiling_hz = two_pass_pitch_range(x, sr)
+    if floor_hz > MAX_ANALYSABLE_FLOOR_HZ:
+        raise InjectionError(
+            f"span is {1000.0 * x.size / sr:.0f} ms, too short for TD-PSOLA: it would need a "
+            f"{floor_hz:.0f} Hz pitch floor (max {MAX_ANALYSABLE_FLOOR_HZ:.0f} Hz)"
+        )
     sound = _to_sound(x, sr)
     seed_praat(seed)
     out = call(
