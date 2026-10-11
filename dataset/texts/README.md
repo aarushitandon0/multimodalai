@@ -27,13 +27,28 @@ A token-count mismatch between `verbatim` and the aligned TextGrid is a hard
 error in `read_textgrid`, by design: it means word index *i* no longer refers to
 the same word across renditions, which would invalidate every comparison.
 
-## Status (2026-10-05)
+## Status (2026-10-11)
 
-| Text | `verbatim` | Note |
-|---|---|---|
-| `s1_gettysburg` | Bliss copy, 272 tokens | needs per-reader checks, see below |
-| `s2_jfk_inaugural` | `TODO(human)` | transcribe the chosen 90–150 s excerpt |
-| `s3_fdr_infamy` | `TODO(human)` | transcribe the 0–413 s excerpt |
+| Text | `verbatim` | Readers | Note |
+|---|---|---|---|
+| `s1_gettysburg` | Bliss copy, 272 tokens | 16 | needs per-reader checks, see below |
+| `s2_jfk_inaugural` | `TODO(human)` | 1 | transcribe the chosen 90–150 s excerpt; needs registration to download |
+| `s3_fdr_infamy` | filled, 523 tokens | 1 | **~55 s of applause inside the excerpt** — see the file's `notes` before aligning |
+| `s5_im_nobody` | filled, 40 tokens | 17 | edition variant "livelong day" vs "livelong June" to check per reader |
+| `s6_sunset_lampman` | filled, ~130 tokens | 14 | longest of the three new texts; OOV risk list in `notes` |
+| `s7_sonnet18` | filled, ~115 tokens | 14 | archaic elisions (`ow'st`, `dimm'd`) — highest OOV risk, resolve first |
+
+`s1`, `s5`, `s6` and `s7` are the four texts with enough independent readers to
+build an envelope, which is what makes leave-one-text-out folds possible at all
+(spec 11); `s2` and `s3` are single gold recordings. Every one of `s5`–`s7` comes
+from a LibriVox "Multi-version (Weekly and Fortnightly poetry)" collection: one
+short fixed text, a dozen-odd independent volunteers — the same property that
+made `s1` usable.
+
+**None of `s5`–`s7` is alignment-ready yet.** Their `excerpt_start_s` /
+`excerpt_end_s` are all still `null`, so each clean WAV still carries the spoken
+LibriVox intro and outro, which is not part of the text. That has to be set per
+file before `make align` (see point 1 below).
 
 ## Two things the LibriVox readings need before they will align
 

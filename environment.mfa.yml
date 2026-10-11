@@ -18,17 +18,27 @@
 # MFA is the only aligner used, for labels and at runtime (CLAUDE.md inv. 4).
 # torchaudio.functional.forced_align is NOT an option: removed in torchaudio 2.9.
 #
-# TODO(verify): no conda on this machine yet, so the pins below are the
-# intended versions and have not been resolved by a solver here. Run
-# `make setup-mfa` on a machine with conda/mamba, then replace the version
-# below with the output of `conda run -n mfa mfa version` and record the
-# resolved build in docs/ (references.md section 9 asks for exact versions).
+# Resolved: the Docker image (`make docker-build`) creates this env with
+# micromamba on linux-64; montreal-forced-aligner 3.2.1 / pyhd8ed1ab_0 from
+# conda-forge. There is still no conda on the Windows dev machine, so
+# `make setup-mfa` is unverified there - use the container.
 
 name: mfa
 channels:
   - conda-forge
 dependencies:
   - python=3.11
-  - montreal-forced-aligner=3.2.1 # TODO(verify) against `conda search -c conda-forge montreal-forced-aligner`
+  # 3.2.1 verified: resolved by the conda-forge solver in the Docker build
+  # (2026-10-11), `mfa version` prints 3.2.1.
+  - montreal-forced-aligner=3.2.1
+  # MFA 3.2.1 calls joblib.Memory(bytes_limit=...), which joblib 1.5 removed
+  # (TypeError: Memory.__init__() got an unexpected keyword argument
+  # 'bytes_limit' on `import montreal_forced_aligner`). Verified in the Docker
+  # build: unpinned joblib breaks even `mfa version`.
+  - joblib<1.5
+  # MFA -> kalpy -> praatio imports pkg_resources, which setuptools removed in
+  # 81 (ModuleNotFoundError: No module named 'pkg_resources'). Same pin as the
+  # pip side keeps for sed_eval. Verified in the Docker build.
+  - setuptools<81
   - sqlite
   - postgresql # MFA 3.x uses a local postgres for its corpus database

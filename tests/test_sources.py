@@ -224,7 +224,19 @@ def test_bad_excerpt_value_raises() -> None:
 def test_repo_sources_yaml_parses() -> None:
     sources = load_sources(SOURCES_YAML)
     ids = [s.id for s in sources]
-    assert ids == ["S1", "S1b", "S2", "S3", "S4", "team_s1", "team_s2", "team_s3"]
+    assert ids == [
+        "S1",
+        "S1b",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "team_s1",
+        "team_s2",
+        "team_s3",
+    ]
 
 
 def test_repo_sources_declare_expected_file_counts() -> None:

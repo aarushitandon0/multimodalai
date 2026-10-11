@@ -28,6 +28,9 @@ COMPONENT_ARGS ?=
 # Extra flags for `make eval` / `make ablations`, e.g.
 #   make eval EVAL_ARGS="--corpus dataset"
 EVAL_ARGS      ?=
+# Extra flags for `make smoke-align`, e.g.
+#   make smoke-align SMOKE_ARGS="--wav a.wav --txt a.txt --keep"
+SMOKE_ARGS     ?=
 ifeq ($(OS),Windows_NT)
   PY       := $(VENV)/Scripts/python.exe
   BIN      := $(VENV)/Scripts
@@ -42,11 +45,15 @@ PORT_APP   ?= 8501
 
 SRC := src tests eval scripts app
 
-.PHONY: help setup setup-mfa lock data download provenance features envelope eval components \
-        ablations figures failures app app-remote api api-docs dashboard-figures test lint \n        format reproduce demo clean clean-cache \
-        qc qc-report package package-check feature-demo features-sample cards examples \
-        check-env smoke-align mfa-version align align-report build-clean inject \
-        envelope-synthetic tuning classifier rubric
+.PHONY: help setup setup-mfa lock data download
+.PHONY: provenance features envelope eval components ablations
+.PHONY: figures failures app app-remote api api-docs
+.PHONY: dashboard-figures test lint format reproduce
+.PHONY: demo clean clean-cache qc qc-report package
+.PHONY: package-check feature-demo features-sample cards examples check-env
+.PHONY: smoke-align mfa-version align align-report build-clean inject
+.PHONY: envelope-synthetic tuning classifier rubric docker-build docker-run
+.PHONY: docker-reproduce docker-verify docker-shell
 
 ## ---------------------------------------------------------------------------
 ## Help
@@ -103,7 +110,7 @@ mfa-version: ## Print the installed MFA version and available model names
 	@conda run -n $(MFA_ENV) mfa model list dictionary
 
 smoke-align: ## Align dataset_sample/smoke/<id>.wav and print the first 10 words
-	$(PY) scripts/smoke_align.py
+	$(PY) scripts/smoke_align.py $(SMOKE_ARGS)
 
 data: download provenance build-clean align align-report inject qc annotate-import package ## Download -> preprocess -> align -> inject -> QC -> labels -> package
 
@@ -232,6 +239,30 @@ lint: ## ruff + black --check
 format: ## Apply ruff --fix and black
 	$(PY) -m ruff check --fix $(SRC)
 	$(PY) -m black $(SRC)
+
+## ---------------------------------------------------------------------------
+## Docker (Linux image: ffmpeg + micromamba + MFA english_us_arpa baked in)
+## ---------------------------------------------------------------------------
+
+DOCKER_IMAGE ?= rostrum:latest
+# The smoke recording used by `make docker-verify`: any committed sample pair.
+DOCKER_SMOKE_WAV ?= dataset_sample/audio/s1_lv01.wav
+DOCKER_SMOKE_TEXT ?= dataset_sample/transcripts/s1_gettysburg.json
+
+docker-build: ## Build the image (installs conda+MFA+ffmpeg+deps; ~20 min cold)
+	docker build -t $(DOCKER_IMAGE) .
+
+docker-run: ## Streamlit on :$(PORT_APP) and FastAPI on :$(PORT_API) inside the image
+	docker run --rm -it -p $(PORT_APP):8501 -p $(PORT_API):8000 $(DOCKER_IMAGE)
+
+docker-verify: ## Gate: pytest + MFA version/models + one real alignment, in the image
+	docker run --rm $(DOCKER_IMAGE) bash scripts/docker_verify.sh
+
+docker-reproduce: ## `make reproduce` in the image, writing results/ + docs/figures back out
+	docker run --rm -v "$(CURDIR)/results:/app/results" -v "$(CURDIR)/docs/figures:/app/docs/figures" $(DOCKER_IMAGE) make reproduce
+
+docker-shell: ## Interactive shell in the image (debugging the build)
+	docker run --rm -it $(DOCKER_IMAGE) bash
 
 ## ---------------------------------------------------------------------------
 ## Reproduce everything

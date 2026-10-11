@@ -166,6 +166,133 @@ sources:
     files:
       - { file_id: s4_lv01, reader: John Stamper, download_url: "TODO(human)", excerpt_start_s: null, excerpt_end_s: null }
 
+
+  # ----------------------------------------------------------------- S5 ----
+  - id: S5
+    text_id: s5_im_nobody
+    title: "I'm Nobody! Who are you?"
+    tier: silver
+    speech_date: "1891"
+    page_url: https://librivox.org/im-nobody-by-emily-dickinson/
+    licence: >-
+      LibriVox recordings are Public Domain in the USA. If you are not in the
+      USA, please verify the copyright status of these works in your own country
+      before downloading, otherwise you may be violating copyright laws.
+    licence_evidence_url: https://archive.org/details/im_nobody_librivox
+    provenance: S5_librivox_im_nobody.html
+    expected_files: 17
+    notes: >-
+      17 volunteer readers of one 8-line poem.
+      LibriVox genre tag "Multi-version (Weekly and Fortnightly poetry)": many
+      independent volunteers read one short fixed text, which is the same
+      property that makes S1 usable as an envelope (spec 4.2, 10.2).
+      The page does not state a Weekly Poetry project date.
+      Text source given on the page: https://www.bartleby.com/113/1027.html
+      TODO(human): every file carries a spoken LibriVox intro and outro that is
+      NOT part of the poem. Set excerpt_start_s / excerpt_end_s per file, then
+      `python scripts/build_clean.py --force`. Until then align_report.py will
+      flag all of them.
+    files:
+      - { file_id: s5_lv01, reader: "Alan Davis-Drake", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson1_add.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv02, reader: "Alan Davis-Drake", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson2_add.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv03, reader: "Abby Moore", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_am.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv04, reader: "Ancilla", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_anc.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv05, reader: "Atalanta Pendragonne", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_ap.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv06, reader: "Betsie Bush", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_blb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv07, reader: "EnglishNomad", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_en.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv08, reader: "Howard Dratch", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_hfd.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv09, reader: "Julian Jamison", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_jcj.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv10, reader: "Justin Brett", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_jeb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv11, reader: "Jennette Selig", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_js.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv12, reader: "Karen Savage", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_krs.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv13, reader: "Lucy Burgoyne", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_lb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv14, reader: "MMV Hamilton", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_mmv.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv15, reader: "Lady Maria", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_mt.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv16, reader: "Tim McKenzie", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_tjm.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s5_lv17, reader: "Shurtagal", download_url: "https://archive.org/download/im_nobody_librivox/im_nobody_dickinson_zhss.mp3", excerpt_start_s: null, excerpt_end_s: null }
+
+  # ----------------------------------------------------------------- S6 ----
+  - id: S6
+    text_id: s6_sunset_lampman
+    title: Sunset
+    tier: silver
+    speech_date: "1888"
+    page_url: https://librivox.org/sunset-by-archibald-lampman/
+    licence: >-
+      LibriVox recordings are Public Domain in the USA. If you are not in the
+      USA, please verify the copyright status of these works in your own country
+      before downloading, otherwise you may be violating copyright laws.
+    licence_evidence_url: https://archive.org/details/sunset_2211.poem_librivox
+    provenance: S6_librivox_sunset_lampman.html
+    expected_files: 14
+    notes: >-
+      14 volunteer readers of one poem; files run ~95 s each.
+      LibriVox genre tag "Multi-version (Weekly and Fortnightly poetry)": many
+      independent volunteers read one short fixed text, which is the same
+      property that makes S1 usable as an envelope (spec 4.2, 10.2).
+      The page states: "This was the Weekly Poetry project for November 20, 2022."
+      Text source given on the page: https://www.gutenberg.org/ebooks/12664
+      TODO(human): every file carries a spoken LibriVox intro and outro that is
+      NOT part of the poem. Set excerpt_start_s / excerpt_end_s per file, then
+      `python scripts/build_clean.py --force`. Until then align_report.py will
+      flag all of them.
+    files:
+      - { file_id: s6_lv01, reader: "Algy Pug", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_alp_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv02, reader: "Bruce Kachuk", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_bk_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv03, reader: "Bryn Roberts", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_br_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv04, reader: "David Lawrence", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_dl_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv05, reader: "Jonathan Jones", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_jfj_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv06, reader: "Kerry Adams", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_kla_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv07, reader: "KevinS", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_ks_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv08, reader: "Lee Ann Howlett", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_lah_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv09, reader: "Laurie Banza", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_lb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv10, reader: "Larry Wilson", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_lcw_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv11, reader: "LeeSalter", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_ls_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv12, reader: "Mark Dykshoorn", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_md_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv13, reader: "redrun", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_rr_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s6_lv14, reader: "stepheather", download_url: "https://archive.org/download/sunset_2211.poem_librivox/sunset_lampman_sds_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+
+  # ----------------------------------------------------------------- S7 ----
+  - id: S7
+    text_id: s7_sonnet18
+    title: Sonnet 18 ("Shall I compare thee to a summer's day?")
+    tier: silver
+    speech_date: "1609"
+    page_url: https://librivox.org/sonnet-18-by-william-shakespeare-2/
+    licence: >-
+      LibriVox recordings are Public Domain in the USA. If you are not in the
+      USA, please verify the copyright status of these works in your own country
+      before downloading, otherwise you may be violating copyright laws.
+    licence_evidence_url: https://archive.org/details/sonnet_18_1604.poem_librivox # item usage = Public Domain Mark 1.0
+    provenance: S7_librivox_sonnet18.html
+    expected_files: 14
+    notes: >-
+      14 volunteer readers of one 14-line sonnet; files run 1:05-1:33 each.
+      LibriVox genre tag "Multi-version (Weekly and Fortnightly poetry)": many
+      independent volunteers read one short fixed text, which is the same
+      property that makes S1 usable as an envelope (spec 4.2, 10.2).
+      The page does not state a Weekly Poetry project date.
+      Text source given on the page: https://www.gutenberg.org/ebooks/1041
+      TODO(human): every file carries a spoken LibriVox intro and outro that is
+      NOT part of the poem. Set excerpt_start_s / excerpt_end_s per file, then
+      `python scripts/build_clean.py --force`. Until then align_report.py will
+      flag all of them.
+    files:
+      - { file_id: s7_lv01, reader: "Algy Pug", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_alp_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv02, reader: "Bruce Kachuk", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_bk_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv03, reader: "Eunah Choi", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_cea_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv04, reader: "David Lawrence", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_dl_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv05, reader: "Garth Burton", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_gb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv06, reader: "Greg Giordano", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_gg_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv07, reader: "Ian King", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_ik_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv08, reader: "Lee Ann Howlett", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_lah_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv09, reader: "Leonard Wilson (1930-2024)", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_llw_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv10, reader: "Maria Kasper", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_mk_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv11, reader: "NoelBadrian", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_nb_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv12, reader: "Phil Schempf", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_ps_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv13, reader: "Tony Addison", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_ta_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+      - { file_id: s7_lv14, reader: "Tomas Peter", download_url: "https://archive.org/download/sonnet_18_1604.poem_librivox/sonnet18_shakespeare_tp_128kb.mp3", excerpt_start_s: null, excerpt_end_s: null }
+
   # ---------------------------------------------------------------- TEAM ----
   # Bronze tier: our own readings of the same public-domain texts (spec 4.4).
   # Three sources because a source carries one `text_id`; all of their audio
