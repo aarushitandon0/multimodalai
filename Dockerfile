@@ -23,6 +23,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     MAMBA_ROOT_PREFIX=/opt/micromamba \
     MFA_ROOT_DIR=/opt/mfa \
     TORCH_HOME=/opt/torch \
+    HF_HOME=/opt/hf \
     PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # ---------------------------------------------------------------------------
@@ -75,6 +76,12 @@ RUN python -m venv /app/.venv \
          -r requirements.txt \
     && find /root/.cache -type d -name 'pip*' -prune -exec rm -rf {} + || true
 
+# faster-whisper weights for the transcript-mismatch check. configs/detection.yaml
+# sets asr.local_files_only: true (invariant 13), so without this the WER check
+# degrades silently and Reject mode never fires - which is exactly what
+# tests/test_pipeline.py::test_a_mismatched_transcript_is_rejected catches.
+RUN HF_HOME=/opt/hf /app/.venv/bin/python -c "from faster_whisper import WhisperModel; WhisperModel('tiny.en', device='cpu', compute_type='int8')"       && chmod -R a+rX /opt/hf
+
 # UTMOS for the injection QC gate, cached at build time so inference needs no
 # network (invariant 13). Non-fatal: `make qc` reports the miss itself.
 RUN /app/.venv/bin/python -c "import torch; torch.hub.load('tarepan/SpeechMOS:v1.2.0', 'utmos22_strong', trust_repo=True)" \
@@ -88,9 +95,13 @@ COPY . .
 RUN /app/.venv/bin/python -m pip install -e . --no-deps
 
 # Non-root: MFA 3.x starts a local postgres, and postgres refuses to run as root.
+# Only the directories written at runtime are opened up: a recursive chown of
+# /app/.venv and /opt/micromamba would rewrite ~5 GB of layer for nothing - both
+# are world-readable and only ever executed, never written.
 RUN useradd --create-home --uid 1000 rostrum \
-    && chown -R rostrum:rostrum /app /opt/micromamba \
-    && chmod -R a+rwX /opt/mfa
+    && mkdir -p /app/.cache /app/results /app/docs/figures \
+    && chown rostrum:rostrum /app \
+    && chmod -R a+rwX /app/.cache /app/results /app/docs /app/dataset /app/dataset_sample /opt/mfa /opt/torch
 USER rostrum
 
 EXPOSE 8501 8000

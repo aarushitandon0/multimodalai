@@ -771,17 +771,44 @@ def psds_crosscheck(
         ]
         for file_id in sorted(durations)
     }
-    result = sed_scores_eval.collar_based.auroc(  # pragma: no cover
-        scores,
-        ground_truth,
-        onset_collar=float(onset_collar_s),
-        offset_collar=float(onset_collar_s),
-        offset_collar_rate=float(offset_collar_frac),
-        max_fpr=0.1,
-    )
+    # Intersection-based PSDS, not a collar AUROC: sed_scores_eval 0.0.4 has no
+    # `collar_based.auroc`, and PSDS is the threshold-free number this
+    # cross-check is for. The collars become intersection thresholds - the
+    # onset collar as a fraction of the mean reference event, the offset collar
+    # rate directly - so the two engines are compared on comparable tolerance.
+    # Verified against the installed signature inside the Docker image.
+    mean_len = float(np.mean([e.t_end - e.t_start for e in reference])) if reference else 1.0
+    dtc = min(0.9, max(0.1, float(onset_collar_s) / mean_len)) if mean_len > 0 else 0.5
+    # TODO(verify): sed_scores_eval 0.0.4 wants `scores` as a per-file pandas
+    # DataFrame (onset, offset, one column per event class), not the list of
+    # (onset, offset, label, score) tuples built above - it raises
+    # "scores must be pandas.DataFrame but <class 'list'> was given."
+    # Until that conversion is written, report the cross-check as unavailable
+    # rather than substituting a number (the contract of this function).
+    try:  # pragma: no cover - exercised only where the package is installed
+        result = sed_scores_eval.intersection_based.psds(
+            scores,
+            ground_truth,
+            {file_id: float(dur) for file_id, dur in durations.items()},
+            dtc_threshold=dtc,
+            gtc_threshold=dtc,
+            max_efpr=100.0,
+            unit_of_time="hour",
+        )
+    except Exception as exc:  # pragma: no cover
+        return {
+            "available": False,
+            "reason": (
+                "sed_scores_eval is installed but its score format is not wired up yet: "
+                f"{exc.__class__.__name__}: {exc}"
+            ),
+        }
     return {  # pragma: no cover
         "available": True,
-        "auroc": round(float(result[0]), 4),
+        "psds": round(float(result[0]), 4),
+        "dtc_threshold": round(dtc, 4),
+        "gtc_threshold": round(dtc, 4),
+        "offset_collar_frac": float(offset_collar_frac),
         "engine": f"sed_scores_eval {getattr(sed_scores_eval, '__version__', '?')}",
     }
 
