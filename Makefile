@@ -43,7 +43,7 @@ PORT_APP   ?= 8501
 SRC := src tests eval scripts app
 
 .PHONY: help setup setup-mfa lock data download provenance features envelope eval components \
-        ablations figures failures app api test lint format reproduce demo clean clean-cache \
+        ablations figures failures app app-remote api api-docs dashboard-figures test lint \n        format reproduce demo clean clean-cache \
         qc qc-report package package-check feature-demo features-sample cards examples \
         check-env smoke-align mfa-version align align-report build-clean inject \
         envelope-synthetic tuning classifier rubric
@@ -197,11 +197,20 @@ failures: ## Three largest misses with suspected causes -> results/failures.md
 ## Serving
 ## ---------------------------------------------------------------------------
 
-app: ## Streamlit dashboard on :$(PORT_APP) (expects `make api` alongside)
-	@echo "TODO(phase8): $(BIN)/streamlit run app/streamlit_app.py --server.port $(PORT_APP)"
+app: ## Streamlit dashboard on :$(PORT_APP) (runs the pipeline in-process)
+	$(BIN)/streamlit run app/streamlit_app.py --server.port $(PORT_APP) 	    --server.headless true --browser.gatherUsageStats false
+
+app-remote: ## Dashboard on :$(PORT_APP) talking to the API on :$(PORT_API)
+	ROSTRUM_API_URL=http://127.0.0.1:$(PORT_API) $(BIN)/streamlit run app/streamlit_app.py 	    --server.port $(PORT_APP) --server.headless true --browser.gatherUsageStats false
 
 api: ## FastAPI service on :$(PORT_API)
-	@echo "TODO(phase8): $(BIN)/uvicorn rostrum.api.server:app --port $(PORT_API)"
+	$(BIN)/uvicorn rostrum.api.server:app --host 127.0.0.1 --port $(PORT_API)
+
+api-docs: ## Print the OpenAPI schema (no server needed)
+	$(PY) -c "import json, rostrum.api.server as s; print(json.dumps(s.app.openapi(), indent=2))"
+
+dashboard-figures: ## Render the dashboard's own figures into docs/figures
+	$(PY) -m scripts.dashboard_figures --out docs/figures
 
 demo: ## One analysis per operating mode -> results/examples/*.json
 	$(PY) -m scripts.analyze_examples

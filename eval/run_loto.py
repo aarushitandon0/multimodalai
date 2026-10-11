@@ -876,9 +876,7 @@ def _fold_target_values(payload: Mapping[str, Any], split: str) -> dict[str, flo
     return {
         "event_f1_200ms": float(block["event_f1"]),
         "onset_offset_mae_ms": (
-            None
-            if block["onset_offset_mae_ms"] is None
-            else float(block["onset_offset_mae_ms"])
+            None if block["onset_offset_mae_ms"] is None else float(block["onset_offset_mae_ms"])
         ),
         "flaw_type_macro_f1": float(block["typing"]["macro_f1"]),
         "severity_spearman_rho": severity.get("rho"),

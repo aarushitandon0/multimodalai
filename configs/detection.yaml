@@ -345,8 +345,14 @@ pipeline:
   text_match_threshold: 0.95
   # Curves returned for the dashboard overlay (spec 15.2). The participant's
   # within-word curve is DTW-warped onto the reference timeline (spec 10.1).
+  # The three signals are the three stacked panels of the overlay and must
+  # match `envelope.curves.signals`, or a panel has a band and no line.
+  # `rate_local_syll_per_s` has no frame column: it is a per-word quantity held
+  # constant across the word so it can share the overlay's x-axis.
   curves:
     enabled: true
     dtw: true
-    signals: ["f0_st", "energy_z"]
+    signals: ["f0_st", "energy_z", "rate_local_syll_per_s"]
+    # Features listed per word beside D_w, for the coloured transcript's hover.
+    top_z: 3
   cache_results: true

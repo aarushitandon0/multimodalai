@@ -51,6 +51,7 @@ CONFIG_FILES: tuple[str, ...] = (
     "detection",
     "scoring",
     "templates",
+    "serving",
 )
 """Config sections, each loaded from ``configs/<name>.yaml``."""
 
@@ -160,6 +161,8 @@ class Config:
         detection: ``configs/detection.yaml``.
         scoring: ``configs/scoring.yaml``.
         templates: ``configs/templates.yaml``.
+        serving: ``configs/serving.yaml`` - API limits and dashboard options
+            (spec 15). Nothing in it reaches detection or scoring.
         seed: Master seed, taken from ``injection.yaml``.
         hash: SHA-256 over all config sections; recorded in every
             :class:`~rostrum.types.AnalysisResult` so a report names the exact
@@ -173,6 +176,7 @@ class Config:
     detection: FrozenDict
     scoring: FrozenDict
     templates: FrozenDict
+    serving: FrozenDict
     seed: int = _DEFAULT_SEED
     hash: str = ""
     _overrides: FrozenDict = field(default_factory=lambda: FrozenDict({}), repr=False)
@@ -353,6 +357,7 @@ def load_config(
         detection=FrozenDict(sections["detection"]),
         scoring=FrozenDict(sections["scoring"]),
         templates=FrozenDict(sections["templates"]),
+        serving=FrozenDict(sections["serving"]),
         seed=resolved_seed,
         hash=config_hash(sections),
         _overrides=FrozenDict(dict(overrides)),

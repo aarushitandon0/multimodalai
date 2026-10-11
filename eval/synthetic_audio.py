@@ -318,11 +318,9 @@ def tables_for(
     Returns:
         ``({unit: FeatureTable}, FeatureBundle)``.
     """
-    import librosa
-
     from rostrum.features import extract_all as X
     from rostrum.features.pauses import apply_gap_labels as label_gaps
-    from rostrum.io.audio import preprocess
+    from rostrum.io.audio import preprocess, read_mono
     from rostrum.io.hashing import sha256_file
     from rostrum.text.gaps import gap_label_map
 
@@ -337,7 +335,7 @@ def tables_for(
                 config=config,
             ),
         )
-    samples, sr = librosa.load(str(processed), sr=config.sample_rate, mono=True)
+    samples, sr = read_mono(processed, sr=config.sample_rate)
     bundle, _ = X.extract_all_cached(
         np.asarray(samples, dtype=np.float32),
         int(sr),

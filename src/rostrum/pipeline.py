@@ -63,7 +63,7 @@ from rostrum.align import mfa as M
 from rostrum.config import Config, code_version, load_config
 from rostrum.detect import refine as RF
 from rostrum.detect.regions import RegionThresholds, build_regions
-from rostrum.detect.zscore import envelope_z, trigger_signals
+from rostrum.detect.zscore import ZResult, combined_deviation, envelope_z, trigger_signals
 from rostrum.envelope import norms as NO
 from rostrum.envelope.build import (
     CurveEnvelope,
@@ -77,7 +77,7 @@ from rostrum.envelope.build import (
 from rostrum.explain.cards import build_cards
 from rostrum.features import extract_all as X
 from rostrum.features import pauses as PA
-from rostrum.io.audio import preprocess
+from rostrum.io.audio import preprocess, read_mono
 from rostrum.io.hashing import sha256_bytes, sha256_file
 from rostrum.score.rubric import (
     build_descriptors,
@@ -530,16 +530,38 @@ class _Timer:
 # --------------------------------------------------------------------------- #
 
 
-def _curve_settings(config: Config) -> tuple[bool, bool, list[str], int]:
-    """``(enabled, dtw, signals, n_points)`` from the configuration."""
+@dataclass(frozen=True)
+class _CurveSettings:
+    """What ``detection.pipeline.curves`` asks the overlay to carry.
+
+    Attributes:
+        enabled: Compute curves at all.
+        dtw: Warp the participant's within-word curve onto the envelope's
+            timeline (spec 10.1's single permitted use of DTW).
+        signals: The overlay's stacked panels, in order.
+        n_points: Points per word on the normalised axis; the envelope's, so
+            the participant's curve and the band share an axis.
+        top_z: Features listed per word beside ``D_w``, strongest first.
+    """
+
+    enabled: bool = True
+    dtw: bool = True
+    signals: tuple[str, ...] = ()
+    n_points: int = 20
+    top_z: int = 3
+
+
+def _curve_settings(config: Config) -> _CurveSettings:
+    """Read :class:`_CurveSettings` from the configuration."""
     block = dict(config.detection["pipeline"].get("curves", {}))
     envelope_block = dict(config.detection["envelope"].get("curves", {}))
     signals = [str(s) for s in block.get("signals", envelope_block.get("signals", []))]
-    return (
-        bool(block.get("enabled", True)),
-        bool(block.get("dtw", True)),
-        signals,
-        int(envelope_block.get("n_points", 20)),
+    return _CurveSettings(
+        enabled=bool(block.get("enabled", True)),
+        dtw=bool(block.get("dtw", True)),
+        signals=tuple(signals),
+        n_points=int(envelope_block.get("n_points", 20)),
+        top_z=int(block.get("top_z", 3)),
     )
 
 
@@ -548,34 +570,165 @@ def _word_spans(alignment: Alignment) -> dict[int, tuple[float, float]]:
     return {int(w.idx): (float(w.t_start), float(w.t_end)) for w in alignment.words}
 
 
+def _word_value_fallback(
+    word_table: FeatureTable | None,
+    frames: FeatureTable | None,
+    signals: Sequence[str],
+) -> dict[str, dict[int, float]]:
+    """``{signal: {word_idx: value}}`` for overlay signals that have no frames.
+
+    Local speaking rate is the case this exists for: it is defined over a
+    window of words, not over a 10 ms frame, so :func:`word_curves` holds it
+    constant across the word instead of interpolating a frame column that does
+    not exist. Without this the overlay's third panel (spec 15.2) draws the
+    envelope band with no participant line behind it.
+    """
+    out: dict[str, dict[int, float]] = {}
+    if word_table is None:
+        return out
+    frame_columns = set(getattr(frames, "columns", []))
+    for signal in signals:
+        if signal in frame_columns or signal not in word_table.columns:
+            continue
+        out[str(signal)] = {
+            int(idx): float(value)
+            for idx, value in word_table[signal].items()
+            if np.isfinite(float(value))
+        }
+    return out
+
+
+def _cell(frame: Any, idx: Any, column: str) -> float | None:
+    """One finite cell of a z-score frame, or ``None``."""
+    try:
+        value = float(frame.loc[idx, column])
+    except (KeyError, TypeError, ValueError):
+        return None
+    return value if np.isfinite(value) else None
+
+
+def _word_deviation(
+    z_by_unit: Mapping[str, ZResult] | None,
+    *,
+    config: Config,
+    top_z: int,
+) -> tuple[dict[str, float], dict[str, list[dict[str, Any]]]]:
+    r"""Per-word :math:`D_w` and its strongest features, for the transcript tint.
+
+    Spec 15.2 colours each word of the transcript by
+
+    .. math:: D_w = \sqrt{\sum_k \lambda_k z_{wk}^2}
+
+    which :func:`~rostrum.detect.zscore.combined_deviation` already computes
+    from the same z-scores detection used. It is carried in the result rather
+    than recomputed in the dashboard, so the picture and the regions can never
+    disagree and a cached analysis is enough to redraw.
+
+    Args:
+        z_by_unit: The comparison's z-scores; empty in Reject mode.
+        config: Supplies the :math:`\lambda_k` weights.
+        top_z: Features to list per word, by ``|z|`` descending.
+
+    Returns:
+        ``({word_idx: D_w}, {word_idx: [{feature, z, value, env_median}, ...]})``,
+        both keyed by the word index as a string, both omitting words where
+        nothing was measurable.
+    """
+    deviation: dict[str, float] = {}
+    strongest: dict[str, list[dict[str, Any]]] = {}
+    word_z = (z_by_unit or {}).get("word")
+    if word_z is None:
+        return deviation, strongest
+
+    for idx, value in combined_deviation(word_z, config).items():
+        if np.isfinite(float(value)):
+            deviation[str(int(idx))] = float(value)
+
+    if top_z <= 0:
+        return deviation, strongest
+
+    for idx in word_z.z.index:
+        ranked = sorted(
+            (
+                (str(feature), float(z))
+                for feature, z in word_z.z.loc[idx].items()
+                if z is not None and np.isfinite(float(z))
+            ),
+            key=lambda item: (-abs(item[1]), item[0]),
+        )[: int(top_z)]
+        if not ranked:
+            continue
+        strongest[str(int(idx))] = [
+            {
+                "feature": feature,
+                "z": z,
+                "value": _cell(word_z.value, idx, feature),
+                "env_median": _cell(word_z.median, idx, feature),
+            }
+            for feature, z in ranked
+        ]
+    return deviation, strongest
+
+
 def _curve_payload(
     bundle: X.FeatureBundle,
     alignment: Alignment,
     curve_envelope: CurveEnvelope | None,
     *,
-    signals: Sequence[str],
-    n_points: int,
-    dtw: bool,
+    settings: _CurveSettings,
+    word_table: FeatureTable | None = None,
+    z_by_unit: Mapping[str, ZResult] | None = None,
+    config: Config | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Participant and envelope curves, ready to serialise (spec 15.2).
+    r"""Participant and envelope curves, ready to serialise (spec 15.2).
 
     The participant's within-word curves are resampled onto the same
     normalised axis as the envelope and then DTW-warped onto it (spec 10.1),
-    so the overlay compares the same point of the same word.
+    so the overlay compares the same point of the same word. Alongside them go
+    the per-word deviation :math:`D_w` and its strongest features, which the
+    dashboard tints the transcript with.
+
+    Args:
+        bundle: The participant's features; ``bundle.frames`` supplies the
+            frame-rate signals.
+        alignment: Supplies the word spans the curves are cut on.
+        curve_envelope: The band to warp onto, or ``None`` in Norm mode, where
+            there is no per-word reference curve to compare against.
+        settings: Signals, points per word, DTW and ``top_z``.
+        word_table: The participant's word table, for signals with no frame
+            column (local rate).
+        z_by_unit: The comparison's z-scores, for :math:`D_w`.
+        config: Supplies the :math:`\lambda_k` weights of :math:`D_w`.
+
+    Returns:
+        ``(participant, band)``, both empty when there is nothing to plot.
     """
+    signals = list(settings.signals)
     spans = _word_spans(alignment)
     if not signals or bundle.frames is None or len(bundle.frames) == 0 or not spans:
         return {}, {}
 
-    mine = word_curves(bundle.frames, spans, list(signals), n_points=n_points)
+    mine = word_curves(
+        bundle.frames,
+        spans,
+        signals,
+        n_points=settings.n_points,
+        word_values=_word_value_fallback(word_table, bundle.frames, signals),
+    )
     warped = mine
     if curve_envelope is not None:
-        warped = warp_to_envelope(mine, curve_envelope, signals=list(signals), dtw=dtw)
+        warped = warp_to_envelope(mine, curve_envelope, signals=signals, dtw=settings.dtw)
+
+    deviation, strongest = (
+        _word_deviation(z_by_unit, config=config, top_z=settings.top_z)
+        if config is not None
+        else ({}, {})
+    )
 
     participant = {
-        "signals": list(signals),
-        "n_points": int(n_points),
-        "dtw": bool(dtw and curve_envelope is not None),
+        "signals": signals,
+        "n_points": int(settings.n_points),
+        "dtw": bool(settings.dtw and curve_envelope is not None),
         "words": {
             str(idx): {
                 "t_start": round_time(spans[idx][0]),
@@ -585,6 +738,9 @@ def _curve_payload(
             for idx, curve in sorted(warped.items())
             if idx in spans
         },
+        # Spec 15.2's coloured transcript; see :func:`_word_deviation`.
+        "deviation": {k: deviation[k] for k in sorted(deviation, key=int)},
+        "top_z": {k: strongest[k] for k in sorted(strongest, key=int)},
     }
 
     band: dict[str, Any] = {}
@@ -593,6 +749,7 @@ def _curve_payload(
             "signals": list(curve_envelope.signals),
             "n_points": int(curve_envelope.n_points),
             "n_references": len(curve_envelope.reference_ids),
+            "reference_ids": list(curve_envelope.reference_ids),
             "words": {
                 str(idx): {
                     "median": np.asarray(curve_envelope.median[idx], dtype=float).tolist(),
@@ -882,9 +1039,9 @@ def analyze(
         result.speech_duration = _speech_duration(alignment)
 
         # -- 5. features ---------------------------------------------------
-        import librosa
-
-        samples, sr = librosa.load(str(processed), sr=config.sample_rate, mono=True)
+        # read_mono, not librosa.load: the WAV is already at the invariants,
+        # and the import-free path does not need numba (see io.audio).
+        samples, sr = read_mono(processed, sr=config.sample_rate)
         bundle, from_cache = X.extract_all_cached(
             np.asarray(samples, dtype=np.float32),
             int(sr),
@@ -993,15 +1150,16 @@ def analyze(
 
         # -- 7. curves ------------------------------------------------------
         if with_curves:
-            enabled, dtw, signals, n_points = _curve_settings(config)
-            if enabled:
+            settings = _curve_settings(config)
+            if settings.enabled:
                 participant, band = _curve_payload(
                     bundle,
                     alignment,
                     comparison.curves if mode == "reference" else None,
-                    signals=signals,
-                    n_points=n_points,
-                    dtw=dtw,
+                    settings=settings,
+                    word_table=tables.get("word"),
+                    z_by_unit=detection.z_by_unit,
+                    config=config,
                 )
                 result.curves = participant
                 result.envelope_curves = band

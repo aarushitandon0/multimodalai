@@ -61,6 +61,7 @@ import warnings
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+from functools import lru_cache
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
@@ -608,6 +609,27 @@ def word_curves(
     return per_word
 
 
+@lru_cache(maxsize=1)
+def _dtw_backend() -> Any:
+    """``librosa.sequence.dtw``, or ``None``, resolved exactly once.
+
+    A failed ``import`` is not cached by Python, so without the memo this cost
+    is paid again for every word of every analysis - and when the failure is a
+    shared object that will not load, each attempt is expensive rather than
+    instant. The warp is cosmetic (spec 10.1: DTW is permitted only inside a
+    word, for plotting), so an unavailable backend degrades to the unwarped
+    curve and says so once.
+    """
+    try:
+        from librosa.sequence import dtw as librosa_dtw
+    except (ImportError, OSError) as exc:  # pragma: no cover - environment
+        # OSError covers a numba/llvmlite shared object that will not load,
+        # which is a broken install rather than a missing package.
+        logger.warning("librosa.sequence is unavailable (%s); curves are not warped", exc)
+        return None
+    return librosa_dtw
+
+
 def _dtw_path(participant: np.ndarray, reference: np.ndarray) -> np.ndarray | None:
     """The DTW path between two curves, or ``None`` when it cannot be run.
 
@@ -615,10 +637,8 @@ def _dtw_path(participant: np.ndarray, reference: np.ndarray) -> np.ndarray | No
     points are filled by interpolation first: DTW has no notion of a missing
     observation, and an unvoiced frame inside a word is missing, not zero.
     """
-    try:
-        from librosa.sequence import dtw as librosa_dtw
-    except ImportError:  # pragma: no cover - depends on the environment
-        logger.warning("librosa is unavailable; curves are not warped")
+    librosa_dtw = _dtw_backend()
+    if librosa_dtw is None:
         return None
 
     def fill(series: np.ndarray) -> np.ndarray | None:

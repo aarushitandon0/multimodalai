@@ -1,0 +1,52 @@
+# Serving limits and dashboard options (spec 15).
+#
+# Read by rostrum.config into Config.serving. The API and the Streamlit app are
+# the only consumers; no number below reaches detection or scoring, so changing
+# one cannot change a score - only what a request is allowed to ask for.
+
+api:
+  # Upload limits from spec 15.1. The byte limit is checked before decoding
+  # (a 20 MB WAV is ~10 min of 16 kHz mono, so bytes alone do not bound time)
+  # and the duration limit after, on the decoded signal.
+  max_upload_bytes: 20971520 # 20 MiB
+  max_duration_s: 300.0 # 5 minutes
+  # Extensions /analyze will accept. Anything else is refused with 415 rather
+  # than handed to a decoder, so an unsupported upload fails fast and clearly.
+  accept_extensions: [".wav", ".mp3", ".m4a", ".ogg", ".flac", ".opus", ".webm"]
+  # Longest excerpt /clip will serve, and the context added either side.
+  clip_pad_s: 0.15
+  max_clip_s: 30.0
+  # Which skilled reader /clip plays by default: `representative` is the
+  # reader closest to the envelope median tempo over those words (what the
+  # participant should sound like); `nearest` is the reader closest to this
+  # participant (controls for tempo). See rostrum.clips.
+  clip_pick: "representative"
+  cors_origins:
+    - "http://localhost:8501"
+    - "http://127.0.0.1:8501"
+    - "http://localhost:8000"
+    - "http://127.0.0.1:8000"
+
+dashboard:
+  # Requests the dashboard makes of the pipeline. `with_band` costs one
+  # detection pass per reference reader, which is what buys the +/- CI.
+  with_curves: true
+  with_band: true
+  refine: true
+  check_text_match: true
+  # Words tinted by D_w = sqrt(sum_k lambda_k z_k^2). Both ends of the ramp
+  # are derived from the detection config when left null, which is what keeps
+  # the picture honest as those settings change:
+  #   floor = sqrt(sum_k lambda_k)       a perfectly ordinary word (6 unit
+  #                                      weights -> 2.45, NOT zero)
+  #   cap   = tau_in * sqrt(sum_k lambda_k)
+  #                                      every feature at the region-entry
+  #                                      threshold at once (2.5 * 2.45 = 6.12)
+  # Set a number here to override; see rostrum.dashboard.view.
+  deviation_floor: null
+  deviation_cap: null
+  # Seconds of context either side of a region in the A/B players.
+  clip_pad_s: 0.15
+  # Longest upload the dashboard offers to analyse, mirroring the API.
+  max_upload_bytes: 20971520
+  max_duration_s: 300.0

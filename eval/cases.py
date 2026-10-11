@@ -187,9 +187,7 @@ def denormalise_speaker(
     # seeding from it makes this ablation reproducible only under
     # PYTHONHASHSEED=0 and silently irreproducible outside the Makefile
     # (invariant 13). A stable digest needs no environment to agree with itself.
-    digest = hashlib.blake2b(
-        f"{int(seed)}:{speaker_id}".encode(), digest_size=8
-    ).digest()
+    digest = hashlib.blake2b(f"{int(seed)}:{speaker_id}".encode(), digest_size=8).digest()
     rng = np.random.default_rng(int.from_bytes(digest, "big") % (2**32))
     shift_st = float(rng.uniform(-3.0, 3.0))
     shift_level = float(rng.uniform(-2.5, 2.5))

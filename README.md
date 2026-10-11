@@ -1493,11 +1493,15 @@ src/rostrum/
                          classifier, threshold tuning
   score/                 six-category rubric, calibration, confidence band
   explain/               evidence to templates to cards, text context
-  api/                   FastAPI service
+  api/                   FastAPI service: /analyze /clip /library /health
+  dashboard/             the dashboard's pure layer: palette, view adapter,
+                         Plotly figures, coloured transcript, PDF report
+  clips.py               A/B excerpts: the participant, and the same words
+                         read by a skilled reader
   pipeline.py            analyze(audio, transcript) -> AnalysisResult
   types.py               dataclasses and the output schema
   config.py              config loading, hashing, code version
-app/                     Streamlit dashboard
+app/                     Streamlit dashboard (screens only)
 eval/                    metrics, leave-one-text-out, ablations, figures,
                          failure analysis, synthetic corpora, component validation
 scripts/                 the dataset build pipeline, one script per stage

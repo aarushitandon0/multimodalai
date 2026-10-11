@@ -63,6 +63,7 @@ __all__ = [
     "loudness_normalize",
     "peak_dbfs",
     "preprocess",
+    "read_mono",
     "sha256_bytes",
     "sha256_file",
     "to_mono_16k",
@@ -182,6 +183,38 @@ def load_any(path: Path | str, *, allow_ffmpeg: bool = True) -> tuple[np.ndarray
             failures.append(f"ffmpeg: {exc}")
 
     raise AudioError(f"could not decode {src}:\n  " + "\n  ".join(failures))
+
+
+def read_mono(
+    path: Path | str,
+    *,
+    sr: int = SAMPLE_RATE,
+    allow_ffmpeg: bool = True,
+) -> tuple[np.ndarray, int]:
+    """Decode a file to mono float32 at ``sr`` (spec 4.6 step 1).
+
+    This is what every stage downstream of :func:`preprocess` wants: the
+    processed WAV is already 16 kHz mono 16-bit PCM, so the read is a plain
+    ``libsndfile`` call and the downmix and resample are no-ops. Going through
+    :func:`load_any` and :func:`to_mono_16k` rather than ``librosa.load``
+    keeps the happy path free of ``numba``, which is both faster to start and
+    the difference between running and not running on a machine whose
+    ``llvmlite`` shared object will not load.
+
+    Args:
+        path: File to decode.
+        sr: Target sample rate.
+        allow_ffmpeg: Whether :func:`load_any` may fall back to ``ffmpeg``.
+
+    Returns:
+        ``(samples, sr)`` - contiguous mono float32 at ``sr``.
+
+    Raises:
+        FileNotFoundError: ``path`` does not exist.
+        AudioError: Every decoder failed, or the signal was empty.
+    """
+    samples, native = load_any(path, allow_ffmpeg=allow_ffmpeg)
+    return to_mono_16k(samples, native, target_sr=int(sr)), int(sr)
 
 
 def _load_via_ffmpeg(src: Path) -> tuple[np.ndarray, int]:
