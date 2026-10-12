@@ -51,8 +51,6 @@ dataset/audio/raw/team/*
 results/*
 !results/.gitkeep
 !results/README.md
-docs/figures/*
-!docs/figures/.gitkeep
 
 # --- Python ------------------------------------------------------------------
 __pycache__/

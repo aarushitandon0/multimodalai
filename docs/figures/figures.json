@@ -1,0 +1,84 @@
+{
+  "code_version": "d997653-dirty",
+  "config_hash": "20a3f11bc1a8f7b0f4840d8e083767f6c8618424d9b69184f3ee519fdc1202a2",
+  "corpus": "synthetic",
+  "dpi": 200,
+  "figures": [
+    {
+      "built": true,
+      "caption": "Mean category score per label against the injected rung, error bars 1 sd, 96 held-out file(s) (synthetic corpus - generated feature tables).",
+      "n": 96,
+      "name": "severity_curves",
+      "paths": [
+        "docs\\figures\\severity_curves.png",
+        "docs\\figures\\severity_curves.svg"
+      ],
+      "reason": "",
+      "source": "results/metrics.json per_fold"
+    },
+    {
+      "built": true,
+      "caption": "Event-F1 per label, mean over folds, 200 ms onset collar and max(200 ms, 20%) offset collar (synthetic corpus - generated feature tables).",
+      "n": 8,
+      "name": "event_f1_by_label",
+      "paths": [
+        "docs\\figures\\event_f1_by_label.png",
+        "docs\\figures\\event_f1_by_label.svg"
+      ],
+      "reason": "",
+      "source": "results/metrics.json per_fold"
+    },
+    {
+      "built": true,
+      "caption": "Signed onset error over 74 IoU-matched region(s); MAE 30 ms, bias +30 ms, 4 beyond the +/-180 ms axis (synthetic corpus - generated feature tables).",
+      "n": 74,
+      "name": "onset_error_hist",
+      "paths": [
+        "docs\\figures\\onset_error_hist.png",
+        "docs\\figures\\onset_error_hist.svg"
+      ],
+      "reason": "",
+      "source": "results/metrics.json diagnostics"
+    },
+    {
+      "built": false,
+      "caption": "",
+      "n": 0,
+      "name": "utmos_by_level",
+      "paths": [],
+      "reason": "needs C:\\Users\\Aarushi\\Downloads\\multimodalai\\dataset\\qc\\utmos.csv and C:\\Users\\Aarushi\\Downloads\\multimodalai\\dataset\\MANIFEST.csv; run `make data` (the UTMOS gate is part of `make qc`)",
+      "source": "dataset/qc/utmos.csv + MANIFEST.csv"
+    },
+    {
+      "built": true,
+      "caption": "syn_a_p32_mumbling_L4 against the envelope of 6 skilled reading(s): truth mumbling L4, 3 detected region(s).",
+      "n": 3,
+      "name": "example_overlay",
+      "paths": [
+        "docs\\figures\\example_overlay.png",
+        "docs\\figures\\example_overlay.svg"
+      ],
+      "reason": "",
+      "source": "synthetic corpus, one fold"
+    },
+    {
+      "built": true,
+      "caption": "Typing confusion over 75 matched region(s); cells are counts, shading is the row share (synthetic corpus - generated feature tables).",
+      "n": 75,
+      "name": "confusion_matrix",
+      "paths": [
+        "docs\\figures\\confusion_matrix.png",
+        "docs\\figures\\confusion_matrix.svg"
+      ],
+      "reason": "",
+      "source": "results/metrics.json typing.rule"
+    }
+  ],
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "metrics": "C:\\Users\\Aarushi\\Downloads\\multimodalai\\results\\metrics.json",
+  "overlay_corpus": "synthetic",
+  "schema": "rostrum.eval.figures.v1"
+}

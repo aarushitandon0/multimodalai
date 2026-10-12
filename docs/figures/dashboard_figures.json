@@ -1,0 +1,16 @@
+{
+  "source": "generated reference-mode analysis",
+  "note": "Rendered from the dashboard's own figure builders, not captured from a browser. With no --from, the readings are generated signals that exercise every stage of the pipeline; no number in them is a dataset result.",
+  "mode": "reference",
+  "analysis_id": "3002c213dcbd1190fe7c7f51e1f598a3b4f39c5224b8892820967d2229fffb17",
+  "config_hash": "012f8ce9ff1e42635c6b9159fbc4758c9ed2cee563cddd90347c1f95ac4468a5",
+  "n_references": 5,
+  "regions": 4,
+  "files": {
+    "overlay": "dashboard_overlay.png",
+    "radar": "dashboard_radar.png",
+    "waveform": "dashboard_waveform.png",
+    "transcript": "dashboard_transcript.png",
+    "report": "dashboard_report.pdf"
+  }
+}
