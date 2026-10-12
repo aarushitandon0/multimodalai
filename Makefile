@@ -170,7 +170,7 @@ envelope-synthetic: ## Same chain on generated feature tables (no MFA needed)
 	$(PY) -m scripts.detect_report --source synthetic
 
 tuning: ## Fit tau_in/tau_out/penalty per fold -> results/tuning.json
-	$(PY) -m scripts.detect_report --source synthetic --write-tuning
+	$(PY) -m scripts.detect_report --source dataset --write-tuning --out results/tuning.json
 
 classifier: ## Fit the per-fold flaw-type classifier; macro-F1 + docs/figures/confusion_matrix.png
 	$(PY) -m scripts.clf_report --out results/classifier.json
@@ -189,10 +189,10 @@ components: ## Component-validity checks (pitch/alignment/rate) -> results/compo
 	$(PY) -m eval.components $(COMPONENT_ARGS)
 
 eval: ## Leave-one-text-out evaluation -> results/metrics.json + metrics.md
-	$(PY) -m eval.run_loto --out results/metrics.json $(EVAL_ARGS)
+	$(PY) -m eval.run_loto --corpus dataset --out results/metrics.json $(EVAL_ARGS)
 
 ablations: ## Ablation table (spec 14.2) -> results/ablations.json + ablations.md
-	$(PY) -m eval.ablations --out results/ablations.json $(EVAL_ARGS)
+	$(PY) -m eval.ablations --corpus dataset --out results/ablations.json $(EVAL_ARGS)
 
 figures: ## Render docs/figures/* (PNG 200 dpi + SVG) from results/metrics.json
 	$(PY) -m eval.figures --out docs/figures

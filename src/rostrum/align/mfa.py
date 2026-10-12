@@ -808,7 +808,19 @@ def validate(
 
     dict_arg = str(extra_dict) if extra_dict else dictionary
     proc = _run_mfa_command(
-        ["validate", str(corpus), dict_arg, acoustic, "--num_jobs", str(num_jobs), "--clean"],
+        [
+            "validate",
+            str(corpus),
+            dict_arg,
+            acoustic,
+            "--num_jobs",
+            str(num_jobs),
+            "--clean",
+            # OOV detection is a dictionary/text check. Without this flag MFA
+            # trains a monophone model over the whole corpus first, which costs
+            # hours and nothing here reads its output.
+            "--ignore_acoustics",
+        ],
         env_name=env_name,
         timeout=timeout,
         check=False,
