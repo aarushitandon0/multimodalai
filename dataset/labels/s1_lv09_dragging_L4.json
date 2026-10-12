@@ -1,0 +1,46 @@
+{
+  "file_id": "s1_lv09_dragging_L4",
+  "source_file": "s1_lv09",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "maryann",
+  "channel_id": "s1_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 2470910941809154251,
+  "duration": 211.18,
+  "clean_duration": 208.565,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 14.29,
+      "t_end": 20.534,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          22,
+          24
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 65698807
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 14.29,
+      "clean_t_end": 17.92,
+      "word_idx": [
+        22,
+        24
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "7200ec062d494a27ddf76c302aae2e5ce28426aa6c0e941558ca0c74c3414100"
+}

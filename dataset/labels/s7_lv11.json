@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "891c12749628d663fbaf1502d009537e9383b7dc77c57076d0b0fe8b77e10b37",
+  "channel_id": "s7_lv11",
+  "duration": 78.875,
+  "file_id": "s7_lv11",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "noelbadrian",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

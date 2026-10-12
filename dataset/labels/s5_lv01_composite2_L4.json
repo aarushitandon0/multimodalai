@@ -1,0 +1,114 @@
+{
+  "file_id": "s5_lv01_composite2_L4",
+  "source_file": "s5_lv01",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "alan_davis-drake",
+  "channel_id": "s5_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 1204622048543746877,
+  "duration": 41.101,
+  "clean_duration": 39.925,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 1.66,
+      "t_end": 3.49,
+      "level": "L4",
+      "s": 0.9,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 5
+      },
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 369058918
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 1.66,
+      "clean_t_end": 1.66,
+      "gap_idx": 5,
+      "gap_label": "none",
+      "word_idx": [
+        5,
+        6
+      ]
+    },
+    {
+      "label": "misplaced_stress",
+      "t_start": 5.28,
+      "t_end": 5.972,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          11,
+          10
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 2001941793
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 3.45,
+      "clean_t_end": 4.18,
+      "word_idx": [
+        10,
+        11
+      ],
+      "function_word_idx": 11,
+      "content_word_idx": 10
+    },
+    {
+      "label": "rushing",
+      "t_start": 17.381,
+      "t_end": 18.286,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          28,
+          31
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.595,
+        "praat_seed": 613374214
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 15.59,
+      "clean_t_end": 17.11,
+      "word_idx": [
+        28,
+        31
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 3,
+  "audio_sha256": "3f3fd6e90cc6e92a729b01df323216b610e25702d93df4866d2aaf63e58ac736"
+}

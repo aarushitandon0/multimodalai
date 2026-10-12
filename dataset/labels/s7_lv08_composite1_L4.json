@@ -1,0 +1,115 @@
+{
+  "file_id": "s7_lv08_composite1_L4",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 7045860256924871884,
+  "duration": 71.874,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 17.27,
+      "t_end": 20.091,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          28,
+          32
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 1335996191
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 17.27,
+      "clean_t_end": 18.91,
+      "word_idx": [
+        28,
+        32
+      ]
+    },
+    {
+      "label": "misplaced_stress",
+      "t_start": 21.501,
+      "t_end": 31.665,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          36,
+          58
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 119230066
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 20.32,
+      "clean_t_end": 30.51,
+      "word_idx": [
+        36,
+        58
+      ],
+      "function_word_idx": 36,
+      "content_word_idx": 58
+    },
+    {
+      "label": "rushing",
+      "t_start": 35.015,
+      "t_end": 36.318,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          62,
+          69
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.595,
+        "praat_seed": 72566667
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 33.86,
+      "clean_t_end": 36.05,
+      "word_idx": [
+        62,
+        69
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 3,
+  "audio_sha256": "4119e38917c19645316b139ebd4614f4ff6c5b14d829c3aece31aaf1d35ca83c"
+}

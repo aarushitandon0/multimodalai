@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "ed895fdd1d1a78555527d531456bd6b7f22d195132b7bd0affeb5a1b83d6081a",
+  "channel_id": "s1_lv15",
+  "duration": 145.705,
+  "file_id": "s1_lv15",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "winston_tharp",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

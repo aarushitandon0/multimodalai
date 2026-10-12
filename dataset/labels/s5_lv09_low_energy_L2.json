@@ -1,0 +1,48 @@
+{
+  "file_id": "s5_lv09_low_energy_L2",
+  "source_file": "s5_lv09",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "julian_jamison",
+  "channel_id": "s5_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 8445519450714302115,
+  "duration": 42.057,
+  "clean_duration": 42.057,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "low_energy",
+      "t_start": 6.55,
+      "t_end": 9.83,
+      "level": "L2",
+      "s": 0.35,
+      "method": "gain_ramp",
+      "span": {
+        "kind": "words",
+        "words": [
+          18,
+          21
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "end_gain_db": -6.3,
+        "ramp": "linear_db",
+        "praat_seed": 798532202
+      },
+      "formulas": {
+        "end_gain_db": "-18.0 * s",
+        "ramp": "linear_db"
+      },
+      "clean_t_start": 6.55,
+      "clean_t_end": 9.83,
+      "word_idx": [
+        18,
+        21
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "6aa279ba1f9e53a7d2d8da92ee3fa7e0f54d9423c234fbb06ded843ce54b2363"
+}

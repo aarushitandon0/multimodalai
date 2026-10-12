@@ -1,0 +1,46 @@
+{
+  "file_id": "s6_lv01_dragging_L2",
+  "source_file": "s6_lv01",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "algy_pug",
+  "channel_id": "s6_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 337785446652529758,
+  "duration": 97.395,
+  "clean_duration": 96.905,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 64.56,
+      "t_end": 66.8,
+      "level": "L2",
+      "s": 0.35,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          113,
+          116
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.28,
+        "praat_seed": 128329955
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 64.56,
+      "clean_t_end": 66.31,
+      "word_idx": [
+        113,
+        116
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "de81ea08958fa4e7d2b30597725bef3cceb12e2c66df7bdd41c40549c3817469"
+}

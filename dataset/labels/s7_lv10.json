@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "e68b523838a2646f759b831ff302d52f78426af8d0879a8e0132d3aa761a856d",
+  "channel_id": "s7_lv10",
+  "duration": 91.065,
+  "file_id": "s7_lv10",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "maria_kasper",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

@@ -1,0 +1,45 @@
+{
+  "file_id": "s1_lv09_hesitation_pause_L2",
+  "source_file": "s1_lv09",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "maryann",
+  "channel_id": "s1_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 8318560972767708149,
+  "duration": 209.46,
+  "clean_duration": 208.565,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 116.75,
+      "t_end": 117.645,
+      "level": "L2",
+      "s": 0.35,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 183
+      },
+      "params": {
+        "duration_s": 0.895,
+        "praat_seed": 361930438
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 116.75,
+      "clean_t_end": 116.75,
+      "gap_idx": 183,
+      "gap_label": "none",
+      "word_idx": [
+        183,
+        184
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "9d9a8cff5c42fd84087961deba8ec51ed7877c45e9df7cec89ba7618a748d117"
+}

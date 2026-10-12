@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "257f549d459232b8a6ccc8959f1b0939aefd657a30289d27571dae671748078b",
+  "channel_id": "s3_fdr_gold",
+  "duration": 413.0,
+  "file_id": "s3_fdr_gold",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "franklin_d_roosevelt",
+  "text_id": "s3_fdr_infamy",
+  "tier": "gold"
+}

@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "c573c5206cec6ad083a277aec44a6c3239385fc4cb3d4efb92283b9ea6e563c3",
+  "channel_id": "s7_lv13",
+  "duration": 66.975,
+  "file_id": "s7_lv13",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "tony_addison",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

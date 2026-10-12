@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "b2038009692c629e775e41201421f6cfd239d7ed270ef7d1aa683ad7ccabebf5",
+  "channel_id": "s1_lv01",
+  "duration": 122.415,
+  "file_id": "s1_lv01",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "ann_boulais",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

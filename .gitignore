@@ -15,9 +15,21 @@ dataset/*
 !dataset/provenance/
 !dataset/qc/
 !dataset/checksums.sha256
+# The labels and the alignments ARE the deliverable: "paired good/bad audio,
+# transcripts and alignment labels". They are text, 25 MB for all 328 files, so
+# they are tracked and only the WAVs live behind the mirror.
+!dataset/labels/
+!dataset/alignments/
 # The recording protocol for team takes; their audio stays out (see *.wav below).
 !dataset/audio/
 dataset/audio/*
+!dataset/audio/clean/
+dataset/audio/clean/*
+!dataset/audio/injected/
+dataset/audio/injected/*
+!dataset/audio/human_flawed/
+dataset/audio/human_flawed/*
+!dataset/audio/human_flawed/README.md
 !dataset/audio/raw/
 dataset/audio/raw/*
 !dataset/audio/raw/team/
@@ -32,11 +44,13 @@ dataset/audio/raw/team/*
 *.ogg
 !dataset_sample/**/*.wav
 !dataset_sample/**/*.TextGrid
+!dataset/alignments/*.TextGrid
 
 # --- Caches and generated outputs --------------------------------------------
 .cache/
 results/*
 !results/.gitkeep
+!results/README.md
 docs/figures/*
 !docs/figures/.gitkeep
 

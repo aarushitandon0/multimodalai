@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "0cf5f17a0da49dac830daa14c7bc4637d357184a1cd2bfd3337ad2e959546f0b",
+  "channel_id": "s7_lv12",
+  "duration": 62.555,
+  "file_id": "s7_lv12",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "phil_schempf",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

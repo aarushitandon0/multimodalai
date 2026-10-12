@@ -245,9 +245,12 @@ format: ## Apply ruff --fix and black
 ## ---------------------------------------------------------------------------
 
 DOCKER_IMAGE ?= rostrum:latest
-# The smoke recording used by `make docker-verify`: any committed sample pair.
-DOCKER_SMOKE_WAV ?= dataset_sample/audio/s1_lv01.wav
-DOCKER_SMOKE_TEXT ?= dataset_sample/transcripts/s1_gettysburg.json
+# The smoke recording used by `make docker-verify`: a committed sample pair.
+# It must be a clean reading that `select_sample` protects (an injection
+# parent), or a sample rebuild can drop it; tests/test_smoke_paths.py guards
+# that these two paths still exist.
+DOCKER_SMOKE_WAV ?= dataset_sample/audio/s5_lv01.wav
+DOCKER_SMOKE_TEXT ?= dataset_sample/transcripts/s5_im_nobody.json
 
 docker-build: ## Build the image (installs conda+MFA+ffmpeg+deps; ~20 min cold)
 	docker build -t $(DOCKER_IMAGE) .

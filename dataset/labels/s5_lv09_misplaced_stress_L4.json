@@ -1,0 +1,56 @@
+{
+  "file_id": "s5_lv09_misplaced_stress_L4",
+  "source_file": "s5_lv09",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "julian_jamison",
+  "channel_id": "s5_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 7291539876561432716,
+  "duration": 42.078,
+  "clean_duration": 42.057,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 6.99,
+      "t_end": 9.85,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          19,
+          21
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 840765618
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 6.99,
+      "clean_t_end": 9.83,
+      "word_idx": [
+        19,
+        21
+      ],
+      "function_word_idx": 19,
+      "content_word_idx": 21
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "c9caa083ed36d4d07d17c9f68229f87aa3cfc86f93c39e08af80bd24f170b7f4"
+}

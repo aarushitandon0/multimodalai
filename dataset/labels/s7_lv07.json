@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "7bf717f3de7508ddaa871a87e8c5805e5b0d7e6c5afc01bf94d8976f13edbde6",
+  "channel_id": "s7_lv07",
+  "duration": 68.605,
+  "file_id": "s7_lv07",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "ian_king",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

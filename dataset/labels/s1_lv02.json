@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "8e80d90b08d6c7c825beb115bf027010eedb5f47dcf947a1518199b2118be9a3",
+  "channel_id": "s1_lv02",
+  "duration": 110.605,
+  "file_id": "s1_lv02",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "drew_johnson",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

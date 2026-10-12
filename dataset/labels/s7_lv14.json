@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "2631cf78ead479544d3a4a27dd1b3ebe8335a11d4a70a856d5672b0af1c9e65e",
+  "channel_id": "s7_lv14",
+  "duration": 64.055,
+  "file_id": "s7_lv14",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "tomas_peter",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

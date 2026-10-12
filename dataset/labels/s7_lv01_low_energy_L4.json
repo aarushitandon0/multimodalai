@@ -1,0 +1,48 @@
+{
+  "file_id": "s7_lv01_low_energy_L4",
+  "source_file": "s7_lv01",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "algy_pug",
+  "channel_id": "s7_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 886487301343160591,
+  "duration": 64.865,
+  "clean_duration": 64.865,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "low_energy",
+      "t_start": 11.64,
+      "t_end": 15.35,
+      "level": "L4",
+      "s": 0.9,
+      "method": "gain_ramp",
+      "span": {
+        "kind": "words",
+        "words": [
+          24,
+          32
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "end_gain_db": -16.2,
+        "ramp": "linear_db",
+        "praat_seed": 457799154
+      },
+      "formulas": {
+        "end_gain_db": "-18.0 * s",
+        "ramp": "linear_db"
+      },
+      "clean_t_start": 11.64,
+      "clean_t_end": 15.35,
+      "word_idx": [
+        24,
+        32
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "76a62158c7cbd92b343bbe4ebf17b69ea0cbca9991762bfa3b60092e82648dca"
+}

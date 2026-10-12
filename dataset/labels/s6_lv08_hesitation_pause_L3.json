@@ -1,0 +1,45 @@
+{
+  "file_id": "s6_lv08_hesitation_pause_L3",
+  "source_file": "s6_lv08",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s6_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 7232973060647629939,
+  "duration": 97.775,
+  "clean_duration": 96.455,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 75.68,
+      "t_end": 77.0,
+      "level": "L3",
+      "s": 0.6,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 139
+      },
+      "params": {
+        "duration_s": 1.32,
+        "praat_seed": 1228123721
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 75.68,
+      "clean_t_end": 75.68,
+      "gap_idx": 139,
+      "gap_label": "none",
+      "word_idx": [
+        139,
+        140
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "dfbc6ebad9e2e790e0cd71496cba0213b703b5057ed4820a426ecab7bfb4c1fc"
+}

@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "9c3cc51a1dcbd2943a8c4ad49e14958164cbc821d305c1cd4a2113331c93608f",
+  "channel_id": "s1_lv04",
+  "duration": 165.625,
+  "file_id": "s1_lv04",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "ernst_pattynama",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

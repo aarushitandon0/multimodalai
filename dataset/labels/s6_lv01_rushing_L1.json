@@ -1,0 +1,46 @@
+{
+  "file_id": "s6_lv01_rushing_L1",
+  "source_file": "s6_lv01",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "algy_pug",
+  "channel_id": "s6_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 5798993239762040167,
+  "duration": 96.768,
+  "clean_duration": 96.905,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "rushing",
+      "t_start": 4.54,
+      "t_end": 6.433,
+      "level": "L1",
+      "s": 0.15,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          9,
+          14
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.9325,
+        "praat_seed": 677610192
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 4.54,
+      "clean_t_end": 6.57,
+      "word_idx": [
+        9,
+        14
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "e8296f032deea3c0e5bba0707ac57214450a7943cdd3f292bfed5975bca2b46a"
+}

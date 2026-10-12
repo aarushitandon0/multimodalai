@@ -1,0 +1,6389 @@
+{
+  "file_id": "s1_lv01_composite1_L4",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "ann_boulais",
+  "channel_id": "s1_lv01",
+  "tier": "silver",
+  "words": [
+    {
+      "idx": 0,
+      "text": "four",
+      "t_start": 0.46,
+      "t_end": 0.76,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 1,
+      "text": "score",
+      "t_start": 0.76,
+      "t_end": 0.97,
+      "phones": [
+        "S",
+        "K",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 2,
+      "text": "and",
+      "t_start": 0.97,
+      "t_end": 1.2,
+      "phones": [
+        "AH0",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 3,
+      "text": "seven",
+      "t_start": 1.2,
+      "t_end": 1.8,
+      "phones": [
+        "S",
+        "EH1",
+        "V",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 4,
+      "text": "years",
+      "t_start": 1.86,
+      "t_end": 2.74,
+      "phones": [
+        "Y",
+        "ER0",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 5,
+      "text": "ago",
+      "t_start": 2.74,
+      "t_end": 3.17,
+      "phones": [
+        "AH0",
+        "G",
+        "OW1"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 6,
+      "text": "our",
+      "t_start": 3.52,
+      "t_end": 3.61,
+      "phones": [
+        "AA1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 7,
+      "text": "fathers",
+      "t_start": 3.61,
+      "t_end": 4.01,
+      "phones": [
+        "F",
+        "AA1",
+        "DH",
+        "ER0",
+        "Z"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 8,
+      "text": "brought",
+      "t_start": 4.01,
+      "t_end": 4.42,
+      "phones": [
+        "B",
+        "R",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 9,
+      "text": "forth",
+      "t_start": 4.42,
+      "t_end": 5.38,
+      "phones": [
+        "F",
+        "AO1",
+        "R",
+        "TH"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 10,
+      "text": "on",
+      "t_start": 5.38,
+      "t_end": 6.11,
+      "phones": [
+        "AO1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 11,
+      "text": "this",
+      "t_start": 6.11,
+      "t_end": 6.52,
+      "phones": [
+        "DH",
+        "IH0",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 12,
+      "text": "continent",
+      "t_start": 8.43,
+      "t_end": 9.53,
+      "phones": [
+        "K",
+        "AA1",
+        "N",
+        "T",
+        "AH0",
+        "N",
+        "AH0",
+        "N",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 13,
+      "text": "a",
+      "t_start": 9.53,
+      "t_end": 9.71,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 14,
+      "text": "new",
+      "t_start": 9.71,
+      "t_end": 9.93,
+      "phones": [
+        "N",
+        "Y",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 15,
+      "text": "nation",
+      "t_start": 9.93,
+      "t_end": 10.12,
+      "phones": [
+        "N",
+        "EY1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 16,
+      "text": "conceived",
+      "t_start": 10.12,
+      "t_end": 11.341,
+      "phones": [
+        "K",
+        "AH0",
+        "N",
+        "S",
+        "IY1",
+        "V",
+        "D"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 17,
+      "text": "in",
+      "t_start": 11.341,
+      "t_end": 11.444,
+      "phones": [
+        "IH0",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 18,
+      "text": "liberty",
+      "t_start": 11.444,
+      "t_end": 11.754,
+      "phones": [
+        "L",
+        "IH1",
+        "B",
+        "ER0",
+        "T",
+        "IY0"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 19,
+      "text": "and",
+      "t_start": 11.822,
+      "t_end": 14.041,
+      "phones": [
+        "AH0",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 20,
+      "text": "dedicated",
+      "t_start": 14.041,
+      "t_end": 14.987,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY0",
+        "T",
+        "AH0",
+        "D"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 21,
+      "text": "to",
+      "t_start": 14.987,
+      "t_end": 15.555,
+      "phones": [
+        "T",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 22,
+      "text": "the",
+      "t_start": 15.778,
+      "t_end": 17.481,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 23,
+      "text": "proposition",
+      "t_start": 18.066,
+      "t_end": 19.373,
+      "phones": [
+        "P",
+        "R",
+        "AA2",
+        "P",
+        "AH0",
+        "Z",
+        "IH1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 24,
+      "text": "that",
+      "t_start": 19.373,
+      "t_end": 20.44,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 25,
+      "text": "all",
+      "t_start": 20.749,
+      "t_end": 20.852,
+      "phones": [
+        "AA1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 26,
+      "text": "men",
+      "t_start": 20.852,
+      "t_end": 20.952,
+      "phones": [
+        "M",
+        "EH1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 27,
+      "text": "are",
+      "t_start": 20.952,
+      "t_end": 20.982,
+      "phones": [
+        "ER0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 28,
+      "text": "created",
+      "t_start": 20.982,
+      "t_end": 21.462,
+      "phones": [
+        "K",
+        "R",
+        "IY0",
+        "EY1",
+        "T",
+        "IH0",
+        "D"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 29,
+      "text": "equal",
+      "t_start": 21.462,
+      "t_end": 21.742,
+      "phones": [
+        "IY1",
+        "K",
+        "W",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 30,
+      "text": "now",
+      "t_start": 21.742,
+      "t_end": 21.822,
+      "phones": [
+        "N",
+        "AW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 31,
+      "text": "we",
+      "t_start": 21.942,
+      "t_end": 22.002,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 32,
+      "text": "are",
+      "t_start": 22.002,
+      "t_end": 22.122,
+      "phones": [
+        "AA1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 33,
+      "text": "engaged",
+      "t_start": 22.152,
+      "t_end": 22.502,
+      "phones": [
+        "EH0",
+        "N",
+        "G",
+        "EY1",
+        "JH",
+        "D"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 34,
+      "text": "in",
+      "t_start": 22.502,
+      "t_end": 22.672,
+      "phones": [
+        "IH0",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 35,
+      "text": "a",
+      "t_start": 22.672,
+      "t_end": 22.832,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 36,
+      "text": "great",
+      "t_start": 22.872,
+      "t_end": 23.532,
+      "phones": [
+        "G",
+        "R",
+        "EY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 37,
+      "text": "civil",
+      "t_start": 23.692,
+      "t_end": 24.302,
+      "phones": [
+        "S",
+        "IH1",
+        "V",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 38,
+      "text": "war",
+      "t_start": 24.732,
+      "t_end": 25.072,
+      "phones": [
+        "W",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 39,
+      "text": "testing",
+      "t_start": 25.762,
+      "t_end": 26.416,
+      "phones": [
+        "T",
+        "EH1",
+        "S",
+        "T",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 40,
+      "text": "whether",
+      "t_start": 26.416,
+      "t_end": 26.696,
+      "phones": [
+        "W",
+        "EH1",
+        "DH",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 41,
+      "text": "that",
+      "t_start": 26.696,
+      "t_end": 28.69,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 42,
+      "text": "nation",
+      "t_start": 29.3,
+      "t_end": 29.48,
+      "phones": [
+        "N",
+        "EY1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 43,
+      "text": "or",
+      "t_start": 29.48,
+      "t_end": 29.54,
+      "phones": [
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 44,
+      "text": "any",
+      "t_start": 29.54,
+      "t_end": 30.0,
+      "phones": [
+        "EH1",
+        "N",
+        "IY0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 45,
+      "text": "nation",
+      "t_start": 30.0,
+      "t_end": 30.58,
+      "phones": [
+        "N",
+        "EY1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 46,
+      "text": "so",
+      "t_start": 30.65,
+      "t_end": 30.81,
+      "phones": [
+        "S",
+        "OW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 47,
+      "text": "conceived",
+      "t_start": 30.84,
+      "t_end": 31.44,
+      "phones": [
+        "K",
+        "AH0",
+        "N",
+        "S",
+        "IY1",
+        "V",
+        "D"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 48,
+      "text": "and",
+      "t_start": 31.44,
+      "t_end": 31.59,
+      "phones": [
+        "AH0",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 49,
+      "text": "so",
+      "t_start": 31.59,
+      "t_end": 31.79,
+      "phones": [
+        "S",
+        "OW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 50,
+      "text": "dedicated",
+      "t_start": 31.79,
+      "t_end": 32.82,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY0",
+        "T",
+        "AH0",
+        "D"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 51,
+      "text": "can",
+      "t_start": 32.82,
+      "t_end": 33.07,
+      "phones": [
+        "K",
+        "AE1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 52,
+      "text": "long",
+      "t_start": 33.15,
+      "t_end": 33.24,
+      "phones": [
+        "L",
+        "AO1",
+        "NG"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 53,
+      "text": "endure",
+      "t_start": 33.24,
+      "t_end": 33.56,
+      "phones": [
+        "IH0",
+        "N",
+        "D",
+        "UH1",
+        "R"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 54,
+      "text": "we",
+      "t_start": 33.84,
+      "t_end": 33.9,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 55,
+      "text": "are",
+      "t_start": 33.9,
+      "t_end": 34.02,
+      "phones": [
+        "ER0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 56,
+      "text": "met",
+      "t_start": 34.02,
+      "t_end": 34.13,
+      "phones": [
+        "M",
+        "EH1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 57,
+      "text": "on",
+      "t_start": 34.13,
+      "t_end": 34.36,
+      "phones": [
+        "AA1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 58,
+      "text": "a",
+      "t_start": 34.36,
+      "t_end": 34.44,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 59,
+      "text": "great",
+      "t_start": 34.44,
+      "t_end": 34.97,
+      "phones": [
+        "G",
+        "R",
+        "EY1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 60,
+      "text": "battle",
+      "t_start": 35.44,
+      "t_end": 36.59,
+      "phones": [
+        "B",
+        "AE1",
+        "T",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 61,
+      "text": "field",
+      "t_start": 36.59,
+      "t_end": 36.79,
+      "phones": [
+        "F",
+        "IY1",
+        "L",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 62,
+      "text": "of",
+      "t_start": 36.79,
+      "t_end": 36.85,
+      "phones": [
+        "AH0",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 63,
+      "text": "that",
+      "t_start": 36.85,
+      "t_end": 37.05,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 64,
+      "text": "war",
+      "t_start": 37.05,
+      "t_end": 37.17,
+      "phones": [
+        "W",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 65,
+      "text": "we",
+      "t_start": 37.26,
+      "t_end": 37.33,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 66,
+      "text": "have",
+      "t_start": 37.33,
+      "t_end": 37.56,
+      "phones": [
+        "HH",
+        "AE1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 67,
+      "text": "come",
+      "t_start": 37.56,
+      "t_end": 37.74,
+      "phones": [
+        "K",
+        "AH1",
+        "M"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 68,
+      "text": "to",
+      "t_start": 37.74,
+      "t_end": 38.54,
+      "phones": [
+        "T",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 69,
+      "text": "dedicate",
+      "t_start": 39.25,
+      "t_end": 40.57,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY2",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 70,
+      "text": "a",
+      "t_start": 40.57,
+      "t_end": 40.65,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 71,
+      "text": "portion",
+      "t_start": 40.65,
+      "t_end": 41.11,
+      "phones": [
+        "P",
+        "AO1",
+        "R",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 72,
+      "text": "of",
+      "t_start": 41.11,
+      "t_end": 41.23,
+      "phones": [
+        "AH0",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 73,
+      "text": "that",
+      "t_start": 41.23,
+      "t_end": 41.46,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 74,
+      "text": "field",
+      "t_start": 41.46,
+      "t_end": 41.83,
+      "phones": [
+        "F",
+        "IY1",
+        "L",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 75,
+      "text": "as",
+      "t_start": 41.83,
+      "t_end": 42.04,
+      "phones": [
+        "AE1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 76,
+      "text": "a",
+      "t_start": 42.04,
+      "t_end": 42.11,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 77,
+      "text": "final",
+      "t_start": 42.11,
+      "t_end": 42.53,
+      "phones": [
+        "F",
+        "AY1",
+        "N",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 78,
+      "text": "resting",
+      "t_start": 42.53,
+      "t_end": 42.96,
+      "phones": [
+        "R",
+        "EH1",
+        "S",
+        "T",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 79,
+      "text": "place",
+      "t_start": 42.96,
+      "t_end": 43.41,
+      "phones": [
+        "P",
+        "L",
+        "EY1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 80,
+      "text": "for",
+      "t_start": 43.65,
+      "t_end": 43.91,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 81,
+      "text": "those",
+      "t_start": 43.91,
+      "t_end": 44.22,
+      "phones": [
+        "DH",
+        "OW1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 82,
+      "text": "who",
+      "t_start": 44.22,
+      "t_end": 44.36,
+      "phones": [
+        "HH",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 83,
+      "text": "here",
+      "t_start": 44.36,
+      "t_end": 44.7,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 84,
+      "text": "gave",
+      "t_start": 44.7,
+      "t_end": 45.0,
+      "phones": [
+        "G",
+        "EY1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 85,
+      "text": "their",
+      "t_start": 45.0,
+      "t_end": 45.17,
+      "phones": [
+        "DH",
+        "EH1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 86,
+      "text": "lives",
+      "t_start": 45.17,
+      "t_end": 45.73,
+      "phones": [
+        "L",
+        "AY1",
+        "V",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 87,
+      "text": "that",
+      "t_start": 45.81,
+      "t_end": 46.09,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 88,
+      "text": "that",
+      "t_start": 46.09,
+      "t_end": 46.32,
+      "phones": [
+        "DH",
+        "AH0",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 89,
+      "text": "nation",
+      "t_start": 46.32,
+      "t_end": 46.8,
+      "phones": [
+        "N",
+        "EY1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 90,
+      "text": "might",
+      "t_start": 46.8,
+      "t_end": 47.05,
+      "phones": [
+        "M",
+        "AY1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 91,
+      "text": "live",
+      "t_start": 47.05,
+      "t_end": 47.55,
+      "phones": [
+        "L",
+        "IH1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 92,
+      "text": "it",
+      "t_start": 47.99,
+      "t_end": 48.17,
+      "phones": [
+        "IH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 93,
+      "text": "is",
+      "t_start": 48.17,
+      "t_end": 48.39,
+      "phones": [
+        "IH1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 94,
+      "text": "altogether",
+      "t_start": 48.39,
+      "t_end": 49.03,
+      "phones": [
+        "AA2",
+        "L",
+        "T",
+        "AH0",
+        "G",
+        "EH1",
+        "DH",
+        "ER0"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 95,
+      "text": "fitting",
+      "t_start": 49.03,
+      "t_end": 49.53,
+      "phones": [
+        "F",
+        "IH1",
+        "T",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 96,
+      "text": "and",
+      "t_start": 49.53,
+      "t_end": 49.71,
+      "phones": [
+        "AE1",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 97,
+      "text": "proper",
+      "t_start": 49.71,
+      "t_end": 50.19,
+      "phones": [
+        "P",
+        "R",
+        "AA1",
+        "P",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 98,
+      "text": "that",
+      "t_start": 50.19,
+      "t_end": 50.41,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 99,
+      "text": "we",
+      "t_start": 50.41,
+      "t_end": 50.55,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 100,
+      "text": "should",
+      "t_start": 50.55,
+      "t_end": 50.79,
+      "phones": [
+        "SH",
+        "UH1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 101,
+      "text": "do",
+      "t_start": 50.79,
+      "t_end": 50.99,
+      "phones": [
+        "D",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 102,
+      "text": "this",
+      "t_start": 50.99,
+      "t_end": 51.49,
+      "phones": [
+        "DH",
+        "IH0",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 103,
+      "text": "but",
+      "t_start": 52.02,
+      "t_end": 52.26,
+      "phones": [
+        "B",
+        "AH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 104,
+      "text": "in",
+      "t_start": 52.26,
+      "t_end": 52.38,
+      "phones": [
+        "IH1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 105,
+      "text": "a",
+      "t_start": 52.38,
+      "t_end": 52.47,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 106,
+      "text": "larger",
+      "t_start": 52.47,
+      "t_end": 52.9,
+      "phones": [
+        "L",
+        "AA1",
+        "R",
+        "JH",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 107,
+      "text": "sense",
+      "t_start": 52.9,
+      "t_end": 53.42,
+      "phones": [
+        "S",
+        "EH1",
+        "N",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 108,
+      "text": "we",
+      "t_start": 53.57,
+      "t_end": 53.87,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 109,
+      "text": "can",
+      "t_start": 53.87,
+      "t_end": 54.09,
+      "phones": [
+        "K",
+        "AE1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 110,
+      "text": "not",
+      "t_start": 54.09,
+      "t_end": 54.3,
+      "phones": [
+        "N",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 111,
+      "text": "dedicate",
+      "t_start": 54.3,
+      "t_end": 55.03,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY2",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 112,
+      "text": "we",
+      "t_start": 55.29,
+      "t_end": 55.67,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 113,
+      "text": "can",
+      "t_start": 55.67,
+      "t_end": 55.86,
+      "phones": [
+        "K",
+        "AE1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 114,
+      "text": "not",
+      "t_start": 55.86,
+      "t_end": 56.07,
+      "phones": [
+        "N",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 115,
+      "text": "consecrate",
+      "t_start": 56.07,
+      "t_end": 56.89,
+      "phones": [
+        "K",
+        "AA1",
+        "N",
+        "S",
+        "AH0",
+        "K",
+        "R",
+        "EY2",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 116,
+      "text": "we",
+      "t_start": 57.2,
+      "t_end": 57.66,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 117,
+      "text": "can",
+      "t_start": 57.66,
+      "t_end": 57.88,
+      "phones": [
+        "K",
+        "AE1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 118,
+      "text": "not",
+      "t_start": 57.88,
+      "t_end": 58.08,
+      "phones": [
+        "N",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 119,
+      "text": "hallow",
+      "t_start": 58.08,
+      "t_end": 58.42,
+      "phones": [
+        "HH",
+        "AE1",
+        "L",
+        "OW0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 120,
+      "text": "this",
+      "t_start": 58.42,
+      "t_end": 58.64,
+      "phones": [
+        "DH",
+        "IH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 121,
+      "text": "ground",
+      "t_start": 58.64,
+      "t_end": 59.2,
+      "phones": [
+        "G",
+        "R",
+        "AW1",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 122,
+      "text": "the",
+      "t_start": 59.55,
+      "t_end": 59.66,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 123,
+      "text": "brave",
+      "t_start": 59.66,
+      "t_end": 60.04,
+      "phones": [
+        "B",
+        "R",
+        "EY1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 124,
+      "text": "men",
+      "t_start": 60.04,
+      "t_end": 60.59,
+      "phones": [
+        "M",
+        "EH1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 125,
+      "text": "living",
+      "t_start": 60.68,
+      "t_end": 61.19,
+      "phones": [
+        "L",
+        "IH1",
+        "V",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 126,
+      "text": "and",
+      "t_start": 61.19,
+      "t_end": 61.43,
+      "phones": [
+        "AE1",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 127,
+      "text": "dead",
+      "t_start": 61.43,
+      "t_end": 61.88,
+      "phones": [
+        "D",
+        "EH1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 128,
+      "text": "who",
+      "t_start": 62.0,
+      "t_end": 62.22,
+      "phones": [
+        "HH",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 129,
+      "text": "struggled",
+      "t_start": 62.22,
+      "t_end": 62.77,
+      "phones": [
+        "S",
+        "T",
+        "R",
+        "AH1",
+        "G",
+        "AH0",
+        "L",
+        "D"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 130,
+      "text": "here",
+      "t_start": 62.77,
+      "t_end": 63.11,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 131,
+      "text": "have",
+      "t_start": 63.11,
+      "t_end": 63.34,
+      "phones": [
+        "HH",
+        "AE1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 132,
+      "text": "consecrated",
+      "t_start": 63.34,
+      "t_end": 64.07,
+      "phones": [
+        "K",
+        "AA1",
+        "N",
+        "S",
+        "AH0",
+        "K",
+        "R",
+        "EY2",
+        "T",
+        "IH0",
+        "D"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 133,
+      "text": "it",
+      "t_start": 64.07,
+      "t_end": 64.38,
+      "phones": [
+        "IH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 134,
+      "text": "far",
+      "t_start": 64.59,
+      "t_end": 65.01,
+      "phones": [
+        "F",
+        "AA1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 135,
+      "text": "above",
+      "t_start": 65.01,
+      "t_end": 65.41,
+      "phones": [
+        "AH0",
+        "B",
+        "AH1",
+        "V"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 136,
+      "text": "our",
+      "t_start": 65.41,
+      "t_end": 65.68,
+      "phones": [
+        "AW1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 137,
+      "text": "poor",
+      "t_start": 65.68,
+      "t_end": 65.96,
+      "phones": [
+        "P",
+        "UW1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 138,
+      "text": "power",
+      "t_start": 65.96,
+      "t_end": 66.36,
+      "phones": [
+        "P",
+        "AW1",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 139,
+      "text": "to",
+      "t_start": 66.36,
+      "t_end": 66.57,
+      "phones": [
+        "T",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 140,
+      "text": "add",
+      "t_start": 66.61,
+      "t_end": 66.93,
+      "phones": [
+        "AE1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 141,
+      "text": "or",
+      "t_start": 66.93,
+      "t_end": 67.1,
+      "phones": [
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 142,
+      "text": "detract",
+      "t_start": 67.1,
+      "t_end": 67.8,
+      "phones": [
+        "D",
+        "IH0",
+        "T",
+        "R",
+        "AE1",
+        "K",
+        "T"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 143,
+      "text": "the",
+      "t_start": 67.859,
+      "t_end": 67.979,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 144,
+      "text": "world",
+      "t_start": 67.979,
+      "t_end": 68.409,
+      "phones": [
+        "W",
+        "ER1",
+        "L",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 145,
+      "text": "will",
+      "t_start": 68.409,
+      "t_end": 68.569,
+      "phones": [
+        "W",
+        "IH1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 146,
+      "text": "little",
+      "t_start": 68.569,
+      "t_end": 68.869,
+      "phones": [
+        "L",
+        "IH1",
+        "T",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 147,
+      "text": "note",
+      "t_start": 68.869,
+      "t_end": 69.359,
+      "phones": [
+        "N",
+        "OW1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 148,
+      "text": "nor",
+      "t_start": 69.509,
+      "t_end": 69.909,
+      "phones": [
+        "N",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 149,
+      "text": "long",
+      "t_start": 69.909,
+      "t_end": 70.169,
+      "phones": [
+        "L",
+        "AO1",
+        "NG"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 150,
+      "text": "remember",
+      "t_start": 70.169,
+      "t_end": 70.859,
+      "phones": [
+        "R",
+        "IY0",
+        "M",
+        "EH1",
+        "M",
+        "B",
+        "ER0"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 151,
+      "text": "what",
+      "t_start": 70.889,
+      "t_end": 71.229,
+      "phones": [
+        "HH",
+        "W",
+        "AH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 152,
+      "text": "we",
+      "t_start": 71.229,
+      "t_end": 71.389,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 153,
+      "text": "say",
+      "t_start": 71.389,
+      "t_end": 71.689,
+      "phones": [
+        "S",
+        "EY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 154,
+      "text": "here",
+      "t_start": 71.689,
+      "t_end": 72.189,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 155,
+      "text": "but",
+      "t_start": 72.479,
+      "t_end": 72.579,
+      "phones": [
+        "B",
+        "AH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 156,
+      "text": "it",
+      "t_start": 72.579,
+      "t_end": 72.759,
+      "phones": [
+        "IH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 157,
+      "text": "can",
+      "t_start": 72.759,
+      "t_end": 73.019,
+      "phones": [
+        "K",
+        "AE1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 158,
+      "text": "never",
+      "t_start": 73.019,
+      "t_end": 73.289,
+      "phones": [
+        "N",
+        "EH1",
+        "V",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 159,
+      "text": "forget",
+      "t_start": 73.289,
+      "t_end": 73.959,
+      "phones": [
+        "F",
+        "ER0",
+        "G",
+        "EH1",
+        "T"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 160,
+      "text": "what",
+      "t_start": 74.059,
+      "t_end": 74.429,
+      "phones": [
+        "HH",
+        "W",
+        "AH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 161,
+      "text": "they",
+      "t_start": 74.429,
+      "t_end": 74.729,
+      "phones": [
+        "DH",
+        "EY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 162,
+      "text": "did",
+      "t_start": 74.729,
+      "t_end": 75.019,
+      "phones": [
+        "D",
+        "IH1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 163,
+      "text": "here",
+      "t_start": 75.019,
+      "t_end": 75.609,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 164,
+      "text": "it",
+      "t_start": 76.099,
+      "t_end": 76.259,
+      "phones": [
+        "IH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 165,
+      "text": "is",
+      "t_start": 76.259,
+      "t_end": 76.499,
+      "phones": [
+        "IH1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 166,
+      "text": "for",
+      "t_start": 76.499,
+      "t_end": 76.799,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 167,
+      "text": "us",
+      "t_start": 76.799,
+      "t_end": 77.069,
+      "phones": [
+        "AH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 168,
+      "text": "the",
+      "t_start": 77.069,
+      "t_end": 77.229,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 169,
+      "text": "living",
+      "t_start": 77.229,
+      "t_end": 77.639,
+      "phones": [
+        "L",
+        "IH1",
+        "V",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 170,
+      "text": "rather",
+      "t_start": 77.639,
+      "t_end": 78.189,
+      "phones": [
+        "R",
+        "AE1",
+        "DH",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 171,
+      "text": "to",
+      "t_start": 78.239,
+      "t_end": 78.389,
+      "phones": [
+        "T",
+        "IH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 172,
+      "text": "be",
+      "t_start": 78.389,
+      "t_end": 80.419,
+      "phones": [
+        "B",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 173,
+      "text": "dedicated",
+      "t_start": 80.419,
+      "t_end": 81.069,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY0",
+        "T",
+        "AH0",
+        "D"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 174,
+      "text": "here",
+      "t_start": 81.069,
+      "t_end": 81.289,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 175,
+      "text": "to",
+      "t_start": 81.289,
+      "t_end": 81.449,
+      "phones": [
+        "T",
+        "IH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 176,
+      "text": "the",
+      "t_start": 81.449,
+      "t_end": 81.609,
+      "phones": [
+        "DH",
+        "IY0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 177,
+      "text": "unfinished",
+      "t_start": 81.639,
+      "t_end": 82.249,
+      "phones": [
+        "AH0",
+        "N",
+        "F",
+        "IH1",
+        "N",
+        "IH0",
+        "SH",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 178,
+      "text": "work",
+      "t_start": 82.249,
+      "t_end": 82.639,
+      "phones": [
+        "W",
+        "ER1",
+        "K"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 179,
+      "text": "which",
+      "t_start": 82.929,
+      "t_end": 83.219,
+      "phones": [
+        "HH",
+        "W",
+        "IH1",
+        "CH"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 180,
+      "text": "they",
+      "t_start": 83.219,
+      "t_end": 83.429,
+      "phones": [
+        "DH",
+        "EY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 181,
+      "text": "who",
+      "t_start": 83.429,
+      "t_end": 83.609,
+      "phones": [
+        "HH",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 182,
+      "text": "fought",
+      "t_start": 83.609,
+      "t_end": 83.979,
+      "phones": [
+        "F",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 183,
+      "text": "here",
+      "t_start": 83.979,
+      "t_end": 84.319,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 184,
+      "text": "have",
+      "t_start": 84.319,
+      "t_end": 84.739,
+      "phones": [
+        "HH",
+        "AE1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 185,
+      "text": "thus",
+      "t_start": 84.739,
+      "t_end": 84.979,
+      "phones": [
+        "DH",
+        "AH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 186,
+      "text": "far",
+      "t_start": 84.979,
+      "t_end": 85.369,
+      "phones": [
+        "F",
+        "AA1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 187,
+      "text": "so",
+      "t_start": 85.369,
+      "t_end": 85.609,
+      "phones": [
+        "S",
+        "OW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 188,
+      "text": "nobly",
+      "t_start": 85.609,
+      "t_end": 86.159,
+      "phones": [
+        "N",
+        "AA1",
+        "B",
+        "L",
+        "IY0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 189,
+      "text": "advanced",
+      "t_start": 86.159,
+      "t_end": 86.879,
+      "phones": [
+        "AH0",
+        "D",
+        "V",
+        "AE1",
+        "N",
+        "S",
+        "T"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 190,
+      "text": "it",
+      "t_start": 87.239,
+      "t_end": 87.419,
+      "phones": [
+        "IH1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 191,
+      "text": "is",
+      "t_start": 87.419,
+      "t_end": 87.649,
+      "phones": [
+        "IH1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 192,
+      "text": "rather",
+      "t_start": 87.649,
+      "t_end": 87.999,
+      "phones": [
+        "R",
+        "AE1",
+        "DH",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 193,
+      "text": "for",
+      "t_start": 87.999,
+      "t_end": 88.329,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 194,
+      "text": "us",
+      "t_start": 88.329,
+      "t_end": 88.569,
+      "phones": [
+        "AH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 195,
+      "text": "to",
+      "t_start": 88.569,
+      "t_end": 88.689,
+      "phones": [
+        "T",
+        "IH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 196,
+      "text": "be",
+      "t_start": 88.689,
+      "t_end": 88.899,
+      "phones": [
+        "B",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 197,
+      "text": "here",
+      "t_start": 88.899,
+      "t_end": 89.169,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 198,
+      "text": "dedicated",
+      "t_start": 89.169,
+      "t_end": 89.859,
+      "phones": [
+        "D",
+        "EH1",
+        "D",
+        "AH0",
+        "K",
+        "EY0",
+        "T",
+        "AH0",
+        "D"
+      ],
+      "n_syllables": 4,
+      "display": ""
+    },
+    {
+      "idx": 199,
+      "text": "to",
+      "t_start": 89.859,
+      "t_end": 89.969,
+      "phones": [
+        "T",
+        "IH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 200,
+      "text": "the",
+      "t_start": 89.969,
+      "t_end": 90.069,
+      "phones": [
+        "DH",
+        "IY0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 201,
+      "text": "great",
+      "t_start": 90.069,
+      "t_end": 90.379,
+      "phones": [
+        "G",
+        "R",
+        "EY1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 202,
+      "text": "task",
+      "t_start": 90.379,
+      "t_end": 90.899,
+      "phones": [
+        "T",
+        "AE1",
+        "S",
+        "K"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 203,
+      "text": "remaining",
+      "t_start": 91.009,
+      "t_end": 91.509,
+      "phones": [
+        "R",
+        "IY0",
+        "M",
+        "EY1",
+        "N",
+        "IH0",
+        "NG"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 204,
+      "text": "before",
+      "t_start": 91.509,
+      "t_end": 91.919,
+      "phones": [
+        "B",
+        "IY2",
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 205,
+      "text": "us",
+      "t_start": 91.919,
+      "t_end": 92.369,
+      "phones": [
+        "AH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 206,
+      "text": "that",
+      "t_start": 92.699,
+      "t_end": 92.899,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 207,
+      "text": "from",
+      "t_start": 92.899,
+      "t_end": 93.059,
+      "phones": [
+        "F",
+        "R",
+        "AH1",
+        "M"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 208,
+      "text": "these",
+      "t_start": 93.059,
+      "t_end": 93.279,
+      "phones": [
+        "DH",
+        "IY1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 209,
+      "text": "honored",
+      "t_start": 93.279,
+      "t_end": 93.729,
+      "phones": [
+        "AA1",
+        "N",
+        "ER0",
+        "D"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 210,
+      "text": "dead",
+      "t_start": 93.729,
+      "t_end": 94.169,
+      "phones": [
+        "D",
+        "EH1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 211,
+      "text": "we",
+      "t_start": 94.269,
+      "t_end": 94.499,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 212,
+      "text": "take",
+      "t_start": 94.499,
+      "t_end": 94.789,
+      "phones": [
+        "T",
+        "EY1",
+        "K"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 213,
+      "text": "increased",
+      "t_start": 94.789,
+      "t_end": 95.329,
+      "phones": [
+        "IH0",
+        "N",
+        "K",
+        "R",
+        "IY1",
+        "S",
+        "T"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 214,
+      "text": "devotion",
+      "t_start": 95.329,
+      "t_end": 95.829,
+      "phones": [
+        "D",
+        "IH0",
+        "V",
+        "OW1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 215,
+      "text": "to",
+      "t_start": 95.829,
+      "t_end": 95.969,
+      "phones": [
+        "T",
+        "IH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 216,
+      "text": "that",
+      "t_start": 95.969,
+      "t_end": 96.239,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 217,
+      "text": "cause",
+      "t_start": 96.239,
+      "t_end": 96.769,
+      "phones": [
+        "K",
+        "AA1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 218,
+      "text": "for",
+      "t_start": 96.949,
+      "t_end": 97.219,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 219,
+      "text": "which",
+      "t_start": 97.219,
+      "t_end": 97.519,
+      "phones": [
+        "W",
+        "IH1",
+        "CH"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 220,
+      "text": "they",
+      "t_start": 97.519,
+      "t_end": 97.689,
+      "phones": [
+        "DH",
+        "EY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 221,
+      "text": "gave",
+      "t_start": 97.689,
+      "t_end": 97.989,
+      "phones": [
+        "G",
+        "EY1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 222,
+      "text": "the",
+      "t_start": 97.989,
+      "t_end": 98.089,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 223,
+      "text": "last",
+      "t_start": 98.089,
+      "t_end": 98.509,
+      "phones": [
+        "L",
+        "AE1",
+        "S",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 224,
+      "text": "full",
+      "t_start": 98.509,
+      "t_end": 98.689,
+      "phones": [
+        "F",
+        "UH1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 225,
+      "text": "measure",
+      "t_start": 98.689,
+      "t_end": 99.139,
+      "phones": [
+        "M",
+        "EH1",
+        "ZH",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 226,
+      "text": "of",
+      "t_start": 99.139,
+      "t_end": 99.329,
+      "phones": [
+        "AH0",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 227,
+      "text": "devotion",
+      "t_start": 99.329,
+      "t_end": 100.039,
+      "phones": [
+        "D",
+        "IH0",
+        "V",
+        "OW1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 228,
+      "text": "that",
+      "t_start": 100.459,
+      "t_end": 100.709,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 229,
+      "text": "we",
+      "t_start": 100.709,
+      "t_end": 100.969,
+      "phones": [
+        "W",
+        "IY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 230,
+      "text": "here",
+      "t_start": 100.969,
+      "t_end": 101.529,
+      "phones": [
+        "HH",
+        "IY1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 231,
+      "text": "highly",
+      "t_start": 101.599,
+      "t_end": 102.039,
+      "phones": [
+        "HH",
+        "AY1",
+        "L",
+        "IY0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 232,
+      "text": "resolve",
+      "t_start": 102.039,
+      "t_end": 102.529,
+      "phones": [
+        "R",
+        "IY0",
+        "Z",
+        "AA1",
+        "L",
+        "V"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 233,
+      "text": "that",
+      "t_start": 102.529,
+      "t_end": 102.719,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 234,
+      "text": "these",
+      "t_start": 102.719,
+      "t_end": 102.979,
+      "phones": [
+        "DH",
+        "IY1",
+        "Z"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 235,
+      "text": "dead",
+      "t_start": 102.979,
+      "t_end": 103.519,
+      "phones": [
+        "D",
+        "EH1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 236,
+      "text": "shall",
+      "t_start": 103.549,
+      "t_end": 103.859,
+      "phones": [
+        "SH",
+        "AE1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 237,
+      "text": "not",
+      "t_start": 103.859,
+      "t_end": 104.129,
+      "phones": [
+        "N",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 238,
+      "text": "have",
+      "t_start": 104.129,
+      "t_end": 104.349,
+      "phones": [
+        "HH",
+        "AE1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 239,
+      "text": "died",
+      "t_start": 104.349,
+      "t_end": 104.659,
+      "phones": [
+        "D",
+        "AY1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 240,
+      "text": "in",
+      "t_start": 104.659,
+      "t_end": 104.819,
+      "phones": [
+        "IH0",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 241,
+      "text": "vain",
+      "t_start": 104.819,
+      "t_end": 105.299,
+      "phones": [
+        "V",
+        "EY1",
+        "N"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 242,
+      "text": "that",
+      "t_start": 105.649,
+      "t_end": 105.909,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 243,
+      "text": "this",
+      "t_start": 105.909,
+      "t_end": 106.169,
+      "phones": [
+        "DH",
+        "IH1",
+        "S"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 244,
+      "text": "nation",
+      "t_start": 106.169,
+      "t_end": 106.749,
+      "phones": [
+        "N",
+        "EY1",
+        "SH",
+        "AH0",
+        "N"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 245,
+      "text": "under",
+      "t_start": 106.929,
+      "t_end": 107.299,
+      "phones": [
+        "AH1",
+        "N",
+        "D",
+        "ER0"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 246,
+      "text": "god",
+      "t_start": 107.299,
+      "t_end": 107.849,
+      "phones": [
+        "G",
+        "AA1",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 247,
+      "text": "shall",
+      "t_start": 107.949,
+      "t_end": 108.249,
+      "phones": [
+        "SH",
+        "AE1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 248,
+      "text": "have",
+      "t_start": 108.249,
+      "t_end": 108.439,
+      "phones": [
+        "HH",
+        "AE1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 249,
+      "text": "a",
+      "t_start": 108.439,
+      "t_end": 108.519,
+      "phones": [
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 250,
+      "text": "new",
+      "t_start": 108.519,
+      "t_end": 108.779,
+      "phones": [
+        "N",
+        "Y",
+        "UW1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 251,
+      "text": "birth",
+      "t_start": 108.779,
+      "t_end": 109.099,
+      "phones": [
+        "B",
+        "ER1",
+        "TH"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 252,
+      "text": "of",
+      "t_start": 109.099,
+      "t_end": 109.189,
+      "phones": [
+        "AH0",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 253,
+      "text": "freedom",
+      "t_start": 109.189,
+      "t_end": 109.719,
+      "phones": [
+        "F",
+        "R",
+        "IY1",
+        "D",
+        "AH0",
+        "M"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 254,
+      "text": "and",
+      "t_start": 110.029,
+      "t_end": 110.249,
+      "phones": [
+        "AE1",
+        "N",
+        "D"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 255,
+      "text": "that",
+      "t_start": 110.249,
+      "t_end": 110.479,
+      "phones": [
+        "DH",
+        "AE1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 256,
+      "text": "government",
+      "t_start": 110.479,
+      "t_end": 111.099,
+      "phones": [
+        "G",
+        "AH1",
+        "V",
+        "ER0",
+        "M",
+        "AH0",
+        "N",
+        "T"
+      ],
+      "n_syllables": 3,
+      "display": ""
+    },
+    {
+      "idx": 257,
+      "text": "of",
+      "t_start": 111.209,
+      "t_end": 111.429,
+      "phones": [
+        "AH1",
+        "V"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 258,
+      "text": "the",
+      "t_start": 111.429,
+      "t_end": 111.519,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 259,
+      "text": "people",
+      "t_start": 111.519,
+      "t_end": 112.209,
+      "phones": [
+        "P",
+        "IY1",
+        "P",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 260,
+      "text": "by",
+      "t_start": 112.569,
+      "t_end": 112.899,
+      "phones": [
+        "B",
+        "AY1"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 261,
+      "text": "the",
+      "t_start": 112.899,
+      "t_end": 113.029,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 262,
+      "text": "people",
+      "t_start": 113.029,
+      "t_end": 113.679,
+      "phones": [
+        "P",
+        "IY1",
+        "P",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 263,
+      "text": "for",
+      "t_start": 113.959,
+      "t_end": 114.399,
+      "phones": [
+        "F",
+        "AO1",
+        "R"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 264,
+      "text": "the",
+      "t_start": 114.399,
+      "t_end": 114.509,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 265,
+      "text": "people",
+      "t_start": 114.509,
+      "t_end": 115.179,
+      "phones": [
+        "P",
+        "IY1",
+        "P",
+        "AH0",
+        "L"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 266,
+      "text": "shall",
+      "t_start": 115.399,
+      "t_end": 115.819,
+      "phones": [
+        "SH",
+        "AE1",
+        "L"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 267,
+      "text": "not",
+      "t_start": 115.819,
+      "t_end": 116.159,
+      "phones": [
+        "N",
+        "AA1",
+        "T"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 268,
+      "text": "perish",
+      "t_start": 116.159,
+      "t_end": 116.729,
+      "phones": [
+        "P",
+        "EH1",
+        "R",
+        "IH0",
+        "SH"
+      ],
+      "n_syllables": 2,
+      "display": ""
+    },
+    {
+      "idx": 269,
+      "text": "from",
+      "t_start": 116.879,
+      "t_end": 117.279,
+      "phones": [
+        "F",
+        "R",
+        "AH1",
+        "M"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 270,
+      "text": "the",
+      "t_start": 117.279,
+      "t_end": 117.539,
+      "phones": [
+        "DH",
+        "AH0"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    },
+    {
+      "idx": 271,
+      "text": "earth",
+      "t_start": 117.569,
+      "t_end": 118.089,
+      "phones": [
+        "ER1",
+        "TH"
+      ],
+      "n_syllables": 1,
+      "display": ""
+    }
+  ],
+  "gaps": [
+    {
+      "idx": 0,
+      "prev_word_idx": 0,
+      "next_word_idx": 1,
+      "t_start": 0.76,
+      "t_end": 0.76,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 1,
+      "prev_word_idx": 1,
+      "next_word_idx": 2,
+      "t_start": 0.97,
+      "t_end": 0.97,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 2,
+      "prev_word_idx": 2,
+      "next_word_idx": 3,
+      "t_start": 1.2,
+      "t_end": 1.2,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 3,
+      "prev_word_idx": 3,
+      "next_word_idx": 4,
+      "t_start": 1.8,
+      "t_end": 1.86,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 4,
+      "prev_word_idx": 4,
+      "next_word_idx": 5,
+      "t_start": 2.74,
+      "t_end": 2.74,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 5,
+      "prev_word_idx": 5,
+      "next_word_idx": 6,
+      "t_start": 3.17,
+      "t_end": 3.52,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 6,
+      "prev_word_idx": 6,
+      "next_word_idx": 7,
+      "t_start": 3.61,
+      "t_end": 3.61,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 7,
+      "prev_word_idx": 7,
+      "next_word_idx": 8,
+      "t_start": 4.01,
+      "t_end": 4.01,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 8,
+      "prev_word_idx": 8,
+      "next_word_idx": 9,
+      "t_start": 4.42,
+      "t_end": 4.42,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 9,
+      "prev_word_idx": 9,
+      "next_word_idx": 10,
+      "t_start": 5.38,
+      "t_end": 5.38,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 10,
+      "prev_word_idx": 10,
+      "next_word_idx": 11,
+      "t_start": 6.11,
+      "t_end": 6.11,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 11,
+      "prev_word_idx": 11,
+      "next_word_idx": 12,
+      "t_start": 6.52,
+      "t_end": 8.43,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 12,
+      "prev_word_idx": 12,
+      "next_word_idx": 13,
+      "t_start": 9.53,
+      "t_end": 9.53,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 13,
+      "prev_word_idx": 13,
+      "next_word_idx": 14,
+      "t_start": 9.71,
+      "t_end": 9.71,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 14,
+      "prev_word_idx": 14,
+      "next_word_idx": 15,
+      "t_start": 9.93,
+      "t_end": 9.93,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 15,
+      "prev_word_idx": 15,
+      "next_word_idx": 16,
+      "t_start": 10.12,
+      "t_end": 10.12,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 16,
+      "prev_word_idx": 16,
+      "next_word_idx": 17,
+      "t_start": 11.341,
+      "t_end": 11.341,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 17,
+      "prev_word_idx": 17,
+      "next_word_idx": 18,
+      "t_start": 11.444,
+      "t_end": 11.444,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 18,
+      "prev_word_idx": 18,
+      "next_word_idx": 19,
+      "t_start": 11.754,
+      "t_end": 11.822,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 19,
+      "prev_word_idx": 19,
+      "next_word_idx": 20,
+      "t_start": 14.041,
+      "t_end": 14.041,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 20,
+      "prev_word_idx": 20,
+      "next_word_idx": 21,
+      "t_start": 14.987,
+      "t_end": 14.987,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 21,
+      "prev_word_idx": 21,
+      "next_word_idx": 22,
+      "t_start": 15.555,
+      "t_end": 15.778,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 22,
+      "prev_word_idx": 22,
+      "next_word_idx": 23,
+      "t_start": 17.481,
+      "t_end": 18.066,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 23,
+      "prev_word_idx": 23,
+      "next_word_idx": 24,
+      "t_start": 19.373,
+      "t_end": 19.373,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 24,
+      "prev_word_idx": 24,
+      "next_word_idx": 25,
+      "t_start": 20.44,
+      "t_end": 20.749,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 25,
+      "prev_word_idx": 25,
+      "next_word_idx": 26,
+      "t_start": 20.852,
+      "t_end": 20.852,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 26,
+      "prev_word_idx": 26,
+      "next_word_idx": 27,
+      "t_start": 20.952,
+      "t_end": 20.952,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 27,
+      "prev_word_idx": 27,
+      "next_word_idx": 28,
+      "t_start": 20.982,
+      "t_end": 20.982,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 28,
+      "prev_word_idx": 28,
+      "next_word_idx": 29,
+      "t_start": 21.462,
+      "t_end": 21.462,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 29,
+      "prev_word_idx": 29,
+      "next_word_idx": 30,
+      "t_start": 21.742,
+      "t_end": 21.742,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 30,
+      "prev_word_idx": 30,
+      "next_word_idx": 31,
+      "t_start": 21.822,
+      "t_end": 21.942,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 31,
+      "prev_word_idx": 31,
+      "next_word_idx": 32,
+      "t_start": 22.002,
+      "t_end": 22.002,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 32,
+      "prev_word_idx": 32,
+      "next_word_idx": 33,
+      "t_start": 22.122,
+      "t_end": 22.152,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 33,
+      "prev_word_idx": 33,
+      "next_word_idx": 34,
+      "t_start": 22.502,
+      "t_end": 22.502,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 34,
+      "prev_word_idx": 34,
+      "next_word_idx": 35,
+      "t_start": 22.672,
+      "t_end": 22.672,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 35,
+      "prev_word_idx": 35,
+      "next_word_idx": 36,
+      "t_start": 22.832,
+      "t_end": 22.872,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 36,
+      "prev_word_idx": 36,
+      "next_word_idx": 37,
+      "t_start": 23.532,
+      "t_end": 23.692,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 37,
+      "prev_word_idx": 37,
+      "next_word_idx": 38,
+      "t_start": 24.302,
+      "t_end": 24.732,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 38,
+      "prev_word_idx": 38,
+      "next_word_idx": 39,
+      "t_start": 25.072,
+      "t_end": 25.762,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 39,
+      "prev_word_idx": 39,
+      "next_word_idx": 40,
+      "t_start": 26.416,
+      "t_end": 26.416,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 40,
+      "prev_word_idx": 40,
+      "next_word_idx": 41,
+      "t_start": 26.696,
+      "t_end": 26.696,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 41,
+      "prev_word_idx": 41,
+      "next_word_idx": 42,
+      "t_start": 28.69,
+      "t_end": 29.3,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 42,
+      "prev_word_idx": 42,
+      "next_word_idx": 43,
+      "t_start": 29.48,
+      "t_end": 29.48,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 43,
+      "prev_word_idx": 43,
+      "next_word_idx": 44,
+      "t_start": 29.54,
+      "t_end": 29.54,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 44,
+      "prev_word_idx": 44,
+      "next_word_idx": 45,
+      "t_start": 30.0,
+      "t_end": 30.0,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 45,
+      "prev_word_idx": 45,
+      "next_word_idx": 46,
+      "t_start": 30.58,
+      "t_end": 30.65,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 46,
+      "prev_word_idx": 46,
+      "next_word_idx": 47,
+      "t_start": 30.81,
+      "t_end": 30.84,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 47,
+      "prev_word_idx": 47,
+      "next_word_idx": 48,
+      "t_start": 31.44,
+      "t_end": 31.44,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 48,
+      "prev_word_idx": 48,
+      "next_word_idx": 49,
+      "t_start": 31.59,
+      "t_end": 31.59,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 49,
+      "prev_word_idx": 49,
+      "next_word_idx": 50,
+      "t_start": 31.79,
+      "t_end": 31.79,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 50,
+      "prev_word_idx": 50,
+      "next_word_idx": 51,
+      "t_start": 32.82,
+      "t_end": 32.82,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 51,
+      "prev_word_idx": 51,
+      "next_word_idx": 52,
+      "t_start": 33.07,
+      "t_end": 33.15,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 52,
+      "prev_word_idx": 52,
+      "next_word_idx": 53,
+      "t_start": 33.24,
+      "t_end": 33.24,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 53,
+      "prev_word_idx": 53,
+      "next_word_idx": 54,
+      "t_start": 33.56,
+      "t_end": 33.84,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 54,
+      "prev_word_idx": 54,
+      "next_word_idx": 55,
+      "t_start": 33.9,
+      "t_end": 33.9,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 55,
+      "prev_word_idx": 55,
+      "next_word_idx": 56,
+      "t_start": 34.02,
+      "t_end": 34.02,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 56,
+      "prev_word_idx": 56,
+      "next_word_idx": 57,
+      "t_start": 34.13,
+      "t_end": 34.13,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 57,
+      "prev_word_idx": 57,
+      "next_word_idx": 58,
+      "t_start": 34.36,
+      "t_end": 34.36,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 58,
+      "prev_word_idx": 58,
+      "next_word_idx": 59,
+      "t_start": 34.44,
+      "t_end": 34.44,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 59,
+      "prev_word_idx": 59,
+      "next_word_idx": 60,
+      "t_start": 34.97,
+      "t_end": 35.44,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 60,
+      "prev_word_idx": 60,
+      "next_word_idx": 61,
+      "t_start": 36.59,
+      "t_end": 36.59,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 61,
+      "prev_word_idx": 61,
+      "next_word_idx": 62,
+      "t_start": 36.79,
+      "t_end": 36.79,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 62,
+      "prev_word_idx": 62,
+      "next_word_idx": 63,
+      "t_start": 36.85,
+      "t_end": 36.85,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 63,
+      "prev_word_idx": 63,
+      "next_word_idx": 64,
+      "t_start": 37.05,
+      "t_end": 37.05,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 64,
+      "prev_word_idx": 64,
+      "next_word_idx": 65,
+      "t_start": 37.17,
+      "t_end": 37.26,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 65,
+      "prev_word_idx": 65,
+      "next_word_idx": 66,
+      "t_start": 37.33,
+      "t_end": 37.33,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 66,
+      "prev_word_idx": 66,
+      "next_word_idx": 67,
+      "t_start": 37.56,
+      "t_end": 37.56,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 67,
+      "prev_word_idx": 67,
+      "next_word_idx": 68,
+      "t_start": 37.74,
+      "t_end": 37.74,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 68,
+      "prev_word_idx": 68,
+      "next_word_idx": 69,
+      "t_start": 38.54,
+      "t_end": 39.25,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 69,
+      "prev_word_idx": 69,
+      "next_word_idx": 70,
+      "t_start": 40.57,
+      "t_end": 40.57,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 70,
+      "prev_word_idx": 70,
+      "next_word_idx": 71,
+      "t_start": 40.65,
+      "t_end": 40.65,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 71,
+      "prev_word_idx": 71,
+      "next_word_idx": 72,
+      "t_start": 41.11,
+      "t_end": 41.11,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 72,
+      "prev_word_idx": 72,
+      "next_word_idx": 73,
+      "t_start": 41.23,
+      "t_end": 41.23,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 73,
+      "prev_word_idx": 73,
+      "next_word_idx": 74,
+      "t_start": 41.46,
+      "t_end": 41.46,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 74,
+      "prev_word_idx": 74,
+      "next_word_idx": 75,
+      "t_start": 41.83,
+      "t_end": 41.83,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 75,
+      "prev_word_idx": 75,
+      "next_word_idx": 76,
+      "t_start": 42.04,
+      "t_end": 42.04,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 76,
+      "prev_word_idx": 76,
+      "next_word_idx": 77,
+      "t_start": 42.11,
+      "t_end": 42.11,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 77,
+      "prev_word_idx": 77,
+      "next_word_idx": 78,
+      "t_start": 42.53,
+      "t_end": 42.53,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 78,
+      "prev_word_idx": 78,
+      "next_word_idx": 79,
+      "t_start": 42.96,
+      "t_end": 42.96,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 79,
+      "prev_word_idx": 79,
+      "next_word_idx": 80,
+      "t_start": 43.41,
+      "t_end": 43.65,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 80,
+      "prev_word_idx": 80,
+      "next_word_idx": 81,
+      "t_start": 43.91,
+      "t_end": 43.91,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 81,
+      "prev_word_idx": 81,
+      "next_word_idx": 82,
+      "t_start": 44.22,
+      "t_end": 44.22,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 82,
+      "prev_word_idx": 82,
+      "next_word_idx": 83,
+      "t_start": 44.36,
+      "t_end": 44.36,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 83,
+      "prev_word_idx": 83,
+      "next_word_idx": 84,
+      "t_start": 44.7,
+      "t_end": 44.7,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 84,
+      "prev_word_idx": 84,
+      "next_word_idx": 85,
+      "t_start": 45.0,
+      "t_end": 45.0,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 85,
+      "prev_word_idx": 85,
+      "next_word_idx": 86,
+      "t_start": 45.17,
+      "t_end": 45.17,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 86,
+      "prev_word_idx": 86,
+      "next_word_idx": 87,
+      "t_start": 45.73,
+      "t_end": 45.81,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 87,
+      "prev_word_idx": 87,
+      "next_word_idx": 88,
+      "t_start": 46.09,
+      "t_end": 46.09,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 88,
+      "prev_word_idx": 88,
+      "next_word_idx": 89,
+      "t_start": 46.32,
+      "t_end": 46.32,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 89,
+      "prev_word_idx": 89,
+      "next_word_idx": 90,
+      "t_start": 46.8,
+      "t_end": 46.8,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 90,
+      "prev_word_idx": 90,
+      "next_word_idx": 91,
+      "t_start": 47.05,
+      "t_end": 47.05,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 91,
+      "prev_word_idx": 91,
+      "next_word_idx": 92,
+      "t_start": 47.55,
+      "t_end": 47.99,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 92,
+      "prev_word_idx": 92,
+      "next_word_idx": 93,
+      "t_start": 48.17,
+      "t_end": 48.17,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 93,
+      "prev_word_idx": 93,
+      "next_word_idx": 94,
+      "t_start": 48.39,
+      "t_end": 48.39,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 94,
+      "prev_word_idx": 94,
+      "next_word_idx": 95,
+      "t_start": 49.03,
+      "t_end": 49.03,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 95,
+      "prev_word_idx": 95,
+      "next_word_idx": 96,
+      "t_start": 49.53,
+      "t_end": 49.53,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 96,
+      "prev_word_idx": 96,
+      "next_word_idx": 97,
+      "t_start": 49.71,
+      "t_end": 49.71,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 97,
+      "prev_word_idx": 97,
+      "next_word_idx": 98,
+      "t_start": 50.19,
+      "t_end": 50.19,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 98,
+      "prev_word_idx": 98,
+      "next_word_idx": 99,
+      "t_start": 50.41,
+      "t_end": 50.41,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 99,
+      "prev_word_idx": 99,
+      "next_word_idx": 100,
+      "t_start": 50.55,
+      "t_end": 50.55,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 100,
+      "prev_word_idx": 100,
+      "next_word_idx": 101,
+      "t_start": 50.79,
+      "t_end": 50.79,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 101,
+      "prev_word_idx": 101,
+      "next_word_idx": 102,
+      "t_start": 50.99,
+      "t_end": 50.99,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 102,
+      "prev_word_idx": 102,
+      "next_word_idx": 103,
+      "t_start": 51.49,
+      "t_end": 52.02,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 103,
+      "prev_word_idx": 103,
+      "next_word_idx": 104,
+      "t_start": 52.26,
+      "t_end": 52.26,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 104,
+      "prev_word_idx": 104,
+      "next_word_idx": 105,
+      "t_start": 52.38,
+      "t_end": 52.38,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 105,
+      "prev_word_idx": 105,
+      "next_word_idx": 106,
+      "t_start": 52.47,
+      "t_end": 52.47,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 106,
+      "prev_word_idx": 106,
+      "next_word_idx": 107,
+      "t_start": 52.9,
+      "t_end": 52.9,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 107,
+      "prev_word_idx": 107,
+      "next_word_idx": 108,
+      "t_start": 53.42,
+      "t_end": 53.57,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 108,
+      "prev_word_idx": 108,
+      "next_word_idx": 109,
+      "t_start": 53.87,
+      "t_end": 53.87,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 109,
+      "prev_word_idx": 109,
+      "next_word_idx": 110,
+      "t_start": 54.09,
+      "t_end": 54.09,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 110,
+      "prev_word_idx": 110,
+      "next_word_idx": 111,
+      "t_start": 54.3,
+      "t_end": 54.3,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 111,
+      "prev_word_idx": 111,
+      "next_word_idx": 112,
+      "t_start": 55.03,
+      "t_end": 55.29,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 112,
+      "prev_word_idx": 112,
+      "next_word_idx": 113,
+      "t_start": 55.67,
+      "t_end": 55.67,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 113,
+      "prev_word_idx": 113,
+      "next_word_idx": 114,
+      "t_start": 55.86,
+      "t_end": 55.86,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 114,
+      "prev_word_idx": 114,
+      "next_word_idx": 115,
+      "t_start": 56.07,
+      "t_end": 56.07,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 115,
+      "prev_word_idx": 115,
+      "next_word_idx": 116,
+      "t_start": 56.89,
+      "t_end": 57.2,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 116,
+      "prev_word_idx": 116,
+      "next_word_idx": 117,
+      "t_start": 57.66,
+      "t_end": 57.66,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 117,
+      "prev_word_idx": 117,
+      "next_word_idx": 118,
+      "t_start": 57.88,
+      "t_end": 57.88,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 118,
+      "prev_word_idx": 118,
+      "next_word_idx": 119,
+      "t_start": 58.08,
+      "t_end": 58.08,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 119,
+      "prev_word_idx": 119,
+      "next_word_idx": 120,
+      "t_start": 58.42,
+      "t_end": 58.42,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 120,
+      "prev_word_idx": 120,
+      "next_word_idx": 121,
+      "t_start": 58.64,
+      "t_end": 58.64,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 121,
+      "prev_word_idx": 121,
+      "next_word_idx": 122,
+      "t_start": 59.2,
+      "t_end": 59.55,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 122,
+      "prev_word_idx": 122,
+      "next_word_idx": 123,
+      "t_start": 59.66,
+      "t_end": 59.66,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 123,
+      "prev_word_idx": 123,
+      "next_word_idx": 124,
+      "t_start": 60.04,
+      "t_end": 60.04,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 124,
+      "prev_word_idx": 124,
+      "next_word_idx": 125,
+      "t_start": 60.59,
+      "t_end": 60.68,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 125,
+      "prev_word_idx": 125,
+      "next_word_idx": 126,
+      "t_start": 61.19,
+      "t_end": 61.19,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 126,
+      "prev_word_idx": 126,
+      "next_word_idx": 127,
+      "t_start": 61.43,
+      "t_end": 61.43,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 127,
+      "prev_word_idx": 127,
+      "next_word_idx": 128,
+      "t_start": 61.88,
+      "t_end": 62.0,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 128,
+      "prev_word_idx": 128,
+      "next_word_idx": 129,
+      "t_start": 62.22,
+      "t_end": 62.22,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 129,
+      "prev_word_idx": 129,
+      "next_word_idx": 130,
+      "t_start": 62.77,
+      "t_end": 62.77,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 130,
+      "prev_word_idx": 130,
+      "next_word_idx": 131,
+      "t_start": 63.11,
+      "t_end": 63.11,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 131,
+      "prev_word_idx": 131,
+      "next_word_idx": 132,
+      "t_start": 63.34,
+      "t_end": 63.34,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 132,
+      "prev_word_idx": 132,
+      "next_word_idx": 133,
+      "t_start": 64.07,
+      "t_end": 64.07,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 133,
+      "prev_word_idx": 133,
+      "next_word_idx": 134,
+      "t_start": 64.38,
+      "t_end": 64.59,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 134,
+      "prev_word_idx": 134,
+      "next_word_idx": 135,
+      "t_start": 65.01,
+      "t_end": 65.01,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 135,
+      "prev_word_idx": 135,
+      "next_word_idx": 136,
+      "t_start": 65.41,
+      "t_end": 65.41,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 136,
+      "prev_word_idx": 136,
+      "next_word_idx": 137,
+      "t_start": 65.68,
+      "t_end": 65.68,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 137,
+      "prev_word_idx": 137,
+      "next_word_idx": 138,
+      "t_start": 65.96,
+      "t_end": 65.96,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 138,
+      "prev_word_idx": 138,
+      "next_word_idx": 139,
+      "t_start": 66.36,
+      "t_end": 66.36,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 139,
+      "prev_word_idx": 139,
+      "next_word_idx": 140,
+      "t_start": 66.57,
+      "t_end": 66.61,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 140,
+      "prev_word_idx": 140,
+      "next_word_idx": 141,
+      "t_start": 66.93,
+      "t_end": 66.93,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 141,
+      "prev_word_idx": 141,
+      "next_word_idx": 142,
+      "t_start": 67.1,
+      "t_end": 67.1,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 142,
+      "prev_word_idx": 142,
+      "next_word_idx": 143,
+      "t_start": 67.8,
+      "t_end": 67.859,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 143,
+      "prev_word_idx": 143,
+      "next_word_idx": 144,
+      "t_start": 67.979,
+      "t_end": 67.979,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 144,
+      "prev_word_idx": 144,
+      "next_word_idx": 145,
+      "t_start": 68.409,
+      "t_end": 68.409,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 145,
+      "prev_word_idx": 145,
+      "next_word_idx": 146,
+      "t_start": 68.569,
+      "t_end": 68.569,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 146,
+      "prev_word_idx": 146,
+      "next_word_idx": 147,
+      "t_start": 68.869,
+      "t_end": 68.869,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 147,
+      "prev_word_idx": 147,
+      "next_word_idx": 148,
+      "t_start": 69.359,
+      "t_end": 69.509,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 148,
+      "prev_word_idx": 148,
+      "next_word_idx": 149,
+      "t_start": 69.909,
+      "t_end": 69.909,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 149,
+      "prev_word_idx": 149,
+      "next_word_idx": 150,
+      "t_start": 70.169,
+      "t_end": 70.169,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 150,
+      "prev_word_idx": 150,
+      "next_word_idx": 151,
+      "t_start": 70.859,
+      "t_end": 70.889,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 151,
+      "prev_word_idx": 151,
+      "next_word_idx": 152,
+      "t_start": 71.229,
+      "t_end": 71.229,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 152,
+      "prev_word_idx": 152,
+      "next_word_idx": 153,
+      "t_start": 71.389,
+      "t_end": 71.389,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 153,
+      "prev_word_idx": 153,
+      "next_word_idx": 154,
+      "t_start": 71.689,
+      "t_end": 71.689,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 154,
+      "prev_word_idx": 154,
+      "next_word_idx": 155,
+      "t_start": 72.189,
+      "t_end": 72.479,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 155,
+      "prev_word_idx": 155,
+      "next_word_idx": 156,
+      "t_start": 72.579,
+      "t_end": 72.579,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 156,
+      "prev_word_idx": 156,
+      "next_word_idx": 157,
+      "t_start": 72.759,
+      "t_end": 72.759,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 157,
+      "prev_word_idx": 157,
+      "next_word_idx": 158,
+      "t_start": 73.019,
+      "t_end": 73.019,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 158,
+      "prev_word_idx": 158,
+      "next_word_idx": 159,
+      "t_start": 73.289,
+      "t_end": 73.289,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 159,
+      "prev_word_idx": 159,
+      "next_word_idx": 160,
+      "t_start": 73.959,
+      "t_end": 74.059,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 160,
+      "prev_word_idx": 160,
+      "next_word_idx": 161,
+      "t_start": 74.429,
+      "t_end": 74.429,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 161,
+      "prev_word_idx": 161,
+      "next_word_idx": 162,
+      "t_start": 74.729,
+      "t_end": 74.729,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 162,
+      "prev_word_idx": 162,
+      "next_word_idx": 163,
+      "t_start": 75.019,
+      "t_end": 75.019,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 163,
+      "prev_word_idx": 163,
+      "next_word_idx": 164,
+      "t_start": 75.609,
+      "t_end": 76.099,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 164,
+      "prev_word_idx": 164,
+      "next_word_idx": 165,
+      "t_start": 76.259,
+      "t_end": 76.259,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 165,
+      "prev_word_idx": 165,
+      "next_word_idx": 166,
+      "t_start": 76.499,
+      "t_end": 76.499,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 166,
+      "prev_word_idx": 166,
+      "next_word_idx": 167,
+      "t_start": 76.799,
+      "t_end": 76.799,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 167,
+      "prev_word_idx": 167,
+      "next_word_idx": 168,
+      "t_start": 77.069,
+      "t_end": 77.069,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 168,
+      "prev_word_idx": 168,
+      "next_word_idx": 169,
+      "t_start": 77.229,
+      "t_end": 77.229,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 169,
+      "prev_word_idx": 169,
+      "next_word_idx": 170,
+      "t_start": 77.639,
+      "t_end": 77.639,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 170,
+      "prev_word_idx": 170,
+      "next_word_idx": 171,
+      "t_start": 78.189,
+      "t_end": 78.239,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 171,
+      "prev_word_idx": 171,
+      "next_word_idx": 172,
+      "t_start": 78.389,
+      "t_end": 78.389,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 172,
+      "prev_word_idx": 172,
+      "next_word_idx": 173,
+      "t_start": 80.419,
+      "t_end": 80.419,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 173,
+      "prev_word_idx": 173,
+      "next_word_idx": 174,
+      "t_start": 81.069,
+      "t_end": 81.069,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 174,
+      "prev_word_idx": 174,
+      "next_word_idx": 175,
+      "t_start": 81.289,
+      "t_end": 81.289,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 175,
+      "prev_word_idx": 175,
+      "next_word_idx": 176,
+      "t_start": 81.449,
+      "t_end": 81.449,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 176,
+      "prev_word_idx": 176,
+      "next_word_idx": 177,
+      "t_start": 81.609,
+      "t_end": 81.639,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 177,
+      "prev_word_idx": 177,
+      "next_word_idx": 178,
+      "t_start": 82.249,
+      "t_end": 82.249,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 178,
+      "prev_word_idx": 178,
+      "next_word_idx": 179,
+      "t_start": 82.639,
+      "t_end": 82.929,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 179,
+      "prev_word_idx": 179,
+      "next_word_idx": 180,
+      "t_start": 83.219,
+      "t_end": 83.219,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 180,
+      "prev_word_idx": 180,
+      "next_word_idx": 181,
+      "t_start": 83.429,
+      "t_end": 83.429,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 181,
+      "prev_word_idx": 181,
+      "next_word_idx": 182,
+      "t_start": 83.609,
+      "t_end": 83.609,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 182,
+      "prev_word_idx": 182,
+      "next_word_idx": 183,
+      "t_start": 83.979,
+      "t_end": 83.979,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 183,
+      "prev_word_idx": 183,
+      "next_word_idx": 184,
+      "t_start": 84.319,
+      "t_end": 84.319,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 184,
+      "prev_word_idx": 184,
+      "next_word_idx": 185,
+      "t_start": 84.739,
+      "t_end": 84.739,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 185,
+      "prev_word_idx": 185,
+      "next_word_idx": 186,
+      "t_start": 84.979,
+      "t_end": 84.979,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 186,
+      "prev_word_idx": 186,
+      "next_word_idx": 187,
+      "t_start": 85.369,
+      "t_end": 85.369,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 187,
+      "prev_word_idx": 187,
+      "next_word_idx": 188,
+      "t_start": 85.609,
+      "t_end": 85.609,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 188,
+      "prev_word_idx": 188,
+      "next_word_idx": 189,
+      "t_start": 86.159,
+      "t_end": 86.159,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 189,
+      "prev_word_idx": 189,
+      "next_word_idx": 190,
+      "t_start": 86.879,
+      "t_end": 87.239,
+      "label": "boundary",
+      "punctuation": ".",
+      "vad_refined": false
+    },
+    {
+      "idx": 190,
+      "prev_word_idx": 190,
+      "next_word_idx": 191,
+      "t_start": 87.419,
+      "t_end": 87.419,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 191,
+      "prev_word_idx": 191,
+      "next_word_idx": 192,
+      "t_start": 87.649,
+      "t_end": 87.649,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 192,
+      "prev_word_idx": 192,
+      "next_word_idx": 193,
+      "t_start": 87.999,
+      "t_end": 87.999,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 193,
+      "prev_word_idx": 193,
+      "next_word_idx": 194,
+      "t_start": 88.329,
+      "t_end": 88.329,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 194,
+      "prev_word_idx": 194,
+      "next_word_idx": 195,
+      "t_start": 88.569,
+      "t_end": 88.569,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 195,
+      "prev_word_idx": 195,
+      "next_word_idx": 196,
+      "t_start": 88.689,
+      "t_end": 88.689,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 196,
+      "prev_word_idx": 196,
+      "next_word_idx": 197,
+      "t_start": 88.899,
+      "t_end": 88.899,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 197,
+      "prev_word_idx": 197,
+      "next_word_idx": 198,
+      "t_start": 89.169,
+      "t_end": 89.169,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 198,
+      "prev_word_idx": 198,
+      "next_word_idx": 199,
+      "t_start": 89.859,
+      "t_end": 89.859,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 199,
+      "prev_word_idx": 199,
+      "next_word_idx": 200,
+      "t_start": 89.969,
+      "t_end": 89.969,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 200,
+      "prev_word_idx": 200,
+      "next_word_idx": 201,
+      "t_start": 90.069,
+      "t_end": 90.069,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 201,
+      "prev_word_idx": 201,
+      "next_word_idx": 202,
+      "t_start": 90.379,
+      "t_end": 90.379,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 202,
+      "prev_word_idx": 202,
+      "next_word_idx": 203,
+      "t_start": 90.899,
+      "t_end": 91.009,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 203,
+      "prev_word_idx": 203,
+      "next_word_idx": 204,
+      "t_start": 91.509,
+      "t_end": 91.509,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 204,
+      "prev_word_idx": 204,
+      "next_word_idx": 205,
+      "t_start": 91.919,
+      "t_end": 91.919,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 205,
+      "prev_word_idx": 205,
+      "next_word_idx": 206,
+      "t_start": 92.369,
+      "t_end": 92.699,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 206,
+      "prev_word_idx": 206,
+      "next_word_idx": 207,
+      "t_start": 92.899,
+      "t_end": 92.899,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 207,
+      "prev_word_idx": 207,
+      "next_word_idx": 208,
+      "t_start": 93.059,
+      "t_end": 93.059,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 208,
+      "prev_word_idx": 208,
+      "next_word_idx": 209,
+      "t_start": 93.279,
+      "t_end": 93.279,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 209,
+      "prev_word_idx": 209,
+      "next_word_idx": 210,
+      "t_start": 93.729,
+      "t_end": 93.729,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 210,
+      "prev_word_idx": 210,
+      "next_word_idx": 211,
+      "t_start": 94.169,
+      "t_end": 94.269,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 211,
+      "prev_word_idx": 211,
+      "next_word_idx": 212,
+      "t_start": 94.499,
+      "t_end": 94.499,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 212,
+      "prev_word_idx": 212,
+      "next_word_idx": 213,
+      "t_start": 94.789,
+      "t_end": 94.789,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 213,
+      "prev_word_idx": 213,
+      "next_word_idx": 214,
+      "t_start": 95.329,
+      "t_end": 95.329,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 214,
+      "prev_word_idx": 214,
+      "next_word_idx": 215,
+      "t_start": 95.829,
+      "t_end": 95.829,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 215,
+      "prev_word_idx": 215,
+      "next_word_idx": 216,
+      "t_start": 95.969,
+      "t_end": 95.969,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 216,
+      "prev_word_idx": 216,
+      "next_word_idx": 217,
+      "t_start": 96.239,
+      "t_end": 96.239,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 217,
+      "prev_word_idx": 217,
+      "next_word_idx": 218,
+      "t_start": 96.769,
+      "t_end": 96.949,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 218,
+      "prev_word_idx": 218,
+      "next_word_idx": 219,
+      "t_start": 97.219,
+      "t_end": 97.219,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 219,
+      "prev_word_idx": 219,
+      "next_word_idx": 220,
+      "t_start": 97.519,
+      "t_end": 97.519,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 220,
+      "prev_word_idx": 220,
+      "next_word_idx": 221,
+      "t_start": 97.689,
+      "t_end": 97.689,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 221,
+      "prev_word_idx": 221,
+      "next_word_idx": 222,
+      "t_start": 97.989,
+      "t_end": 97.989,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 222,
+      "prev_word_idx": 222,
+      "next_word_idx": 223,
+      "t_start": 98.089,
+      "t_end": 98.089,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 223,
+      "prev_word_idx": 223,
+      "next_word_idx": 224,
+      "t_start": 98.509,
+      "t_end": 98.509,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 224,
+      "prev_word_idx": 224,
+      "next_word_idx": 225,
+      "t_start": 98.689,
+      "t_end": 98.689,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 225,
+      "prev_word_idx": 225,
+      "next_word_idx": 226,
+      "t_start": 99.139,
+      "t_end": 99.139,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 226,
+      "prev_word_idx": 226,
+      "next_word_idx": 227,
+      "t_start": 99.329,
+      "t_end": 99.329,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 227,
+      "prev_word_idx": 227,
+      "next_word_idx": 228,
+      "t_start": 100.039,
+      "t_end": 100.459,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 228,
+      "prev_word_idx": 228,
+      "next_word_idx": 229,
+      "t_start": 100.709,
+      "t_end": 100.709,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 229,
+      "prev_word_idx": 229,
+      "next_word_idx": 230,
+      "t_start": 100.969,
+      "t_end": 100.969,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 230,
+      "prev_word_idx": 230,
+      "next_word_idx": 231,
+      "t_start": 101.529,
+      "t_end": 101.599,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 231,
+      "prev_word_idx": 231,
+      "next_word_idx": 232,
+      "t_start": 102.039,
+      "t_end": 102.039,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 232,
+      "prev_word_idx": 232,
+      "next_word_idx": 233,
+      "t_start": 102.529,
+      "t_end": 102.529,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 233,
+      "prev_word_idx": 233,
+      "next_word_idx": 234,
+      "t_start": 102.719,
+      "t_end": 102.719,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 234,
+      "prev_word_idx": 234,
+      "next_word_idx": 235,
+      "t_start": 102.979,
+      "t_end": 102.979,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 235,
+      "prev_word_idx": 235,
+      "next_word_idx": 236,
+      "t_start": 103.519,
+      "t_end": 103.549,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 236,
+      "prev_word_idx": 236,
+      "next_word_idx": 237,
+      "t_start": 103.859,
+      "t_end": 103.859,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 237,
+      "prev_word_idx": 237,
+      "next_word_idx": 238,
+      "t_start": 104.129,
+      "t_end": 104.129,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 238,
+      "prev_word_idx": 238,
+      "next_word_idx": 239,
+      "t_start": 104.349,
+      "t_end": 104.349,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 239,
+      "prev_word_idx": 239,
+      "next_word_idx": 240,
+      "t_start": 104.659,
+      "t_end": 104.659,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 240,
+      "prev_word_idx": 240,
+      "next_word_idx": 241,
+      "t_start": 104.819,
+      "t_end": 104.819,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 241,
+      "prev_word_idx": 241,
+      "next_word_idx": 242,
+      "t_start": 105.299,
+      "t_end": 105.649,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 242,
+      "prev_word_idx": 242,
+      "next_word_idx": 243,
+      "t_start": 105.909,
+      "t_end": 105.909,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 243,
+      "prev_word_idx": 243,
+      "next_word_idx": 244,
+      "t_start": 106.169,
+      "t_end": 106.169,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 244,
+      "prev_word_idx": 244,
+      "next_word_idx": 245,
+      "t_start": 106.749,
+      "t_end": 106.929,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 245,
+      "prev_word_idx": 245,
+      "next_word_idx": 246,
+      "t_start": 107.299,
+      "t_end": 107.299,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 246,
+      "prev_word_idx": 246,
+      "next_word_idx": 247,
+      "t_start": 107.849,
+      "t_end": 107.949,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 247,
+      "prev_word_idx": 247,
+      "next_word_idx": 248,
+      "t_start": 108.249,
+      "t_end": 108.249,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 248,
+      "prev_word_idx": 248,
+      "next_word_idx": 249,
+      "t_start": 108.439,
+      "t_end": 108.439,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 249,
+      "prev_word_idx": 249,
+      "next_word_idx": 250,
+      "t_start": 108.519,
+      "t_end": 108.519,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 250,
+      "prev_word_idx": 250,
+      "next_word_idx": 251,
+      "t_start": 108.779,
+      "t_end": 108.779,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 251,
+      "prev_word_idx": 251,
+      "next_word_idx": 252,
+      "t_start": 109.099,
+      "t_end": 109.099,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 252,
+      "prev_word_idx": 252,
+      "next_word_idx": 253,
+      "t_start": 109.189,
+      "t_end": 109.189,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 253,
+      "prev_word_idx": 253,
+      "next_word_idx": 254,
+      "t_start": 109.719,
+      "t_end": 110.029,
+      "label": "boundary",
+      "punctuation": "--",
+      "vad_refined": false
+    },
+    {
+      "idx": 254,
+      "prev_word_idx": 254,
+      "next_word_idx": 255,
+      "t_start": 110.249,
+      "t_end": 110.249,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 255,
+      "prev_word_idx": 255,
+      "next_word_idx": 256,
+      "t_start": 110.479,
+      "t_end": 110.479,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 256,
+      "prev_word_idx": 256,
+      "next_word_idx": 257,
+      "t_start": 111.099,
+      "t_end": 111.209,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 257,
+      "prev_word_idx": 257,
+      "next_word_idx": 258,
+      "t_start": 111.429,
+      "t_end": 111.429,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 258,
+      "prev_word_idx": 258,
+      "next_word_idx": 259,
+      "t_start": 111.519,
+      "t_end": 111.519,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 259,
+      "prev_word_idx": 259,
+      "next_word_idx": 260,
+      "t_start": 112.209,
+      "t_end": 112.569,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 260,
+      "prev_word_idx": 260,
+      "next_word_idx": 261,
+      "t_start": 112.899,
+      "t_end": 112.899,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 261,
+      "prev_word_idx": 261,
+      "next_word_idx": 262,
+      "t_start": 113.029,
+      "t_end": 113.029,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 262,
+      "prev_word_idx": 262,
+      "next_word_idx": 263,
+      "t_start": 113.679,
+      "t_end": 113.959,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 263,
+      "prev_word_idx": 263,
+      "next_word_idx": 264,
+      "t_start": 114.399,
+      "t_end": 114.399,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 264,
+      "prev_word_idx": 264,
+      "next_word_idx": 265,
+      "t_start": 114.509,
+      "t_end": 114.509,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 265,
+      "prev_word_idx": 265,
+      "next_word_idx": 266,
+      "t_start": 115.179,
+      "t_end": 115.399,
+      "label": "minor",
+      "punctuation": ",",
+      "vad_refined": false
+    },
+    {
+      "idx": 266,
+      "prev_word_idx": 266,
+      "next_word_idx": 267,
+      "t_start": 115.819,
+      "t_end": 115.819,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 267,
+      "prev_word_idx": 267,
+      "next_word_idx": 268,
+      "t_start": 116.159,
+      "t_end": 116.159,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 268,
+      "prev_word_idx": 268,
+      "next_word_idx": 269,
+      "t_start": 116.729,
+      "t_end": 116.879,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 269,
+      "prev_word_idx": 269,
+      "next_word_idx": 270,
+      "t_start": 117.279,
+      "t_end": 117.279,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    },
+    {
+      "idx": 270,
+      "prev_word_idx": 270,
+      "next_word_idx": 271,
+      "t_start": 117.539,
+      "t_end": 117.569,
+      "label": "none",
+      "punctuation": "",
+      "vad_refined": false
+    }
+  ],
+  "duration": 128.634,
+  "sample_rate": 16000,
+  "aligner": "",
+  "acoustic_model": "",
+  "dictionary": "",
+  "oov_words": [],
+  "audio_sha256": "854c1123440ab2dd3b47c5bf53cba7b3c4054e971ca8b7f905a284dfe1b7f48d"
+}

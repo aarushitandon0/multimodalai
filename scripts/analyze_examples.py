@@ -48,8 +48,8 @@ logger = logging.getLogger("scripts.analyze_examples")
 
 __all__ = ["main", "run"]
 
-_SAMPLE_AUDIO = "s1_lv01.wav"
-_SAMPLE_TEXT_ID = "s1_gettysburg"
+_SAMPLE_AUDIO = "s5_lv01.wav"
+_SAMPLE_TEXT_ID = "s5_im_nobody"
 
 
 def _summary(result: AnalysisResult) -> str:
@@ -250,9 +250,9 @@ def _try_dataset(
     except (AnalysisError, M.MFAError) as exc:
         return f"the dataset run failed: {exc}"
     results.append(result)
-    written["dataset"] = str(_write(result, out_dir, "dataset_s1_lv01"))
+    written["dataset"] = str(_write(result, out_dir, "dataset_s5_lv01"))
     _print_result(result, Path(written["dataset"]))
-    return "ran on dataset_sample/audio/s1_lv01.wav with MFA"
+    return f"ran on dataset_sample/audio/{_SAMPLE_AUDIO} with MFA"
 
 
 def main(argv: Sequence[str] | None = None) -> int:

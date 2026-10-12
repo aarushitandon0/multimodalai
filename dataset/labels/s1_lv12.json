@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "57538a1e70b18cab85a0d4ad22aebc403a97e2412edff43a9b8a7e09ba7489b1",
+  "channel_id": "s1_lv12",
+  "duration": 137.835,
+  "file_id": "s1_lv12",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "ray_kasper",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

@@ -27,12 +27,12 @@ A token-count mismatch between `verbatim` and the aligned TextGrid is a hard
 error in `read_textgrid`, by design: it means word index *i* no longer refers to
 the same word across renditions, which would invalidate every comparison.
 
-## Status (2026-10-11)
+## Status (2026-10-13)
 
 | Text | `verbatim` | Readers | Note |
 |---|---|---|---|
 | `s1_gettysburg` | Bliss copy, 272 tokens | 16 | needs per-reader checks, see below |
-| `s2_jfk_inaugural` | `TODO(human)` | 1 | transcribe the chosen 90–150 s excerpt; needs registration to download |
+| `s2_jfk_inaugural` | `TODO(human)` | 0 | **not in the dataset.** No audio was ever built, so no `MANIFEST.csv` row, no LOTO fold and no `split_fold` mention this text. The file is kept because the excerpt is chosen and the JFK Library download is still wanted; it is an open task, not a shipped text. |
 | `s3_fdr_infamy` | filled, 523 tokens | 1 | **~55 s of applause inside the excerpt** — see the file's `notes` before aligning |
 | `s5_im_nobody` | filled, 40 tokens | 17 | edition variant "livelong day" vs "livelong June" to check per reader |
 | `s6_sunset_lampman` | filled, ~130 tokens | 14 | longest of the three new texts; OOV risk list in `notes` |
@@ -45,10 +45,32 @@ from a LibriVox "Multi-version (Weekly and Fortnightly poetry)" collection: one
 short fixed text, a dozen-odd independent volunteers — the same property that
 made `s1` usable.
 
-**None of `s5`–`s7` is alignment-ready yet.** Their `excerpt_start_s` /
-`excerpt_end_s` are all still `null`, so each clean WAV still carries the spoken
-LibriVox intro and outro, which is not part of the text. That has to be set per
-file before `make align` (see point 1 below).
+**The excerpts are still untrimmed.** `excerpt_end_s` is `null` for 61 of the 62
+clean files (`qc/clean_build.csv`), so each LibriVox WAV still carries the spoken
+intro and outro, which are not part of the text. MFA nevertheless aligned the 9
+injection parents without dropping a token — but it placed the text inside the
+file and left the rest unmodelled, which is measurable:
+
+| File | Duration | Last aligned word ends | Untranscribed tail |
+|---|---|---|---|
+| `s1_lv01` | 122.4 s | 111.7 s | 10.5 s |
+| `s5_lv01` | 39.9 s | 27.4 s | 12.5 s |
+| `s7_lv01` | 64.9 s | 52.5 s | 12.2 s |
+| `s3_fdr_gold` | 413.0 s | 412.8 s | 0.2 s (but ~55 s of applause inside) |
+
+That tail sits inside the audio the false-alarm rate is measured over and inside
+the envelope's pause statistics. Fixing it means setting `excerpt_start_s` /
+`excerpt_end_s` per file in `SOURCES.yaml`, then
+`python scripts/build_clean.py --force`, then re-aligning and re-injecting — the
+labels are derived from time maps over the parent, so they do not survive a
+re-cut of the parent.
+
+**Only 9 of 62 clean readings are aligned.** The 9 are the injection parents
+(`s1_lv01`, `s1_lv09`, `s3_fdr_gold`, `s5_lv01`, `s5_lv09`, `s6_lv01`,
+`s6_lv08`, `s7_lv01`, `s7_lv08`). The other 53 have a WAV, a licence row and a
+label record but no `TextGrid`, so they cannot contribute per-word statistics to
+their text's envelope — which is the one thing 62 readings were collected for.
+`make align` over the remaining 53 is the highest-value outstanding data task.
 
 ## Two things the LibriVox readings need before they will align
 

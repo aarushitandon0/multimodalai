@@ -1,0 +1,56 @@
+{
+  "file_id": "s7_lv01_misplaced_stress_L4",
+  "source_file": "s7_lv01",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "algy_pug",
+  "channel_id": "s7_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 4158464888556263058,
+  "duration": 64.826,
+  "clean_duration": 64.865,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 40.02,
+      "t_end": 40.371,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          86,
+          85
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 412374899
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 40.02,
+      "clean_t_end": 40.41,
+      "word_idx": [
+        85,
+        86
+      ],
+      "function_word_idx": 86,
+      "content_word_idx": 85
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "f35fa4d8579dc6776e0f2d1de0024f10b1db8fa53940b36a47a3fffc9404058c"
+}

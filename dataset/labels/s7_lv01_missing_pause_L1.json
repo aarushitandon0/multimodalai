@@ -1,0 +1,45 @@
+{
+  "file_id": "s7_lv01_missing_pause_L1",
+  "source_file": "s7_lv01",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "algy_pug",
+  "channel_id": "s7_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 2288101132544912189,
+  "duration": 64.808,
+  "clean_duration": 64.865,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "missing_pause",
+      "t_start": 42.71,
+      "t_end": 43.053,
+      "level": "L1",
+      "s": 0.15,
+      "method": "shrink_gap",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 93
+      },
+      "params": {
+        "keep_fraction": 0.8575,
+        "praat_seed": 365956704
+      },
+      "formulas": {
+        "keep_fraction": "1 - 0.95 * s"
+      },
+      "clean_t_start": 42.71,
+      "clean_t_end": 43.11,
+      "gap_idx": 93,
+      "gap_label": "boundary",
+      "word_idx": [
+        93,
+        94
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "d180423779cdd76e607e73c4c09fc00e51d576455347bcf2d260fc10bae2a9b8"
+}

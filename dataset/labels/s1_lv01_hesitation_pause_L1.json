@@ -1,0 +1,45 @@
+{
+  "file_id": "s1_lv01_hesitation_pause_L1",
+  "source_file": "s1_lv01",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "ann_boulais",
+  "channel_id": "s1_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 9021915279712801755,
+  "duration": 122.97,
+  "clean_duration": 122.415,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 70.595,
+      "t_end": 70.595,
+      "level": "L1",
+      "s": 0.15,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 160
+      },
+      "params": {
+        "duration_s": 0.555,
+        "praat_seed": 1047486032
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 70.04,
+      "clean_t_end": 70.04,
+      "gap_idx": 160,
+      "gap_label": "none",
+      "word_idx": [
+        160,
+        161
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "3c8ead0771dc3a5464d65758a121ee1acdad8ff984a9e89186a304dab52a0387"
+}

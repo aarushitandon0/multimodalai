@@ -1,0 +1,115 @@
+{
+  "audio_sha256": "ab52d57af602c338861ad60b14f225d96d5a955452c219de7e78fbc9c7ab4acb",
+  "channel_id": "s3_fdr_gold",
+  "clean_duration": 413.0,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "duration": 415.394,
+  "file_id": "s3_fdr_gold_composite1_L4",
+  "flaws": [
+    {
+      "clean_t_end": 135.85,
+      "clean_t_start": 122.95,
+      "content_word_idx": 196,
+      "formulas": {
+        "content_duration_factor": "duration_factor ** -1",
+        "duration_factor": "1 + 0.3 * s",
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "inverse_scale": "1.0"
+      },
+      "function_word_idx": 176,
+      "label": "misplaced_stress",
+      "level": "L4",
+      "method": "move_prominence",
+      "params": {
+        "content_duration_factor": 0.7874,
+        "duration_factor": 1.27,
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "inverse_scale": 1.0,
+        "praat_seed": 1372963532
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "word_pair",
+        "words": [
+          176,
+          196
+        ]
+      },
+      "t_end": 135.819,
+      "t_start": 122.95,
+      "word_idx": [
+        176,
+        196
+      ]
+    },
+    {
+      "clean_t_end": 203.5,
+      "clean_t_start": 199.49,
+      "formulas": {
+        "exponent": "1 - 0.9 * s"
+      },
+      "label": "monotone",
+      "level": "L4",
+      "method": "psola_pitch_compress",
+      "params": {
+        "exponent": 0.19,
+        "praat_seed": 778310373
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "words",
+        "words": [
+          285,
+          292
+        ]
+      },
+      "t_end": 203.469,
+      "t_start": 199.459,
+      "word_idx": [
+        285,
+        292
+      ]
+    },
+    {
+      "clean_t_end": 329.63,
+      "clean_t_start": 326.26,
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "label": "dragging",
+      "level": "L4",
+      "method": "psola_lengthen",
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 970726520
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "words",
+        "words": [
+          432,
+          438
+        ]
+      },
+      "t_end": 332.024,
+      "t_start": 326.229,
+      "word_idx": [
+        432,
+        438
+      ]
+    }
+  ],
+  "n_flaws": 3,
+  "origin": "injected",
+  "qc": null,
+  "seed": 1847762311827841632,
+  "source_file": "s3_fdr_gold",
+  "speaker_id": "franklin_d_roosevelt",
+  "text_id": "s3_fdr_infamy",
+  "tier": "gold"
+}

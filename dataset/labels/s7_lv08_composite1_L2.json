@@ -1,0 +1,115 @@
+{
+  "file_id": "s7_lv08_composite1_L2",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 6354870329188860645,
+  "duration": 71.748,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 24.66,
+      "t_end": 30.506,
+      "level": "L2",
+      "s": 0.35,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          48,
+          58
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 1.4,
+        "gain_db": 1.4,
+        "duration_factor": 1.105,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.905,
+        "praat_seed": 1174841692
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 24.66,
+      "clean_t_end": 30.51,
+      "word_idx": [
+        48,
+        58
+      ],
+      "function_word_idx": 48,
+      "content_word_idx": 58
+    },
+    {
+      "label": "rushing",
+      "t_start": 35.866,
+      "t_end": 36.725,
+      "level": "L2",
+      "s": 0.35,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          69,
+          71
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.8425,
+        "praat_seed": 370717855
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 35.87,
+      "clean_t_end": 36.89,
+      "word_idx": [
+        69,
+        71
+      ]
+    },
+    {
+      "label": "dragging",
+      "t_start": 45.905,
+      "t_end": 47.313,
+      "level": "L2",
+      "s": 0.35,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          79,
+          81
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.28,
+        "praat_seed": 1093641075
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 46.07,
+      "clean_t_end": 47.17,
+      "word_idx": [
+        79,
+        81
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 3,
+  "audio_sha256": "31d45efbfb25f9af956e1ff403adf2a3efef305355c85c4c91b42e777a95339c"
+}

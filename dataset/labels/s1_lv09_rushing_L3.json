@@ -1,0 +1,46 @@
+{
+  "file_id": "s1_lv09_rushing_L3",
+  "source_file": "s1_lv09",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "maryann",
+  "channel_id": "s1_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 8457362138014327364,
+  "duration": 208.292,
+  "clean_duration": 208.565,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "rushing",
+      "t_start": 103.009,
+      "t_end": 103.747,
+      "level": "L3",
+      "s": 0.6,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          165,
+          168
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.73,
+        "praat_seed": 895637876
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 103.01,
+      "clean_t_end": 104.02,
+      "word_idx": [
+        165,
+        168
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "ada176869e493b7f42df1125788556038af8e3246bcae866ef78330b7585c10c"
+}

@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "4d86423400e4bb0fcf3a1e4409c4fb23ba2bf4f9d643d6e6d9377990e819ed6f",
+  "channel_id": "s7_lv08",
+  "duration": 71.605,
+  "file_id": "s7_lv08",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "lee_ann_howlett",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

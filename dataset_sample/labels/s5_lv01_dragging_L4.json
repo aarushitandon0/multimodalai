@@ -1,0 +1,46 @@
+{
+  "file_id": "s5_lv01_dragging_L4",
+  "source_file": "s5_lv01",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "alan_davis-drake",
+  "channel_id": "s5_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 3375225377528656946,
+  "duration": 41.02,
+  "clean_duration": 39.925,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 15.591,
+      "t_end": 18.205,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          28,
+          31
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 162656200
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 15.59,
+      "clean_t_end": 17.11,
+      "word_idx": [
+        28,
+        31
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "3d973030307a3a32a618a9444eaac8501427f3da6c45b8f05c6a0316b73f0858"
+}

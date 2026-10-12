@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "a6067d21a19be3f38717ca4ee7c3ec7a43a70ef18b0ad943b049114573f74d73",
+  "channel_id": "s7_lv03",
+  "duration": 83.885,
+  "file_id": "s7_lv03",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "eunah_choi",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

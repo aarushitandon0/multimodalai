@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "de8282605afe307f91436d70c311f781150d962ede2f72845077a129250b5687",
+  "channel_id": "s1_lv06",
+  "duration": 119.185,
+  "file_id": "s1_lv06",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "julia_niedermaier",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

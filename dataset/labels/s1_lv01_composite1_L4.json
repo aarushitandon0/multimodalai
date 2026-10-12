@@ -1,0 +1,171 @@
+{
+  "file_id": "s1_lv01_composite1_L4",
+  "source_file": "s1_lv01",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "ann_boulais",
+  "channel_id": "s1_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 8217954743048944742,
+  "duration": 128.634,
+  "clean_duration": 122.415,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 10.12,
+      "t_end": 20.852,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          16,
+          25
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 1255204102
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 10.12,
+      "clean_t_end": 16.36,
+      "word_idx": [
+        16,
+        25
+      ]
+    },
+    {
+      "label": "misplaced_stress",
+      "t_start": 25.762,
+      "t_end": 28.69,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          41,
+          39
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 29659480
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 21.27,
+      "clean_t_end": 23.95,
+      "word_idx": [
+        39,
+        41
+      ],
+      "function_word_idx": 41,
+      "content_word_idx": 39
+    },
+    {
+      "label": "monotone",
+      "t_start": 47.99,
+      "t_end": 51.49,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_pitch_compress",
+      "span": {
+        "kind": "words",
+        "words": [
+          92,
+          102
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "exponent": 0.19,
+        "praat_seed": 1620599861
+      },
+      "formulas": {
+        "exponent": "1 - 0.9 * s"
+      },
+      "clean_t_start": 43.25,
+      "clean_t_end": 46.75,
+      "word_idx": [
+        92,
+        102
+      ]
+    },
+    {
+      "label": "missing_pause",
+      "t_start": 67.8,
+      "t_end": 67.859,
+      "level": "L4",
+      "s": 0.9,
+      "method": "shrink_gap",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 142
+      },
+      "params": {
+        "keep_fraction": 0.145,
+        "praat_seed": 1619188676
+      },
+      "formulas": {
+        "keep_fraction": "1 - 0.95 * s"
+      },
+      "clean_t_start": 63.06,
+      "clean_t_end": 63.47,
+      "gap_idx": 142,
+      "gap_label": "boundary",
+      "word_idx": [
+        142,
+        143
+      ]
+    },
+    {
+      "label": "hesitation_pause",
+      "t_start": 78.389,
+      "t_end": 80.219,
+      "level": "L4",
+      "s": 0.9,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 171
+      },
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 496379722
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 74.0,
+      "clean_t_end": 74.0,
+      "gap_idx": 171,
+      "gap_label": "none",
+      "word_idx": [
+        171,
+        172
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 5,
+  "audio_sha256": "854c1123440ab2dd3b47c5bf53cba7b3c4054e971ca8b7f905a284dfe1b7f48d"
+}

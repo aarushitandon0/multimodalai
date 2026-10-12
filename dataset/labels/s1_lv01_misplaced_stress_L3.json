@@ -1,0 +1,56 @@
+{
+  "file_id": "s1_lv01_misplaced_stress_L3",
+  "source_file": "s1_lv01",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "ann_boulais",
+  "channel_id": "s1_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 5958695846622518482,
+  "duration": 122.407,
+  "clean_duration": 122.415,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 43.65,
+      "t_end": 46.742,
+      "level": "L3",
+      "s": 0.6,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          102,
+          94
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 2.4,
+        "gain_db": 2.4,
+        "duration_factor": 1.18,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.8475,
+        "praat_seed": 658790846
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 43.65,
+      "clean_t_end": 46.75,
+      "word_idx": [
+        94,
+        102
+      ],
+      "function_word_idx": 102,
+      "content_word_idx": 94
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "94d7edef5d5f1a8768d7677e6c6eb1d29eb4f5ece9e4a48da1b9c28cc4a613d4"
+}

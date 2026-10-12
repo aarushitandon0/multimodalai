@@ -1,0 +1,56 @@
+{
+  "audio_sha256": "7751a013e897c214108dd18119f03be63d7bcf7d4d06fa58b8347a77b9fd5445",
+  "channel_id": "s3_fdr_gold",
+  "clean_duration": 413.0,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "duration": 412.953,
+  "file_id": "s3_fdr_gold_misplaced_stress_L3",
+  "flaws": [
+    {
+      "clean_t_end": 245.15,
+      "clean_t_start": 242.32,
+      "content_word_idx": 355,
+      "formulas": {
+        "content_duration_factor": "duration_factor ** -1",
+        "duration_factor": "1 + 0.3 * s",
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "inverse_scale": "1.0"
+      },
+      "function_word_idx": 349,
+      "label": "misplaced_stress",
+      "level": "L3",
+      "method": "move_prominence",
+      "params": {
+        "content_duration_factor": 0.8475,
+        "duration_factor": 1.18,
+        "f0_shift_st": 2.4,
+        "gain_db": 2.4,
+        "inverse_scale": 1.0,
+        "praat_seed": 731892128
+      },
+      "s": 0.6,
+      "span": {
+        "gap_idx": null,
+        "kind": "word_pair",
+        "words": [
+          349,
+          355
+        ]
+      },
+      "t_end": 245.103,
+      "t_start": 242.32,
+      "word_idx": [
+        349,
+        355
+      ]
+    }
+  ],
+  "origin": "injected",
+  "qc": null,
+  "seed": 3627460024246891769,
+  "source_file": "s3_fdr_gold",
+  "speaker_id": "franklin_d_roosevelt",
+  "text_id": "s3_fdr_infamy",
+  "tier": "gold"
+}

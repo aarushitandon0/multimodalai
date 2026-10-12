@@ -1,0 +1,45 @@
+{
+  "file_id": "s6_lv01_hesitation_pause_L2",
+  "source_file": "s6_lv01",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "algy_pug",
+  "channel_id": "s6_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 142888268840247522,
+  "duration": 97.8,
+  "clean_duration": 96.905,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 20.13,
+      "t_end": 20.13,
+      "level": "L2",
+      "s": 0.35,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 36
+      },
+      "params": {
+        "duration_s": 0.895,
+        "praat_seed": 1707560047
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 20.13,
+      "clean_t_end": 20.13,
+      "gap_idx": 36,
+      "gap_label": "none",
+      "word_idx": [
+        36,
+        37
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "e78f79b0b84e5a6e05820d0e03a87047216e3376c081edd4fa079e7a1586a201"
+}

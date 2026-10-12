@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "b39cd6701af068e10db0c246db33921e6d93fc89e0710dfe202ff6c7947bac2a",
+  "channel_id": "s1_lv16",
+  "duration": 151.545,
+  "file_id": "s1_lv16",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "john_greenman",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

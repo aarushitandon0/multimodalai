@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "6cd7c1f57727e5986fa24aa667a907c3329b9af560745842a8fae0b7270d16b3",
+  "channel_id": "s1_lv03",
+  "duration": 133.215,
+  "file_id": "s1_lv03",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "david_lawrence",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

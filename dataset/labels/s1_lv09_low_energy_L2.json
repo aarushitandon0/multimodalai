@@ -1,0 +1,48 @@
+{
+  "file_id": "s1_lv09_low_energy_L2",
+  "source_file": "s1_lv09",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "maryann",
+  "channel_id": "s1_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 5568713854610124912,
+  "duration": 208.565,
+  "clean_duration": 208.565,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "low_energy",
+      "t_start": 19.31,
+      "t_end": 20.31,
+      "level": "L2",
+      "s": 0.35,
+      "method": "gain_ramp",
+      "span": {
+        "kind": "words",
+        "words": [
+          26,
+          29
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "end_gain_db": -6.3,
+        "ramp": "linear_db",
+        "praat_seed": 301199551
+      },
+      "formulas": {
+        "end_gain_db": "-18.0 * s",
+        "ramp": "linear_db"
+      },
+      "clean_t_start": 19.31,
+      "clean_t_end": 20.31,
+      "word_idx": [
+        26,
+        29
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "04d562b6f3336fd1a42e528b115875a706087b631cdf3cd335e514a04b52372d"
+}

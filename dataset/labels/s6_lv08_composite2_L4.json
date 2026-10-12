@@ -1,0 +1,103 @@
+{
+  "file_id": "s6_lv08_composite2_L4",
+  "source_file": "s6_lv08",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s6_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 4791276326319743557,
+  "duration": 97.199,
+  "clean_duration": 96.455,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "missing_pause",
+      "t_start": 48.69,
+      "t_end": 48.874,
+      "level": "L4",
+      "s": 0.9,
+      "method": "shrink_gap",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 84
+      },
+      "params": {
+        "keep_fraction": 0.145,
+        "praat_seed": 261233717
+      },
+      "formulas": {
+        "keep_fraction": "1 - 0.95 * s"
+      },
+      "clean_t_start": 48.69,
+      "clean_t_end": 49.96,
+      "gap_idx": 84,
+      "gap_label": "boundary",
+      "word_idx": [
+        84,
+        85
+      ]
+    },
+    {
+      "label": "monotone",
+      "t_start": 73.374,
+      "t_end": 80.074,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_pitch_compress",
+      "span": {
+        "kind": "words",
+        "words": [
+          135,
+          149
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "exponent": 0.19,
+        "praat_seed": 1772871067
+      },
+      "formulas": {
+        "exponent": "1 - 0.9 * s"
+      },
+      "clean_t_start": 74.46,
+      "clean_t_end": 81.16,
+      "word_idx": [
+        135,
+        149
+      ]
+    },
+    {
+      "label": "hesitation_pause",
+      "t_start": 83.914,
+      "t_end": 85.744,
+      "level": "L4",
+      "s": 0.9,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 157
+      },
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 2973142
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 85.0,
+      "clean_t_end": 85.0,
+      "gap_idx": 157,
+      "gap_label": "none",
+      "word_idx": [
+        157,
+        158
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 3,
+  "audio_sha256": "cb7b8b5b3a6f5b1274e907e95b120b809c36a61dc3fc20f06c4e3f69ae531e7c"
+}

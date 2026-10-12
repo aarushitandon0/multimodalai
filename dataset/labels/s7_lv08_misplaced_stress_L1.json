@@ -1,0 +1,56 @@
+{
+  "file_id": "s7_lv08_misplaced_stress_L1",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 2375359727941996898,
+  "duration": 71.598,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 4.27,
+      "t_end": 4.613,
+      "level": "L1",
+      "s": 0.15,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          12,
+          11
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 0.6,
+        "gain_db": 0.6,
+        "duration_factor": 1.045,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.9569,
+        "praat_seed": 699816900
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 4.27,
+      "clean_t_end": 4.62,
+      "word_idx": [
+        11,
+        12
+      ],
+      "function_word_idx": 12,
+      "content_word_idx": 11
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "ce3107082f1f00b8003d43b927424e642ee3c7f87bfa343f01308d660c7026f4"
+}

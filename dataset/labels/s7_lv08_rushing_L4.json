@@ -1,0 +1,46 @@
+{
+  "file_id": "s7_lv08_rushing_L4",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 1809329597070073643,
+  "duration": 70.993,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "rushing",
+      "t_start": 34.17,
+      "t_end": 35.068,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          63,
+          68
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.595,
+        "praat_seed": 1913094962
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 34.17,
+      "clean_t_end": 35.68,
+      "word_idx": [
+        63,
+        68
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "d6ae65849e1e00e7b12871a4b843ac3a7250d6606cb4a18efa6e44b50d9490f5"
+}

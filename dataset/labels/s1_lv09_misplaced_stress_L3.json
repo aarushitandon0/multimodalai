@@ -1,0 +1,56 @@
+{
+  "file_id": "s1_lv09_misplaced_stress_L3",
+  "source_file": "s1_lv09",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "maryann",
+  "channel_id": "s1_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 3334317629335577744,
+  "duration": 208.516,
+  "clean_duration": 208.565,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 105.17,
+      "t_end": 116.791,
+      "level": "L3",
+      "s": 0.6,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          184,
+          169
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 2.4,
+        "gain_db": 2.4,
+        "duration_factor": 1.18,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.8475,
+        "praat_seed": 1839165896
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 105.17,
+      "clean_t_end": 116.84,
+      "word_idx": [
+        169,
+        184
+      ],
+      "function_word_idx": 184,
+      "content_word_idx": 169
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "5b914e243d4c4986dd75dfd7b4a17fa1bad1762470acdfe021aebff15745d6fc"
+}

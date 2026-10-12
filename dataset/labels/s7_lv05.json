@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "65ea667af1cdbe27aefa7890da7795b2ede134125ecbf1803de61850ea8fb5b2",
+  "channel_id": "s7_lv05",
+  "duration": 71.095,
+  "file_id": "s7_lv05",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "garth_burton",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

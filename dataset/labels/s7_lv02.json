@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "2dec75d6105425f7e8f0d92fc8fbc80ad20cd5178d93b101b9425daea99bacb8",
+  "channel_id": "s7_lv02",
+  "duration": 75.095,
+  "file_id": "s7_lv02",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "bruce_kachuk",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

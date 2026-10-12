@@ -1,0 +1,45 @@
+{
+  "file_id": "s7_lv08_hesitation_pause_L4",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 1142594377058573740,
+  "duration": 73.435,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 52.21,
+      "t_end": 52.21,
+      "level": "L4",
+      "s": 0.9,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 87
+      },
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 2020888963
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 50.38,
+      "clean_t_end": 50.38,
+      "gap_idx": 87,
+      "gap_label": "none",
+      "word_idx": [
+        87,
+        88
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "78990576df120a4d39480b4195efe50a1c8730918fadb0185bec483e18d487bc"
+}

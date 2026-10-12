@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "4375df2efab2a6c5e144166b6291591a2238774005e297f32aa8c483e59970c4",
+  "channel_id": "s7_lv04",
+  "duration": 70.035,
+  "file_id": "s7_lv04",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "david_lawrence",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

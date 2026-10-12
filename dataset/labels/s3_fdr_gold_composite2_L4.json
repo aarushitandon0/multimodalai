@@ -1,0 +1,143 @@
+{
+  "audio_sha256": "2f4ca1276de6d4ed4f08dd58aa463cd235d3075be21832e3a9f07f2bab82094a",
+  "channel_id": "s3_fdr_gold",
+  "clean_duration": 413.0,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "duration": 416.301,
+  "file_id": "s3_fdr_gold_composite2_L4",
+  "flaws": [
+    {
+      "clean_t_end": 20.12,
+      "clean_t_start": 20.12,
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "gap_idx": 24,
+      "gap_label": "none",
+      "label": "hesitation_pause",
+      "level": "L4",
+      "method": "insert_room_tone",
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 1909407066
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": 24,
+        "kind": "gap",
+        "words": null
+      },
+      "t_end": 21.95,
+      "t_start": 21.95,
+      "word_idx": [
+        24,
+        25
+      ]
+    },
+    {
+      "clean_t_end": 82.99,
+      "clean_t_start": 63.13,
+      "content_word_idx": 87,
+      "formulas": {
+        "content_duration_factor": "duration_factor ** -1",
+        "duration_factor": "1 + 0.3 * s",
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "inverse_scale": "1.0"
+      },
+      "function_word_idx": 118,
+      "label": "misplaced_stress",
+      "level": "L4",
+      "method": "move_prominence",
+      "params": {
+        "content_duration_factor": 0.7874,
+        "duration_factor": 1.27,
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "inverse_scale": 1.0,
+        "praat_seed": 1305733050
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "word_pair",
+        "words": [
+          118,
+          87
+        ]
+      },
+      "t_end": 84.764,
+      "t_start": 64.96,
+      "word_idx": [
+        87,
+        118
+      ]
+    },
+    {
+      "clean_t_end": 186.21,
+      "clean_t_start": 184.09,
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "label": "dragging",
+      "level": "L4",
+      "method": "psola_lengthen",
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 2057615647
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "words",
+        "words": [
+          266,
+          268
+        ]
+      },
+      "t_end": 189.511,
+      "t_start": 185.864,
+      "word_idx": [
+        266,
+        268
+      ]
+    },
+    {
+      "clean_t_end": 203.5,
+      "clean_t_start": 199.49,
+      "formulas": {
+        "exponent": "1 - 0.9 * s"
+      },
+      "label": "monotone",
+      "level": "L4",
+      "method": "psola_pitch_compress",
+      "params": {
+        "exponent": 0.19,
+        "praat_seed": 899912269
+      },
+      "s": 0.9,
+      "span": {
+        "gap_idx": null,
+        "kind": "words",
+        "words": [
+          285,
+          292
+        ]
+      },
+      "t_end": 206.801,
+      "t_start": 202.791,
+      "word_idx": [
+        285,
+        292
+      ]
+    }
+  ],
+  "n_flaws": 4,
+  "origin": "injected",
+  "qc": null,
+  "seed": 2557621502982859385,
+  "source_file": "s3_fdr_gold",
+  "speaker_id": "franklin_d_roosevelt",
+  "text_id": "s3_fdr_infamy",
+  "tier": "gold"
+}

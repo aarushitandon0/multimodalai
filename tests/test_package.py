@@ -8,12 +8,14 @@ from rostrum.data.manifest import ManifestRow
 from rostrum.data.package import (
     AUTOBLOCK_END,
     AUTOBLOCK_START,
+    clean_label,
     composition_table,
     label_table,
     manifest_row_from_label,
     render_autoblocks,
     sample_coverage,
     select_sample,
+    speaker_slug,
 )
 
 
@@ -257,12 +259,14 @@ def test_budget_keeps_flaw_coverage_and_human_takes(rows: list[ManifestRow]) -> 
     assert "s1_tm01_mumbling_L2" in chosen
 
 
-def test_budget_too_small_for_coverage_still_returns_the_flawed_files(
+def test_budget_too_small_for_coverage_still_returns_the_pairs(
     rows: list[ManifestRow],
 ) -> None:
+    """An impossible budget yields the flawed files and their parents, nothing else."""
     sizes = dict.fromkeys((r.file_id for r in rows), 4 * MB)
     chosen = select_sample(rows, max_files=20, sizes=sizes, budget_bytes=1 * MB)
-    assert set(chosen) == {r.file_id for r in rows if r.origin in ("injected", "human")}
+    flawed = {r.file_id for r in rows if r.origin in ("injected", "human")}
+    assert set(chosen) == flawed | {"s1_lv01"}
 
 
 def test_unknown_file_size_is_not_charged_against_the_budget(rows: list[ManifestRow]) -> None:
@@ -273,3 +277,169 @@ def test_unknown_file_size_is_not_charged_against_the_budget(rows: list[Manifest
 def test_no_budget_means_no_trimming(rows: list[ManifestRow]) -> None:
     sizes = dict.fromkeys((r.file_id for r in rows), 4 * MB)
     assert len(select_sample(rows, max_files=20, sizes=sizes)) == 12
+
+
+# --------------------------------------------------------------------------- #
+# Pairing: a flawed file is only useful next to the reading it was cut from
+# --------------------------------------------------------------------------- #
+
+
+def test_pair_representative_prefers_the_smallest_file() -> None:
+    """Two files cover rushing/L1; the sample takes the one that costs less."""
+    rows = [
+        row("s1_lv01", "s1", duration_s=400.0),
+        row("s5_lv01", "s5", duration_s=20.0),
+        row("s1_lv01_rushing_L1", "s1", "injected", "rushing", "L1", duration_s=400.0),
+        row("s5_lv01_rushing_L1", "s5", "injected", "rushing", "L1", duration_s=20.0),
+    ]
+    sizes = {"s1_lv01": 40 * MB, "s5_lv01": 2 * MB}
+    sizes |= {"s1_lv01_rushing_L1": 40 * MB, "s5_lv01_rushing_L1": 2 * MB}
+    chosen = select_sample(rows, max_files=20, sizes=sizes, budget_bytes=45 * MB)
+    assert "s5_lv01_rushing_L1" in chosen
+    assert "s1_lv01_rushing_L1" not in chosen
+
+
+def test_sample_includes_the_clean_parent_of_every_chosen_injected_file(
+    rows: list[ManifestRow],
+) -> None:
+    """Every injected file in the sample is shipped next to its clean reading."""
+    chosen = set(select_sample(rows, max_files=20))
+    clean = {r.file_id for r in rows if r.origin == "clean"}
+    injected = [r.file_id for r in rows if r.origin == "injected" and r.file_id in chosen]
+    assert injected
+    for file_id in injected:
+        parents = [c for c in clean if file_id.startswith(c)]
+        assert max(parents, key=len) in chosen
+
+
+def test_parents_are_protected_from_the_budget_trim() -> None:
+    """A budget too small for the clean round-robin still keeps the pair whole.
+
+    ``s1_lv01`` sorts first, so the unprotected round-robin would spend the
+    budget on it and drop ``s1_lv02`` - the reading the flawed file came from.
+    """
+    rows = [
+        row("s1_lv01", "s1"),
+        row("s1_lv02", "s1"),
+        row("s1_lv02_rushing_L1", "s1", "injected", "rushing", "L1"),
+    ]
+    sizes = dict.fromkeys((r.file_id for r in rows), 4 * MB)
+    chosen = set(select_sample(rows, max_files=20, sizes=sizes, budget_bytes=9 * MB))
+    assert {"s1_lv02", "s1_lv02_rushing_L1"} <= chosen
+
+
+# --------------------------------------------------------------------------- #
+# clean_label: a good reading needs a label record that says "no flaws"
+# --------------------------------------------------------------------------- #
+
+
+def test_clean_label_declares_an_empty_flaw_list() -> None:
+    label = clean_label(row("s5_lv01", "s5_im_nobody", duration_s=39.925))
+    assert label["flaws"] == []
+    assert label["origin"] == "clean"
+    assert label["file_id"] == "s5_lv01"
+    assert label["text_id"] == "s5_im_nobody"
+
+
+def test_clean_label_is_its_own_channel() -> None:
+    """A clean reading is the channel other files are compared against (invariant 7)."""
+    label = clean_label(row("s5_lv01", "s5_im_nobody"))
+    assert label["channel_id"] == "s5_lv01"
+    assert label["source_file"] == ""
+
+
+def test_clean_label_carries_the_speaker_and_digest_when_known() -> None:
+    label = clean_label(
+        row("s5_lv01", "s5_im_nobody"), speaker_id="algy_pug", audio_sha256="abc123"
+    )
+    assert label["speaker_id"] == "algy_pug"
+    assert label["audio_sha256"] == "abc123"
+
+
+def test_clean_label_round_trips_through_the_manifest() -> None:
+    """``manifest_row_from_label`` must read back what ``clean_label`` wrote."""
+    original = row("s5_lv01", "s5_im_nobody", tier="gold", duration_s=39.925)
+    back = manifest_row_from_label(clean_label(original), 39.925)
+    assert (back.file_id, back.text_id, back.origin, back.tier) == (
+        "s5_lv01",
+        "s5_im_nobody",
+        "clean",
+        "gold",
+    )
+    assert (back.label, back.level) == ("", "")
+
+
+# --------------------------------------------------------------------------- #
+# speaker_slug
+# --------------------------------------------------------------------------- #
+
+
+def test_speaker_slug_lowercases_and_underscores_a_display_name() -> None:
+    assert speaker_slug("Alan Davis-Drake") == "alan_davis-drake"
+    assert speaker_slug("Lee Ann Howlett") == "lee_ann_howlett"
+
+
+def test_speaker_slug_drops_abbreviation_dots() -> None:
+    """``Franklin D. Roosevelt`` must not become ``franklin_d._roosevelt``."""
+    assert speaker_slug("Franklin D. Roosevelt") == "franklin_d_roosevelt"
+    assert speaker_slug("Lucretia B.") == "lucretia_b"
+
+
+def test_speaker_slug_drops_parenthesised_dates() -> None:
+    assert speaker_slug("Ray Kasper (1938-2017)") == "ray_kasper"
+
+
+@pytest.mark.parametrize(
+    "name",
+    ["MaryAnn", "Franklin D. Roosevelt", "Ray Kasper (1938-2017)", "Alan Davis-Drake"],
+)
+def test_speaker_slug_is_idempotent(name: str) -> None:
+    """Re-slugging a slug must not grow separators: ``franklin_d__roosevelt``."""
+    once = speaker_slug(name)
+    assert speaker_slug(once) == once
+
+
+def test_speaker_slug_never_doubles_a_separator() -> None:
+    assert speaker_slug("franklin_d._roosevelt") == "franklin_d_roosevelt"
+
+
+def test_speaker_slug_of_nothing_is_empty() -> None:
+    assert speaker_slug("") == ""
+    assert speaker_slug("   ") == ""
+
+
+def test_clean_label_stores_the_speaker_as_a_slug() -> None:
+    label = clean_label(row("s5_lv01", "s5"), speaker_id="Alan Davis-Drake")
+    assert label["speaker_id"] == "alan_davis-drake"
+
+
+# --------------------------------------------------------------------------- #
+# composition_table speaker count
+# --------------------------------------------------------------------------- #
+
+
+def test_composition_counts_distinct_speakers_not_recordings() -> None:
+    """Two readings by one reader are one speaker (the label JSONs know this)."""
+    rows = [row("s1_lv01", "s1"), row("s6_lv01", "s6")]
+    speakers = {"s1_lv01": "algy_pug", "s6_lv01": "algy_pug"}
+    table = composition_table(rows, speakers=speakers)
+    header, _, clean, *_ = table.splitlines()
+    assert "Speakers" in header
+    assert clean.split("|")[4].strip() == "1"
+
+
+def test_composition_falls_back_to_the_recording_prefix() -> None:
+    """Without a speaker map the column still reports something defensible."""
+    rows = [row("s1_lv01", "s1"), row("s6_lv01", "s6")]
+    clean = composition_table(rows).splitlines()[2]
+    assert clean.split("|")[4].strip() == "2"
+
+
+def test_injected_speaker_comes_from_its_parent() -> None:
+    rows = [
+        row("s1_lv01", "s1"),
+        row("s1_lv01_rushing_L1", "s1", "injected", "rushing", "L1"),
+    ]
+    speakers = {"s1_lv01": "algy_pug", "s1_lv01_rushing_L1": "algy_pug"}
+    total = composition_table(rows, speakers=speakers).splitlines()[-1]
+    assert total.split("|")[4].strip() == "1"

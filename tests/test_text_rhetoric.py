@@ -22,7 +22,9 @@ def cfg():
 
 @pytest.fixture(scope="module")
 def gettysburg(cfg):
-    path = cfg.path("sample.transcripts") / "s1_gettysburg.json"
+    # dataset/texts/ is tracked in git, so this works in a fresh clone and does
+    # not depend on which files dataset_sample/ happens to carry.
+    path = cfg.path("data.texts") / "s1_gettysburg.json"
     display = json.loads(path.read_text(encoding="utf-8"))["display"]
     return annotate(display, text_id="s1_gettysburg", config=cfg)
 

@@ -43,6 +43,7 @@ import os
 import shutil
 import sys
 import zipfile
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -56,10 +57,12 @@ from rostrum.data.manifest import (
     LICENSES_FIELDS,
     MANIFEST_FIELDS,
     ManifestRow,
+    read_licenses,
     read_manifest,
     write_checksums,
 )
 from rostrum.data.package import (
+    clean_label,
     composition_table,
     label_table,
     manifest_row_from_label,
@@ -82,8 +85,16 @@ AUDIO_DIRS: tuple[tuple[str, str], ...] = (
 SAMPLE_MAX_BYTES = 50 * 1024 * 1024
 """``dataset_sample/`` must stay under 50 MB so the repo stays clonable."""
 
-SAMPLE_MAX_FILES = 20
-"""Target sample size (spec 7.4: "~20 files")."""
+SAMPLE_MAX_FILES = 48
+"""Target sample size.
+
+Spec 7.4 says "~20 files", written before the flaw grid was built. The grid is
+8 labels x 4 severity levels, and each flawed file only means anything beside
+the clean reading it was cut from, so a sample that demonstrates the full
+contrast needs the pairs plus their parents. Representatives are chosen from
+the shortest texts, so the whole set still fits well inside
+:data:`SAMPLE_MAX_BYTES`.
+"""
 
 SAMPLE_AUDIO_BUDGET = int(0.9 * SAMPLE_MAX_BYTES)
 """Share of the budget the audio may use; the rest covers labels and CSVs."""
@@ -124,6 +135,49 @@ def wav_duration_s(path: Path) -> float:
     return float(info.frames) / float(info.samplerate)
 
 
+def write_missing_clean_labels(dataset_dir: Path, rows: Sequence[ManifestRow]) -> list[str]:
+    """Give every clean reading a label JSON, without touching existing ones.
+
+    Injected files get their label JSON from the injection engine, which knows
+    exactly what it edited. Nothing writes the clean side, so the good readings
+    end up as the only audio in the dataset with no label record at all - and
+    the false-alarm rate is measured on precisely those files. This fills the
+    gap from the manifest, which is the one place that already knows each
+    file's text, tier and duration.
+
+    Args:
+        dataset_dir: The dataset root.
+        rows: Manifest rows, as rebuilt by :func:`collect_rows`.
+
+    Returns:
+        The file ids written, sorted; empty when every clean file had one.
+    """
+    labels_dir = dataset_dir / "labels"
+    labels_dir.mkdir(parents=True, exist_ok=True)
+    licences = read_licenses(dataset_dir / "LICENSES.csv")
+    speakers = {r.file_id: r.speaker for r in licences}
+    digests = {r.file_id: r.sha256 for r in licences}
+
+    written: list[str] = []
+    for row in sorted(rows, key=lambda r: r.file_id):
+        if row.origin != "clean":
+            continue
+        path = labels_dir / f"{row.file_id}.json"
+        if path.is_file():
+            continue
+        label = clean_label(
+            row,
+            speaker_id=speakers.get(row.file_id, ""),
+            audio_sha256=digests.get(row.file_id, ""),
+        )
+        blob = json.dumps(label, indent=2, sort_keys=True)
+        path.write_text(blob + chr(10), encoding="utf-8")
+        written.append(row.file_id)
+    if written:
+        logger.info("labels: wrote %d clean label record(s)", len(written))
+    return written
+
+
 def collect_rows(dataset_dir: Path, *, strict: bool = False) -> list[ManifestRow]:
     """Rebuild the manifest rows from the audio, labels and previous manifest.
 
@@ -136,7 +190,8 @@ def collect_rows(dataset_dir: Path, *, strict: bool = False) -> list[ManifestRow
         strict: Raise if a file ends up with no ``text_id``; otherwise warn.
 
     Returns:
-        Rows sorted by ``file_id``, with ``split_fold`` empty.
+        Rows sorted by ``file_id``. ``split_fold`` is carried over from the
+        previous manifest, so a run that skips the split step keeps the folds.
 
     Raises:
         PackagingError: ``strict`` and some file has no resolvable ``text_id``.
@@ -173,6 +228,11 @@ def collect_rows(dataset_dir: Path, *, strict: bool = False) -> list[ManifestRow
                 label=row.label if row else (old.label if old else ""),
                 level=row.level if row else (old.level if old else ""),
                 duration_s=round(duration, 3),
+                # The split builder owns this column and overwrites it when it
+                # runs. Carrying the old value over means a partial run such as
+                # `--only sample` leaves the folds intact instead of blanking
+                # them, which would silently un-assign every test file.
+                split_fold=old.split_fold if old else "",
             )
         )
         if not text_id:
@@ -350,6 +410,21 @@ def splits_block(dataset_dir: Path, rows: list[ManifestRow]) -> str:
     return "\n".join(lines)
 
 
+def read_speaker_ids(dataset_dir: Path) -> dict[str, str]:
+    """``file_id`` to ``speaker_id``, from the label JSONs that carry one."""
+    out: dict[str, str] = {}
+    for path in sorted((dataset_dir / "labels").glob("*.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            logger.warning("labels: %s is unreadable", path.name)
+            continue
+        speaker = str(data.get("speaker_id") or "")
+        if speaker:
+            out[path.stem] = speaker
+    return out
+
+
 def update_datasheet(dataset_dir: Path, rows: list[ManifestRow]) -> Path:
     """Regenerate the auto-blocks inside ``dataset/README.md``."""
     path = dataset_dir / "README.md"
@@ -357,7 +432,7 @@ def update_datasheet(dataset_dir: Path, rows: list[ManifestRow]) -> Path:
     updated = render_autoblocks(
         document,
         {
-            "composition": composition_table(rows),
+            "composition": composition_table(rows, speakers=read_speaker_ids(dataset_dir)),
             "labels": label_table(rows),
             "qc": qc_block(dataset_dir),
             "splits": splits_block(dataset_dir, rows),
@@ -442,7 +517,7 @@ def build_sample(
     """Refresh ``dataset_sample/`` with ``file_ids`` and their sidecars.
 
     Copies the audio flat into ``audio/``, each file's ``labels/*.json`` and
-    ``alignments/*.TextGrid`` where they exist, the texts those files render
+    ``alignments/*.{TextGrid,json}`` where they exist, the texts those files render
     into ``transcripts/``, and ``MANIFEST.csv`` / ``LICENSES.csv`` filtered to
     the subset. Anything the packager owns is rebuilt, so a file that drops out
     of the selection disappears; hand-written notes under
@@ -471,10 +546,15 @@ def build_sample(
             continue
         shutil.copy2(src, sample_dir / "audio" / src.name)
         copied.append(file_id)
-        for sub, suffix in (("labels", ".json"), ("alignments", ".TextGrid")):
-            side = dataset_dir / sub / f"{file_id}{suffix}"
-            if side.is_file():
-                shutil.copy2(side, sample_dir / sub / side.name)
+        # A clean reading is aligned by MFA and carries a TextGrid; an injected
+        # file inherits its parent's words through the time map and carries a
+        # JSON word table instead (spec 7.2). Both are alignment labels, so
+        # both ship - matching only one silently drops half the sample's.
+        for sub, suffixes in (("labels", (".json",)), ("alignments", (".TextGrid", ".json"))):
+            for suffix in suffixes:
+                side = dataset_dir / sub / f"{file_id}{suffix}"
+                if side.is_file():
+                    shutil.copy2(side, sample_dir / sub / side.name)
         row = by_id.get(file_id)
         if row and row.text_id:
             texts.add(row.text_id)
@@ -491,6 +571,13 @@ def build_sample(
         LICENSES_FIELDS,
         _licence_ids(set(copied), set(by_id)),
     )
+    n_events = _filter_events_tsv(
+        dataset_dir / "labels" / "events.tsv",
+        sample_dir / "labels" / "events.tsv",
+        set(copied),
+    )
+    logger.debug("sample: events.tsv carries %d event(s)", n_events)
+
     splits = dataset_dir / "splits" / "loto.json"
     if splits.is_file():
         shutil.copy2(splits, sample_dir / "splits" / "loto.json")
@@ -499,6 +586,33 @@ def build_sample(
     n_bytes = sum(p.stat().st_size for p in sample_dir.rglob("*") if p.is_file())
     logger.info("dataset_sample: %d file(s), %.1f MB", len(copied), n_bytes / (1024 * 1024))
     return SampleResult(n_files=len(copied), n_bytes=n_bytes, file_ids=tuple(copied))
+
+
+def _filter_events_tsv(src: Path, dst: Path, keep: set[str]) -> int:
+    """Copy ``labels/events.tsv`` keeping only rows whose file is in ``keep``.
+
+    The sed_eval file is the ground truth an event-F1 run reads, so a sample
+    without it cannot be evaluated on its own - and copying it whole would
+    name 266 files the sample does not contain.
+
+    Args:
+        src: The full ``events.tsv``.
+        dst: Where to write the filtered copy.
+        keep: File ids the sample ships.
+
+    Returns:
+        The number of event rows written.
+    """
+    if not src.is_file():
+        return 0
+    tab = chr(9)
+    kept = [
+        line
+        for line in src.read_text(encoding="utf-8").splitlines()
+        if line.strip() and line.split(tab)[0].removesuffix(".wav") in keep
+    ]
+    dst.write_text("".join(line + chr(10) for line in kept), encoding="utf-8")
+    return len(kept)
 
 
 def _licence_ids(copied: set[str], known: set[str]) -> set[str]:
@@ -603,6 +717,7 @@ def main(argv: list[str] | None = None) -> int:
             logger.error("%s", exc)
             failures.append("splits")
     if "manifest" in steps and not args.check:
+        write_missing_clean_labels(dataset_dir, rows)
         write_manifest(dataset_dir / "MANIFEST.csv", rows)
 
     if "provenance" in steps:

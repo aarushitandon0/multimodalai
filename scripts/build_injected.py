@@ -70,10 +70,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from rostrum.align.mfa import read_textgrid
 from rostrum.config import Config, load_config
 from rostrum.data.manifest import ManifestRow, append_manifest, read_licenses, read_manifest
+from rostrum.features.pauses import apply_gap_labels
 from rostrum.inject import engine, qc
 from rostrum.inject.engine import CleanFile, InjectionResult, NoValidSpanError
 from rostrum.inject.ops import InjectionError
-from rostrum.features.pauses import apply_gap_labels
 from rostrum.io.audio import SAMPLE_RATE, load_any, write_wav16
 from rostrum.io.hashing import sha256_file
 from rostrum.text.gaps import counts as gap_label_counts

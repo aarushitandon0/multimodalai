@@ -1,0 +1,46 @@
+{
+  "file_id": "s5_lv09_dragging_L3",
+  "source_file": "s5_lv09",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "julian_jamison",
+  "channel_id": "s5_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 8095432207627549935,
+  "duration": 42.407,
+  "clean_duration": 42.057,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 4.57,
+      "t_end": 5.65,
+      "level": "L3",
+      "s": 0.6,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          12,
+          14
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.48,
+        "praat_seed": 1491680196
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 4.57,
+      "clean_t_end": 5.3,
+      "word_idx": [
+        12,
+        14
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "571bb1332776f254b2c410efd38475d4bebddd5b24d8f51f5631956c30c02a42"
+}

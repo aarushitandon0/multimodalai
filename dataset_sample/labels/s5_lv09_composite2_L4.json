@@ -1,0 +1,106 @@
+{
+  "file_id": "s5_lv09_composite2_L4",
+  "source_file": "s5_lv09",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "julian_jamison",
+  "channel_id": "s5_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 6841304921107628081,
+  "duration": 41.026,
+  "clean_duration": 42.057,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "missing_pause",
+      "t_start": 1.4,
+      "t_end": 1.459,
+      "level": "L4",
+      "s": 0.9,
+      "method": "shrink_gap",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 1
+      },
+      "params": {
+        "keep_fraction": 0.145,
+        "praat_seed": 293213295
+      },
+      "formulas": {
+        "keep_fraction": "1 - 0.95 * s"
+      },
+      "clean_t_start": 1.4,
+      "clean_t_end": 1.81,
+      "gap_idx": 1,
+      "gap_label": "boundary",
+      "word_idx": [
+        1,
+        2
+      ]
+    },
+    {
+      "label": "low_energy",
+      "t_start": 9.619,
+      "t_end": 13.449,
+      "level": "L4",
+      "s": 0.9,
+      "method": "gain_ramp",
+      "span": {
+        "kind": "words",
+        "words": [
+          23,
+          26
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "end_gain_db": -16.2,
+        "ramp": "linear_db",
+        "praat_seed": 1823936907
+      },
+      "formulas": {
+        "end_gain_db": "-18.0 * s",
+        "ramp": "linear_db"
+      },
+      "clean_t_start": 9.97,
+      "clean_t_end": 13.8,
+      "word_idx": [
+        23,
+        26
+      ]
+    },
+    {
+      "label": "rushing",
+      "t_start": 21.179,
+      "t_end": 22.179,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          37,
+          39
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.595,
+        "praat_seed": 1881981288
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 21.53,
+      "clean_t_end": 23.21,
+      "word_idx": [
+        37,
+        39
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 3,
+  "audio_sha256": "92d7d81e3f468ebcf9007c07507224ffd731eb18bd42ab550cdaa6e08fa29725"
+}

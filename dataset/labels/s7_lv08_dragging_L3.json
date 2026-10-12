@@ -1,0 +1,46 @@
+{
+  "file_id": "s7_lv08_dragging_L3",
+  "source_file": "s7_lv08",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "lee_ann_howlett",
+  "channel_id": "s7_lv08",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 1404462871719066561,
+  "duration": 72.023,
+  "clean_duration": 71.605,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "dragging",
+      "t_start": 50.04,
+      "t_end": 51.328,
+      "level": "L3",
+      "s": 0.6,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          86,
+          88
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.48,
+        "praat_seed": 1571248501
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 50.04,
+      "clean_t_end": 50.91,
+      "word_idx": [
+        86,
+        88
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "0b4decf4d0b5f5190703c419592e6535d1f94108032a03539d5ca1adc72bdde2"
+}

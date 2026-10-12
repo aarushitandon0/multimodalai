@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "67ade19ca1cf1d7f93418042e75f594276a566005c2dae71e7157523946bbc19",
+  "channel_id": "s7_lv06",
+  "duration": 80.935,
+  "file_id": "s7_lv06",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "greg_giordano",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

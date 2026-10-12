@@ -1,0 +1,56 @@
+{
+  "file_id": "s5_lv01_misplaced_stress_L2",
+  "source_file": "s5_lv01",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "alan_davis-drake",
+  "channel_id": "s5_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 3228162683873305141,
+  "duration": 39.93,
+  "clean_duration": 39.925,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 3.45,
+      "t_end": 4.715,
+      "level": "L2",
+      "s": 0.35,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          14,
+          10
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 1.4,
+        "gain_db": 1.4,
+        "duration_factor": 1.105,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.905,
+        "praat_seed": 1574041068
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 3.45,
+      "clean_t_end": 4.71,
+      "word_idx": [
+        10,
+        14
+      ],
+      "function_word_idx": 14,
+      "content_word_idx": 10
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "55f65f315069c449baa570f055d4692c2271455b3f9415d5443c94b90ef36283"
+}

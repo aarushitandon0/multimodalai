@@ -1,0 +1,46 @@
+{
+  "file_id": "s6_lv01_monotone_L1",
+  "source_file": "s6_lv01",
+  "text_id": "s6_sunset_lampman",
+  "speaker_id": "algy_pug",
+  "channel_id": "s6_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 822789696029226303,
+  "duration": 96.905,
+  "clean_duration": 96.905,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "monotone",
+      "t_start": 75.93,
+      "t_end": 82.49,
+      "level": "L1",
+      "s": 0.15,
+      "method": "psola_pitch_compress",
+      "span": {
+        "kind": "words",
+        "words": [
+          135,
+          149
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "exponent": 0.865,
+        "praat_seed": 992030521
+      },
+      "formulas": {
+        "exponent": "1 - 0.9 * s"
+      },
+      "clean_t_start": 75.93,
+      "clean_t_end": 82.49,
+      "word_idx": [
+        135,
+        149
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "9290621c037829110d7e49225ae4ed97c245ddadb2d29af82860b49ac02ad52f"
+}

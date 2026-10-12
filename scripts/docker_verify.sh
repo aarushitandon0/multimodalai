@@ -11,8 +11,8 @@
 # (verbatim field) into a temp file and passed to scripts/smoke_align.py.
 set -euo pipefail
 
-WAV=${DOCKER_SMOKE_WAV:-dataset_sample/audio/s1_lv01.wav}
-TEXT=${DOCKER_SMOKE_TEXT:-dataset_sample/transcripts/s1_gettysburg.json}
+WAV=${DOCKER_SMOKE_WAV:-dataset_sample/audio/s5_lv01.wav}
+TEXT=${DOCKER_SMOKE_TEXT:-dataset_sample/transcripts/s5_im_nobody.json}
 PY=${PY:-.venv/bin/python}
 
 echo "=== [1/3] make test ==================================================="

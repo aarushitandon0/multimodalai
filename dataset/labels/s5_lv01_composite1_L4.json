@@ -1,0 +1,145 @@
+{
+  "file_id": "s5_lv01_composite1_L4",
+  "source_file": "s5_lv01",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "alan_davis-drake",
+  "channel_id": "s5_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 4960422898233781618,
+  "duration": 42.139,
+  "clean_duration": 39.925,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "misplaced_stress",
+      "t_start": 1.66,
+      "t_end": 2.083,
+      "level": "L4",
+      "s": 0.9,
+      "method": "move_prominence",
+      "span": {
+        "kind": "word_pair",
+        "words": [
+          6,
+          7
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "f0_shift_st": 3.6,
+        "gain_db": 3.6,
+        "duration_factor": 1.27,
+        "inverse_scale": 1.0,
+        "content_duration_factor": 0.7874,
+        "praat_seed": 197426282
+      },
+      "formulas": {
+        "f0_shift_st": "4.0 * s",
+        "gain_db": "4.0 * s",
+        "duration_factor": "1 + 0.3 * s",
+        "inverse_scale": "1.0",
+        "content_duration_factor": "duration_factor ** -1"
+      },
+      "clean_t_start": 1.66,
+      "clean_t_end": 2.16,
+      "word_idx": [
+        6,
+        7
+      ],
+      "function_word_idx": 6,
+      "content_word_idx": 7
+    },
+    {
+      "label": "low_energy",
+      "t_start": 5.183,
+      "t_end": 10.373,
+      "level": "L4",
+      "s": 0.9,
+      "method": "gain_ramp",
+      "span": {
+        "kind": "words",
+        "words": [
+          17,
+          21
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "end_gain_db": -16.2,
+        "ramp": "linear_db",
+        "praat_seed": 1719714865
+      },
+      "formulas": {
+        "end_gain_db": "-18.0 * s",
+        "ramp": "linear_db"
+      },
+      "clean_t_start": 5.26,
+      "clean_t_end": 10.45,
+      "word_idx": [
+        17,
+        21
+      ]
+    },
+    {
+      "label": "hesitation_pause",
+      "t_start": 16.803,
+      "t_end": 16.803,
+      "level": "L4",
+      "s": 0.9,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 30
+      },
+      "params": {
+        "duration_s": 1.83,
+        "praat_seed": 1234270837
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 16.88,
+      "clean_t_end": 16.88,
+      "gap_idx": 30,
+      "gap_label": "none",
+      "word_idx": [
+        30,
+        31
+      ]
+    },
+    {
+      "label": "dragging",
+      "t_start": 19.813,
+      "t_end": 20.914,
+      "level": "L4",
+      "s": 0.9,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          33,
+          35
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 1.72,
+        "praat_seed": 978167126
+      },
+      "formulas": {
+        "factor": "1 + 0.8 * s"
+      },
+      "clean_t_start": 18.06,
+      "clean_t_end": 18.7,
+      "word_idx": [
+        33,
+        35
+      ]
+    }
+  ],
+  "qc": null,
+  "n_flaws": 4,
+  "audio_sha256": "559e69223f988e50dbfe7ae422d598a4132699009666730efa2b6e57619c8d0e"
+}

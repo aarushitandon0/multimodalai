@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "806379d48bebb24e69dc31830499685a05651874d5b98c385c6b18e161abc032",
+  "channel_id": "s1_lv05",
+  "duration": 125.615,
+  "file_id": "s1_lv05",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "frances_brown",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

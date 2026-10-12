@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "f90fd896b6273639b8bef39396e7974ff5470e660b4257003649e5e99d2ca94d",
+  "channel_id": "s1_lv10",
+  "duration": 129.425,
+  "file_id": "s1_lv10",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "maria_kasper",
+  "text_id": "s1_gettysburg",
+  "tier": "silver"
+}

@@ -1,0 +1,46 @@
+{
+  "file_id": "s1_lv01_rushing_L1",
+  "source_file": "s1_lv01",
+  "text_id": "s1_gettysburg",
+  "speaker_id": "ann_boulais",
+  "channel_id": "s1_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 5660433222829425267,
+  "duration": 122.221,
+  "clean_duration": 122.415,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "rushing",
+      "t_start": 108.18,
+      "t_end": 110.866,
+      "level": "L1",
+      "s": 0.15,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          264,
+          269
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.9325,
+        "praat_seed": 1620237354
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 108.18,
+      "clean_t_end": 111.06,
+      "word_idx": [
+        264,
+        269
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "0514a718b37e3c5a97b83f44becedcdd8f6b7c5ce5c8ca2710a5df13d3af6794"
+}

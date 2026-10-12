@@ -63,9 +63,9 @@ logger = logging.getLogger(__name__)
 
 __all__ = [
     "DEFAULT_PAD_S",
+    "ORIGINAL_STEM",
     "Clip",
     "ClipError",
-    "ORIGINAL_STEM",
     "ClipStore",
     "Which",
     "choose_reference",

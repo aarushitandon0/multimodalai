@@ -1,0 +1,46 @@
+{
+  "file_id": "s7_lv01_rushing_L1",
+  "source_file": "s7_lv01",
+  "text_id": "s7_sonnet18",
+  "speaker_id": "algy_pug",
+  "channel_id": "s7_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 3572116541676255605,
+  "duration": 64.725,
+  "clean_duration": 64.865,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "rushing",
+      "t_start": 29.35,
+      "t_end": 31.28,
+      "level": "L1",
+      "s": 0.15,
+      "method": "psola_lengthen",
+      "span": {
+        "kind": "words",
+        "words": [
+          62,
+          67
+        ],
+        "gap_idx": null
+      },
+      "params": {
+        "factor": 0.9325,
+        "praat_seed": 1789831933
+      },
+      "formulas": {
+        "factor": "1 - 0.45 * s"
+      },
+      "clean_t_start": 29.35,
+      "clean_t_end": 31.42,
+      "word_idx": [
+        62,
+        67
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "927590d5835c645109b82b5d4424bed25f9273e2bd846527749b0c8e110e3dce"
+}

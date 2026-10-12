@@ -1,0 +1,45 @@
+{
+  "file_id": "s5_lv09_hesitation_pause_L1",
+  "source_file": "s5_lv09",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "julian_jamison",
+  "channel_id": "s5_lv09",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 4287193537127164083,
+  "duration": 42.612,
+  "clean_duration": 42.057,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 9.97,
+      "t_end": 10.525,
+      "level": "L1",
+      "s": 0.15,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 22
+      },
+      "params": {
+        "duration_s": 0.555,
+        "praat_seed": 2107832602
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 9.97,
+      "clean_t_end": 9.97,
+      "gap_idx": 22,
+      "gap_label": "none",
+      "word_idx": [
+        22,
+        23
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "c45c9dbcd11204e3c3bc2859a883c04a5188060c7c6d1664570cc41a1065aaf4"
+}

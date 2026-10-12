@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "e5dc58407463e876529fd4a9a5988f1bef7e33468a37d935eeef0a5c6a5c0a39",
+  "channel_id": "s7_lv01",
+  "duration": 64.865,
+  "file_id": "s7_lv01",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "algy_pug",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}

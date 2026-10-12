@@ -1,0 +1,45 @@
+{
+  "audio_sha256": "ecf211cc576ec5efc29224a613a826ccbb7efd0b4d4fd9a5db91408e9e1b202f",
+  "channel_id": "s3_fdr_gold",
+  "clean_duration": 413.0,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "duration": 412.253,
+  "file_id": "s3_fdr_gold_missing_pause_L3",
+  "flaws": [
+    {
+      "clean_t_end": 177.38,
+      "clean_t_start": 176.07,
+      "formulas": {
+        "keep_fraction": "1 - 0.95 * s"
+      },
+      "gap_idx": 256,
+      "gap_label": "boundary",
+      "label": "missing_pause",
+      "level": "L3",
+      "method": "shrink_gap",
+      "params": {
+        "keep_fraction": 0.43,
+        "praat_seed": 2088633926
+      },
+      "s": 0.6,
+      "span": {
+        "gap_idx": 256,
+        "kind": "gap",
+        "words": null
+      },
+      "t_end": 176.633,
+      "t_start": 176.07,
+      "word_idx": [
+        256,
+        257
+      ]
+    }
+  ],
+  "origin": "injected",
+  "qc": null,
+  "seed": 8800658794030876797,
+  "source_file": "s3_fdr_gold",
+  "speaker_id": "franklin_d_roosevelt",
+  "text_id": "s3_fdr_infamy",
+  "tier": "gold"
+}

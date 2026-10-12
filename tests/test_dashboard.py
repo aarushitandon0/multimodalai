@@ -360,9 +360,7 @@ def app():
 
     from rostrum.config import repo_root
 
-    return AppTest.from_file(
-        str(repo_root() / "app" / "streamlit_app.py"), default_timeout=300
-    )
+    return AppTest.from_file(str(repo_root() / "app" / "streamlit_app.py"), default_timeout=300)
 
 
 def test_the_dashboard_runs_with_nothing_uploaded(app):

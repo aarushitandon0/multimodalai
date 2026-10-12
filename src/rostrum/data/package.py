@@ -19,7 +19,7 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from rostrum.data.manifest import ManifestRow
+from rostrum.data.manifest import ManifestRow, parent_file_id
 
 __all__ = [
     "ALL_LABELS",
@@ -28,12 +28,14 @@ __all__ = [
     "INJECTABLE_LABELS",
     "LEVELS",
     "SampleCoverage",
+    "clean_label",
     "composition_table",
     "label_table",
     "manifest_row_from_label",
     "render_autoblocks",
     "sample_coverage",
     "select_sample",
+    "speaker_slug",
 ]
 
 logger = logging.getLogger(__name__)
@@ -103,13 +105,87 @@ def manifest_row_from_label(label: Mapping[str, Any], duration_s: float) -> Mani
     )
 
 
+def speaker_slug(name: str) -> str:
+    """A stable speaker identifier from a display name.
+
+    ``speaker_id`` is a join key: the envelope groups by it and the channel rule
+    forbids comparing spectral features across speakers (CLAUDE.md invariant
+    7), so ``Alan Davis-Drake`` in ``LICENSES.csv`` and ``alan_davis-drake`` in
+    a label JSON must not end up as two different readers. Abbreviation dots
+    and the life-dates LibriVox appends to some credits are dropped; hyphens are
+    kept, because they are part of the surname.
+
+    Args:
+        name: Display name as credited on the source page, or an existing slug.
+
+    Returns:
+        A lowercase underscore-joined slug, empty when ``name`` is blank.
+    """
+    cleaned = re.sub(r"\(.*?\)", " ", name)
+    cleaned = cleaned.replace(".", " ").replace("_", " ")
+    return "_".join(cleaned.lower().split())
+
+
+def clean_label(
+    row: ManifestRow,
+    *,
+    speaker_id: str = "",
+    audio_sha256: str = "",
+) -> dict[str, Any]:
+    """The label JSON of a clean reading: the same schema, no flaws (spec 7.1).
+
+    Every audio file in the dataset gets a label record, including the good
+    ones. An absent file and a file asserted to have no flaws are different
+    claims, and only the second one can be scored: the false-alarm rate is
+    measured over clean audio, so the clean side has to be declared rather than
+    inferred from which directory a WAV happens to sit in.
+
+    ``source_file`` is empty and ``channel_id`` is the file itself, because a
+    clean reading is the channel every file derived from it is compared within
+    (CLAUDE.md invariant 7). ``qc`` is ``None``: the QC gates in invariant 9
+    describe an edit against its original, and there is no edit here.
+
+    Args:
+        row: The file's manifest row, which carries text, tier and duration.
+        speaker_id: Reader identifier, when known from ``LICENSES.csv``.
+        audio_sha256: Digest of the processed WAV, when already computed.
+
+    Returns:
+        A label mapping ready to be written to ``labels/<file_id>.json``.
+    """
+    return {
+        "file_id": row.file_id,
+        "source_file": "",
+        "text_id": row.text_id,
+        "speaker_id": speaker_slug(speaker_id),
+        "channel_id": row.file_id,
+        "origin": "clean",
+        "tier": row.tier,
+        "duration": round(float(row.duration_s), 3),
+        "flaws": [],
+        "qc": None,
+        "audio_sha256": audio_sha256,
+    }
+
+
 # --------------------------------------------------------------------------- #
 # Datasheet tables
 # --------------------------------------------------------------------------- #
 
 
-def composition_table(rows: Iterable[ManifestRow]) -> str:
-    """Render the composition table: files, duration and role per origin."""
+def composition_table(
+    rows: Iterable[ManifestRow],
+    *,
+    speakers: Mapping[str, str] | None = None,
+) -> str:
+    """Render the composition table: files, duration and role per origin.
+
+    Args:
+        rows: Manifest rows.
+        speakers: File id to ``speaker_id``, as the label JSONs record it. One
+            reader contributing several readings is one speaker, which the
+            recording-prefix fallback cannot see.
+    """
     items = list(rows)
     if not items:
         return "_The dataset holds no files yet; run `make data` first._"
@@ -122,9 +198,11 @@ def composition_table(rows: Iterable[ManifestRow]) -> str:
         group = [r for r in items if r.origin == origin]
         lines.append(
             f"| `{directory}` | {len(group)} | {_minutes(group)} | "
-            f"{_n_speakers(group)} | {role} |"
+            f"{_n_speakers(group, speakers)} | {role} |"
         )
-    lines.append(f"| **Total** | {len(items)} | {_minutes(items)} | {_n_speakers(items)} | |")
+    lines.append(
+        f"| **Total** | {len(items)} | {_minutes(items)} | {_n_speakers(items, speakers)} | |"
+    )
     return "\n".join(lines)
 
 
@@ -158,12 +236,18 @@ def _minutes(rows: Sequence[ManifestRow]) -> str:
     return f"{total / 60.0:.1f}"
 
 
-def _n_speakers(rows: Sequence[ManifestRow]) -> int:
-    """Distinct source recordings, which stand in for distinct speakers.
+def _n_speakers(rows: Sequence[ManifestRow], speakers: Mapping[str, str] | None = None) -> int:
+    """Distinct speakers across ``rows``.
 
-    An injected file inherits its speaker from the clean file whose ``file_id``
-    prefixes its own (spec 7.1 naming), so the prefix is the speaker key.
+    Uses the ``speaker_id`` the label JSONs record, which is the same key the
+    envelope and the channel rule group by (CLAUDE.md invariant 7). Without
+    that map it falls back to the source recording prefix, which over-counts a
+    reader who contributed several readings but never under-counts.
     """
+    if speakers:
+        found = {speakers[r.file_id] for r in rows if speakers.get(r.file_id)}
+        if found:
+            return len(found)
     return len(
         {r.file_id.split("_")[0] + "_" + r.file_id.split("_")[1] for r in rows if "_" in r.file_id}
     )
@@ -245,7 +329,7 @@ def select_sample(
 
     protected: set[str] = set()
 
-    for _label, _level, file_id in _pair_representatives(items):
+    for _label, _level, file_id in _pair_representatives(items, sizes):
         take(file_id)
         protected.add(file_id)
 
@@ -253,6 +337,15 @@ def select_sample(
     for r in sorted(humans, key=lambda r: (r.label, r.text_id, r.file_id))[:n_human]:
         take(r.file_id)
         protected.add(r.file_id)
+
+    # A flawed file is evidence only beside the reading it was cut from, so the
+    # parent travels with it and is never trimmed (spec 7.4, requirement 1c).
+    clean_ids = [r.file_id for r in items if r.origin == "clean"]
+    for file_id in list(chosen):
+        parent = parent_file_id(file_id, clean_ids)
+        if parent and parent != file_id:
+            take(parent)
+            protected.add(parent)
 
     flawed_texts = {r.text_id for r in items if r.origin in ("injected", "human")}
     texts = sorted(flawed_texts) or sorted({r.text_id for r in items})
@@ -328,14 +421,40 @@ def sample_coverage(rows: Iterable[ManifestRow], chosen: Sequence[str]) -> Sampl
     )
 
 
-def _pair_representatives(items: Sequence[ManifestRow]) -> list[tuple[str, str, str]]:
-    """One ``(label, level, file_id)`` per injected pair, lowest file id wins."""
-    best: dict[tuple[str, str], str] = {}
-    for r in sorted(items, key=lambda r: r.file_id):
+def _pair_representatives(
+    items: Sequence[ManifestRow],
+    sizes: Mapping[str, int] | None = None,
+) -> list[tuple[str, str, str]]:
+    """One ``(label, level, file_id)`` per injected pair.
+
+    The *cheapest* representative wins, because the sample has to cover 32
+    label-by-level pairs inside a few tens of megabytes and a flaw cut from a
+    20-second poem demonstrates it exactly as well as one cut from a
+    seven-minute address. Size comes from ``sizes`` when the caller measured
+    the files and from ``duration_s`` otherwise, so the choice is stable even
+    when nothing has been measured. Ties break on the lowest file id, which
+    keeps the selection deterministic (CLAUDE.md invariant 13).
+
+    Args:
+        items: Manifest rows, any order.
+        sizes: File id to size in bytes, when known.
+
+    Returns:
+        ``(label, level, file_id)`` sorted by label then level.
+    """
+    sizes = sizes or {}
+
+    def cost(r: ManifestRow) -> tuple[float, str]:
+        return (float(sizes.get(r.file_id, r.duration_s)), r.file_id)
+
+    best: dict[tuple[str, str], ManifestRow] = {}
+    for r in items:
         if r.origin != "injected" or not r.label or not r.level:
             continue
-        best.setdefault((r.label, r.level), r.file_id)
-    return [(lab, lvl, fid) for (lab, lvl), fid in sorted(best.items())]
+        key = (r.label, r.level)
+        if key not in best or cost(r) < cost(best[key]):
+            best[key] = r
+    return [(lab, lvl, r.file_id) for (lab, lvl), r in sorted(best.items())]
 
 
 # --------------------------------------------------------------------------- #

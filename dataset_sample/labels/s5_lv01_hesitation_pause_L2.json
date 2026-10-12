@@ -1,0 +1,45 @@
+{
+  "file_id": "s5_lv01_hesitation_pause_L2",
+  "source_file": "s5_lv01",
+  "text_id": "s5_im_nobody",
+  "speaker_id": "alan_davis-drake",
+  "channel_id": "s5_lv01",
+  "origin": "injected",
+  "tier": "silver",
+  "seed": 989766358408862510,
+  "duration": 40.82,
+  "clean_duration": 39.925,
+  "config_hash": "2a4b61dd77f48349a6ae6e866562c4c0373c427899c1b5e5bec5f2f618c78d34",
+  "flaws": [
+    {
+      "label": "hesitation_pause",
+      "t_start": 5.39,
+      "t_end": 6.285,
+      "level": "L2",
+      "s": 0.35,
+      "method": "insert_room_tone",
+      "span": {
+        "kind": "gap",
+        "words": null,
+        "gap_idx": 17
+      },
+      "params": {
+        "duration_s": 0.895,
+        "praat_seed": 569304300
+      },
+      "formulas": {
+        "duration_s": "0.3 + 1.7 * s"
+      },
+      "clean_t_start": 5.39,
+      "clean_t_end": 5.39,
+      "gap_idx": 17,
+      "gap_label": "none",
+      "word_idx": [
+        17,
+        18
+      ]
+    }
+  ],
+  "qc": null,
+  "audio_sha256": "7ac420a49e61658f5d9dd463e6860b5253c7ceab2409de0eb3b0e7a851571141"
+}

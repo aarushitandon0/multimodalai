@@ -197,6 +197,17 @@ def test_sample_holds_the_audio_and_its_sidecars(dataset: Path, tmp_path: Path) 
     assert rows  # fixture sanity
 
 
+def test_sample_copies_json_alignments_too(dataset: Path, tmp_path: Path) -> None:
+    """Injected files carry ``alignments/*.json``, not a TextGrid (spec 7.2)."""
+    (dataset / "alignments" / "s1_lv01_rushing_L3.TextGrid").unlink()
+    (dataset / "alignments" / "s1_lv01_rushing_L3.json").write_text(
+        '{"file_id": "s1_lv01_rushing_L3", "words": []}', encoding="utf-8"
+    )
+    out = tmp_path / "sample"
+    pkg.build_sample(dataset, out, ["s1_lv01", "s1_lv01_rushing_L3"])
+    assert (out / "alignments" / "s1_lv01_rushing_L3.json").is_file()
+
+
 def test_sample_manifest_and_licences_are_filtered_to_the_subset(
     dataset: Path, tmp_path: Path
 ) -> None:
@@ -258,3 +269,69 @@ def test_zip_is_written_atomically_over_an_old_one(dataset: Path, tmp_path: Path
     pkg.make_zip(dataset, target)
     assert zipfile.is_zipfile(target)
     assert not list(target.parent.glob("*.tmp"))
+
+
+# --------------------------------------------------------------------------- #
+# Clean label backfill
+# --------------------------------------------------------------------------- #
+
+
+def test_missing_clean_label_json_is_written(dataset: Path) -> None:
+    """A clean reading without a label record gets one that asserts no flaws."""
+    (dataset / "MANIFEST.csv").write_text(
+        "file_id,text_id,tier,origin,label,level,duration_s,split_fold\n"
+        "s1_lv01,s1,silver,clean,,,2.000,\n",
+        encoding="utf-8",
+    )
+    (dataset / "labels" / "s1_lv01.json").unlink()
+    rows = pkg.collect_rows(dataset)
+    written = pkg.write_missing_clean_labels(dataset, rows)
+    assert written == ["s1_lv01"]
+    data = json.loads((dataset / "labels" / "s1_lv01.json").read_text(encoding="utf-8"))
+    assert data["origin"] == "clean"
+    assert data["flaws"] == []
+    assert data["text_id"] == "s1"
+
+
+def test_existing_label_json_is_never_overwritten(dataset: Path) -> None:
+    before = (dataset / "labels" / "s1_lv01.json").read_text(encoding="utf-8")
+    assert pkg.write_missing_clean_labels(dataset, pkg.collect_rows(dataset)) == []
+    assert (dataset / "labels" / "s1_lv01.json").read_text(encoding="utf-8") == before
+
+
+def test_clean_label_takes_the_speaker_from_licences(dataset: Path) -> None:
+    (dataset / "labels" / "s1_lv01.json").unlink()
+    pkg.write_missing_clean_labels(dataset, pkg.collect_rows(dataset))
+    data = json.loads((dataset / "labels" / "s1_lv01.json").read_text(encoding="utf-8"))
+    assert data["speaker_id"] == "s"  # speaker_slug of the licence credit "S"
+
+
+# --------------------------------------------------------------------------- #
+# split_fold survives a run that does not rebuild the splits
+# --------------------------------------------------------------------------- #
+
+
+def test_collect_rows_keeps_the_previous_split_fold(dataset: Path) -> None:
+    """``--only sample`` must not blank the fold column the split builder filled."""
+    (dataset / "MANIFEST.csv").write_text(
+        "file_id,text_id,tier,origin,label,level,duration_s,split_fold\n"
+        "s1_lv01,s1,silver,clean,,,2.000,loto_s1\n",
+        encoding="utf-8",
+    )
+    by_id = {r.file_id: r for r in pkg.collect_rows(dataset)}
+    assert by_id["s1_lv01"].split_fold == "loto_s1"
+
+
+def test_sample_ships_a_filtered_events_tsv(dataset: Path, tmp_path: Path) -> None:
+    """Event-F1 on the sample alone needs the sed_eval file, cut to the subset."""
+    tab = chr(9)
+    rows = [
+        tab.join(["s1_lv01_rushing_L3.wav", "0.500", "1.000", "rushing"]),
+        tab.join(["s1_lv01_monotone_L1.wav", "0.200", "0.800", "monotone"]),
+    ]
+    (dataset / "labels" / "events.tsv").write_text(chr(10).join(rows) + chr(10), encoding="utf-8")
+    out = tmp_path / "sample"
+    pkg.build_sample(dataset, out, ["s1_lv01", "s1_lv01_rushing_L3"])
+    text = (out / "labels" / "events.tsv").read_text(encoding="utf-8")
+    assert "s1_lv01_rushing_L3.wav" in text
+    assert "s1_lv01_monotone_L1.wav" not in text

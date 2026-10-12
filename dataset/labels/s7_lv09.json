@@ -1,0 +1,13 @@
+{
+  "audio_sha256": "a06869ebdd6c6439e47af9db182c9988c0000aaf92b09d470a1b4792b94bfc74",
+  "channel_id": "s7_lv09",
+  "duration": 75.865,
+  "file_id": "s7_lv09",
+  "flaws": [],
+  "origin": "clean",
+  "qc": null,
+  "source_file": "",
+  "speaker_id": "leonard_wilson",
+  "text_id": "s7_sonnet18",
+  "tier": "silver"
+}
