@@ -109,3 +109,9 @@ desktop.ini
 # --- Scratch ---------------------------------------------------------------
 # Hand-run demos and listening checks; regenerate with the script inside.
 scratch/
+
+# --- Internal Documentation -------------------------------------------------
+# Project planning and spec files for development, not for judge review.
+CLAUDE.md
+MASTER_SPEC_PLAN.md
+PROJECT_PLAN.md
