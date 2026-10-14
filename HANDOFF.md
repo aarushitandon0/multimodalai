@@ -110,3 +110,42 @@ On metrics, be straight: if the eval has not been rerun, they are from generated
 feature tables and `results/metrics.md` says so in its first line. Say the word
 "synthetic". The alignment numbers in §13.3 *are* real and measured, so lead with
 those for the grounding claim.
+
+---
+
+## Update — 2026-10-14, short session (~10 min)
+
+Verified and corrected two things from the note above, then stopped cleanly.
+
+* **Docker is up**, `rostrum:latest` present. Artifacts confirmed on disk:
+  60 TextGrids, 786 feature-cache entries. Feature cache is warm — resume will
+  not recompute.
+* **The tree is clean.** "Nothing is committed" above is stale: commit `0f715a6`
+  already carries the `build_features.py` fix and the README changes. Nothing to
+  review before making permanent.
+* **The eval is all-or-nothing.** `run_loto` writes the aggregate and every
+  `fold_<text>.json` only *after* all 5 folds complete (`eval/run_loto.py`
+  ~L1076-1100). No checkpoint, no resume. A partial run leaves `results/`
+  untouched, so do not start it inside a window shorter than the full runtime.
+* Started `--no-tune` (config thresholds, no per-fold grid search) and killed it
+  at ~5 min with no first-fold log line yet. Even `--no-tune` does not fit in 10
+  minutes. Budget the full hour.
+
+### Resume command (unchanged, but writes to a side file)
+
+Docker Desktop first, then:
+
+```bash
+MSYS_NO_PATHCONV=1 docker run --rm \
+  -v "$PWD/src:/app/src" -v "$PWD/configs:/app/configs" \
+  -v "$PWD/scripts:/app/scripts" -v "$PWD/dataset:/app/dataset" \
+  -v "$PWD/eval:/app/eval" -v "$PWD/results:/app/results" \
+  -v "$PWD/.cache:/app/.cache" \
+  rostrum:latest bash -lc '.venv/bin/python -u -m eval.run_loto --corpus dataset --out results/metrics_real.json -v'
+```
+
+`MSYS_NO_PATHCONV=1` matters on Git Bash — without it the `-v` paths get
+mangled. `--out results/metrics_real.json` keeps the existing synthetic
+`metrics.json` intact until you have seen the real numbers; promote it
+deliberately afterwards. Drop `--no-tune` unless you are short on time, and if
+you do use it, report the thresholds as config-fit rather than per-fold.

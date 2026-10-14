@@ -1,0 +1,2354 @@
+{
+  "cases": {
+    "syn_b_p00_clean": {
+      "category": "",
+      "duration_s": 11.615,
+      "label": "",
+      "level": "L0",
+      "n_flaws": 0,
+      "n_regions": 1,
+      "n_truth": 0,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.0,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p01_rushing_L1": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "rushing",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p02_rushing_L2": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "rushing",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p03_rushing_L3": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "rushing",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p04_rushing_L4": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "rushing",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p05_dragging_L1": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "dragging",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p06_dragging_L2": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "dragging",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p07_dragging_L3": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "dragging",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p08_dragging_L4": {
+      "category": "pace",
+      "duration_s": 11.615,
+      "label": "dragging",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p09_monotone_L1": {
+      "category": "intonation",
+      "duration_s": 11.615,
+      "label": "monotone",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p10_monotone_L2": {
+      "category": "intonation",
+      "duration_s": 11.615,
+      "label": "monotone",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p11_monotone_L3": {
+      "category": "intonation",
+      "duration_s": 11.615,
+      "label": "monotone",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p12_monotone_L4": {
+      "category": "intonation",
+      "duration_s": 11.615,
+      "label": "monotone",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p13_low_energy_L1": {
+      "category": "energy",
+      "duration_s": 11.615,
+      "label": "low_energy",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p14_low_energy_L2": {
+      "category": "energy",
+      "duration_s": 11.615,
+      "label": "low_energy",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p15_low_energy_L3": {
+      "category": "energy",
+      "duration_s": 11.615,
+      "label": "low_energy",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p16_low_energy_L4": {
+      "category": "energy",
+      "duration_s": 11.615,
+      "label": "low_energy",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p17_misplaced_stress_L1": {
+      "category": "emphasis",
+      "duration_s": 11.615,
+      "label": "misplaced_stress",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p18_misplaced_stress_L2": {
+      "category": "emphasis",
+      "duration_s": 11.615,
+      "label": "misplaced_stress",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p19_misplaced_stress_L3": {
+      "category": "emphasis",
+      "duration_s": 11.615,
+      "label": "misplaced_stress",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p20_misplaced_stress_L4": {
+      "category": "emphasis",
+      "duration_s": 11.615,
+      "label": "misplaced_stress",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p21_missing_pause_L1": {
+      "category": "pausing",
+      "duration_s": 11.156,
+      "label": "missing_pause",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 10.906,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p22_missing_pause_L2": {
+      "category": "pausing",
+      "duration_s": 11.156,
+      "label": "missing_pause",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 10.906,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p23_missing_pause_L3": {
+      "category": "pausing",
+      "duration_s": 11.156,
+      "label": "missing_pause",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 10.906,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p24_missing_pause_L4": {
+      "category": "pausing",
+      "duration_s": 11.156,
+      "label": "missing_pause",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 10.906,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p25_hesitation_pause_L1": {
+      "category": "pausing",
+      "duration_s": 12.193,
+      "label": "hesitation_pause",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.943,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p26_hesitation_pause_L2": {
+      "category": "pausing",
+      "duration_s": 12.193,
+      "label": "hesitation_pause",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.943,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p27_hesitation_pause_L3": {
+      "category": "pausing",
+      "duration_s": 12.193,
+      "label": "hesitation_pause",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.943,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p28_hesitation_pause_L4": {
+      "category": "pausing",
+      "duration_s": 12.193,
+      "label": "hesitation_pause",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 2,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.943,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p29_mumbling_L1": {
+      "category": "clarity",
+      "duration_s": 11.615,
+      "label": "mumbling",
+      "level": "L1",
+      "n_flaws": 1,
+      "n_regions": 1,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.15,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p30_mumbling_L2": {
+      "category": "clarity",
+      "duration_s": 11.615,
+      "label": "mumbling",
+      "level": "L2",
+      "n_flaws": 1,
+      "n_regions": 3,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.35,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p31_mumbling_L3": {
+      "category": "clarity",
+      "duration_s": 11.615,
+      "label": "mumbling",
+      "level": "L3",
+      "n_flaws": 1,
+      "n_regions": 4,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.6,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    },
+    "syn_b_p32_mumbling_L4": {
+      "category": "clarity",
+      "duration_s": 11.615,
+      "label": "mumbling",
+      "level": "L4",
+      "n_flaws": 1,
+      "n_regions": 4,
+      "n_truth": 1,
+      "origin": "injected",
+      "same_channel": true,
+      "severity_s": 0.9,
+      "speech_duration_s": 11.365,
+      "text_id": "syn_b",
+      "tier": ""
+    }
+  },
+  "clean": {
+    "fp": 1,
+    "fp_per_min": 5.1658,
+    "minutes": 0.1936,
+    "n_files": 1,
+    "per_file": {
+      "syn_b_p00_clean": 1
+    }
+  },
+  "code_version": "54188c7-dirty",
+  "config_hash": "20a3f11bc1a8f7b0f4840d8e083767f6c8618424d9b69184f3ee519fdc1202a2",
+  "corpus": "synthetic",
+  "fairness": {
+    "female": {
+      "mean": null,
+      "n": 0,
+      "sd": null
+    },
+    "gap_points": null,
+    "male": {
+      "mean": null,
+      "n": 0,
+      "sd": null
+    },
+    "n_unknown": 33
+  },
+  "fit": {
+    "classifier": {
+      "classes": [
+        "dragging",
+        "hesitation_pause",
+        "low_energy",
+        "misplaced_stress",
+        "missing_pause",
+        "monotone",
+        "mumbling",
+        "rushing"
+      ],
+      "fitted": true,
+      "n_train": 49
+    },
+    "k_by_category": {
+      "clarity": 1.0,
+      "emphasis": 1.8304,
+      "energy": 1.1763,
+      "intonation": 1.4675,
+      "pace": 1.1259,
+      "pausing": 1.8208
+    },
+    "n_train_files": 66,
+    "thresholds": {
+      "penalty": 1.0,
+      "tau_in": 3.5,
+      "tau_out": 2.0,
+      "tuned": true
+    },
+    "tuning": {
+      "event_f1": 0.6942,
+      "fold": "loto_syn_b",
+      "grid": [
+        {
+          "event_f1": 0.6942,
+          "n_predicted": 57,
+          "penalty": 1.0,
+          "precision": 0.7368,
+          "recall": 0.6562,
+          "tau_in": 3.5,
+          "tau_out": 2.0
+        },
+        {
+          "event_f1": 0.6942,
+          "n_predicted": 57,
+          "penalty": 3.0,
+          "precision": 0.7368,
+          "recall": 0.6562,
+          "tau_in": 3.5,
+          "tau_out": 2.0
+        },
+        {
+          "event_f1": 0.6942,
+          "n_predicted": 57,
+          "penalty": 5.0,
+          "precision": 0.7368,
+          "recall": 0.6562,
+          "tau_in": 3.5,
+          "tau_out": 2.0
+        },
+        {
+          "event_f1": 0.6942,
+          "n_predicted": 57,
+          "penalty": 10.0,
+          "precision": 0.7368,
+          "recall": 0.6562,
+          "tau_in": 3.5,
+          "tau_out": 2.0
+        }
+      ],
+      "metrics": {
+        "collars": {
+          "offset_frac": 0.2,
+          "offset_s": 0.2,
+          "onset_s": 0.2
+        },
+        "f1": 0.6942,
+        "macro_f1": 0.7112,
+        "micro": {
+          "f1": 0.6942,
+          "fn": 22,
+          "fp": 15,
+          "precision": 0.7368,
+          "recall": 0.6562,
+          "tp": 42
+        },
+        "per_label": {
+          "dragging": {
+            "f1": 0.2353,
+            "fn": 6,
+            "fp": 7,
+            "precision": 0.2222,
+            "recall": 0.25,
+            "tp": 2
+          },
+          "hesitation_pause": {
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "tp": 8
+          },
+          "low_energy": {
+            "f1": 0.3158,
+            "fn": 5,
+            "fp": 8,
+            "precision": 0.2727,
+            "recall": 0.375,
+            "tp": 3
+          },
+          "misplaced_stress": {
+            "f1": 0.7692,
+            "fn": 3,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 0.625,
+            "tp": 5
+          },
+          "missing_pause": {
+            "f1": 1.0,
+            "fn": 0,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "tp": 8
+          },
+          "monotone": {
+            "f1": 0.7692,
+            "fn": 3,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 0.625,
+            "tp": 5
+          },
+          "mumbling": {
+            "f1": 0.6667,
+            "fn": 4,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 0.5,
+            "tp": 4
+          },
+          "rushing": {
+            "f1": 0.9333,
+            "fn": 1,
+            "fp": 0,
+            "precision": 1.0,
+            "recall": 0.875,
+            "tp": 7
+          }
+        }
+      },
+      "n_cases": 66,
+      "n_reference_events": 64,
+      "penalty": 1.0,
+      "tau_in": 3.5,
+      "tau_out": 2.0,
+      "train_texts": [
+        "syn_a",
+        "syn_c"
+      ]
+    }
+  },
+  "fold": "loto_syn_b",
+  "held_out": "syn_b",
+  "leakage_check": {
+    "n_fitted_on": 66,
+    "n_test": 33,
+    "origins_checked": true,
+    "overlap": [],
+    "test_only_origins": [
+      "human"
+    ]
+  },
+  "schema": "rostrum.eval.fold.v1",
+  "scores": {
+    "categories": {
+      "syn_b_p00_clean": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p01_rushing_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p02_rushing_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 6.7098,
+        "pausing": 10.0
+      },
+      "syn_b_p03_rushing_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 3.9103,
+        "pausing": 10.0
+      },
+      "syn_b_p04_rushing_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 2.3661,
+        "pausing": 10.0
+      },
+      "syn_b_p05_dragging_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 7.5002,
+        "pausing": 10.0
+      },
+      "syn_b_p06_dragging_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 4.7676,
+        "pausing": 10.0
+      },
+      "syn_b_p07_dragging_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 2.6414,
+        "pausing": 10.0
+      },
+      "syn_b_p08_dragging_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 2.3853,
+        "pausing": 10.0
+      },
+      "syn_b_p09_monotone_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p10_monotone_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p11_monotone_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 3.1664,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p12_monotone_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 1.4216,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p13_low_energy_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p14_low_energy_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 7.0588,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p15_low_energy_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 4.3437,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p16_low_energy_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 2.4255,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p17_misplaced_stress_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p18_misplaced_stress_L2": {
+        "clarity": 10.0,
+        "emphasis": 3.4925,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p19_misplaced_stress_L3": {
+        "clarity": 10.0,
+        "emphasis": 3.136,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p20_misplaced_stress_L4": {
+        "clarity": 10.0,
+        "emphasis": 3.136,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p21_missing_pause_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3585,
+        "pausing": 9.354
+      },
+      "syn_b_p22_missing_pause_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3585,
+        "pausing": 9.354
+      },
+      "syn_b_p23_missing_pause_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3585,
+        "pausing": 9.354
+      },
+      "syn_b_p24_missing_pause_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3585,
+        "pausing": 9.354
+      },
+      "syn_b_p25_hesitation_pause_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.4126,
+        "pausing": 3.8859
+      },
+      "syn_b_p26_hesitation_pause_L2": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.4126,
+        "pausing": 3.8859
+      },
+      "syn_b_p27_hesitation_pause_L3": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.4126,
+        "pausing": 3.8859
+      },
+      "syn_b_p28_hesitation_pause_L4": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.4126,
+        "pausing": 3.8859
+      },
+      "syn_b_p29_mumbling_L1": {
+        "clarity": 10.0,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 9.3836,
+        "pausing": 10.0
+      },
+      "syn_b_p30_mumbling_L2": {
+        "clarity": 7.6377,
+        "emphasis": 10.0,
+        "energy": 10.0,
+        "intonation": 10.0,
+        "pace": 8.5699,
+        "pausing": 10.0
+      },
+      "syn_b_p31_mumbling_L3": {
+        "clarity": 4.5898,
+        "emphasis": 10.0,
+        "energy": 5.6326,
+        "intonation": 10.0,
+        "pace": 7.8409,
+        "pausing": 10.0
+      },
+      "syn_b_p32_mumbling_L4": {
+        "clarity": 2.6355,
+        "emphasis": 10.0,
+        "energy": 3.3247,
+        "intonation": 10.0,
+        "pace": 3.913,
+        "pausing": 10.0
+      }
+    },
+    "category_order": [
+      "pace",
+      "pausing",
+      "intonation",
+      "emphasis",
+      "energy",
+      "clarity"
+    ],
+    "overall": {
+      "syn_b_p00_clean": 9.8973,
+      "syn_b_p01_rushing_L1": 9.8973,
+      "syn_b_p02_rushing_L2": 9.4516,
+      "syn_b_p03_rushing_L3": 8.9851,
+      "syn_b_p04_rushing_L4": 8.7277,
+      "syn_b_p05_dragging_L1": 9.5834,
+      "syn_b_p06_dragging_L2": 9.1279,
+      "syn_b_p07_dragging_L3": 8.7736,
+      "syn_b_p08_dragging_L4": 8.7309,
+      "syn_b_p09_monotone_L1": 9.8973,
+      "syn_b_p10_monotone_L2": 9.8973,
+      "syn_b_p11_monotone_L3": 8.7583,
+      "syn_b_p12_monotone_L4": 8.4675,
+      "syn_b_p13_low_energy_L1": 9.8973,
+      "syn_b_p14_low_energy_L2": 9.4071,
+      "syn_b_p15_low_energy_L3": 8.9545,
+      "syn_b_p16_low_energy_L4": 8.6349,
+      "syn_b_p17_misplaced_stress_L1": 9.8973,
+      "syn_b_p18_misplaced_stress_L2": 8.8127,
+      "syn_b_p19_misplaced_stress_L3": 8.7533,
+      "syn_b_p20_misplaced_stress_L4": 8.7533,
+      "syn_b_p21_missing_pause_L1": 9.7854,
+      "syn_b_p22_missing_pause_L2": 9.7854,
+      "syn_b_p23_missing_pause_L3": 9.7854,
+      "syn_b_p24_missing_pause_L4": 9.7854,
+      "syn_b_p25_hesitation_pause_L1": 8.8831,
+      "syn_b_p26_hesitation_pause_L2": 8.8831,
+      "syn_b_p27_hesitation_pause_L3": 8.8831,
+      "syn_b_p28_hesitation_pause_L4": 8.8831,
+      "syn_b_p29_mumbling_L1": 9.8973,
+      "syn_b_p30_mumbling_L2": 9.3679,
+      "syn_b_p31_mumbling_L3": 8.0106,
+      "syn_b_p32_mumbling_L4": 6.6455
+    }
+  },
+  "sed_eval_available": true,
+  "severity": {
+    "n": 32,
+    "per_category": {
+      "clarity": {
+        "n": 4,
+        "p_value": 0.0,
+        "rho": -1.0
+      },
+      "emphasis": {
+        "n": 4,
+        "p_value": 0.051317,
+        "rho": -0.9487
+      },
+      "energy": {
+        "n": 4,
+        "p_value": 0.0,
+        "rho": -1.0
+      },
+      "intonation": {
+        "n": 4,
+        "p_value": 0.051317,
+        "rho": -0.9487
+      },
+      "pace": {
+        "n": 8,
+        "p_value": 3.4e-05,
+        "rho": -0.9759
+      },
+      "pausing": {
+        "n": 8,
+        "p_value": 1.0,
+        "rho": 0.0
+      }
+    },
+    "pooled": {
+      "n": 32,
+      "p_value": 2e-06,
+      "rho": -0.7369
+    }
+  },
+  "splits": {
+    "human": {
+      "available": false,
+      "n_files": 0,
+      "reason": "no human files in this corpus"
+    },
+    "injected": {
+      "available": true,
+      "boundaries": {
+        "collar_matched": {
+          "iou_mean": 0.9081,
+          "mae_ms": 25.52,
+          "matching": "collar",
+          "n": 21,
+          "offset_bias_ms": -22.09,
+          "offset_mae_ms": 44.08,
+          "onset_bias_ms": 6.95,
+          "onset_mae_ms": 6.95
+        },
+        "iou_matched": {
+          "iou_mean": 0.8793,
+          "mae_ms": 65.83,
+          "matching": "iou",
+          "n": 26,
+          "offset_bias_ms": 42.45,
+          "offset_mae_ms": 95.9,
+          "onset_bias_ms": 35.75,
+          "onset_mae_ms": 35.75
+        },
+        "min_iou": 0.3
+      },
+      "diagnostics": {
+        "false_negatives": [
+          {
+            "file_id": "syn_b_p01_rushing_L1",
+            "label": "rushing",
+            "t_end": 5.582,
+            "t_start": 3.608
+          },
+          {
+            "file_id": "syn_b_p02_rushing_L2",
+            "label": "rushing",
+            "t_end": 5.582,
+            "t_start": 3.608
+          },
+          {
+            "file_id": "syn_b_p05_dragging_L1",
+            "label": "dragging",
+            "t_end": 8.1,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p06_dragging_L2",
+            "label": "dragging",
+            "t_end": 8.1,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p07_dragging_L3",
+            "label": "dragging",
+            "t_end": 8.1,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p08_dragging_L4",
+            "label": "dragging",
+            "t_end": 8.1,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p09_monotone_L1",
+            "label": "monotone",
+            "t_end": 5.582,
+            "t_start": 3.15
+          },
+          {
+            "file_id": "syn_b_p10_monotone_L2",
+            "label": "monotone",
+            "t_end": 5.582,
+            "t_start": 3.15
+          },
+          {
+            "file_id": "syn_b_p13_low_energy_L1",
+            "label": "low_energy",
+            "t_end": 8.48,
+            "t_start": 6.126
+          },
+          {
+            "file_id": "syn_b_p17_misplaced_stress_L1",
+            "label": "misplaced_stress",
+            "t_end": 2.651,
+            "t_start": 1.933
+          },
+          {
+            "file_id": "syn_b_p29_mumbling_L1",
+            "label": "mumbling",
+            "t_end": 6.9,
+            "t_start": 3.979
+          }
+        ],
+        "false_positives": [
+          {
+            "file_id": "syn_b_p01_rushing_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p02_rushing_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p02_rushing_L2",
+            "label": "rushing",
+            "score": 5.08141586013874,
+            "t_end": 5.59,
+            "t_start": 3.99
+          },
+          {
+            "file_id": "syn_b_p03_rushing_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p04_rushing_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p05_dragging_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p05_dragging_L1",
+            "label": "dragging",
+            "score": 4.113448337119124,
+            "t_end": 8.49,
+            "t_start": 6.95
+          },
+          {
+            "file_id": "syn_b_p06_dragging_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p06_dragging_L2",
+            "label": "dragging",
+            "score": 7.7567743395751165,
+            "t_end": 8.49,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p07_dragging_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p07_dragging_L3",
+            "label": "dragging",
+            "score": 12.0,
+            "t_end": 8.49,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p08_dragging_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p08_dragging_L4",
+            "label": "dragging",
+            "score": 12.0,
+            "t_end": 8.49,
+            "t_start": 6.55
+          },
+          {
+            "file_id": "syn_b_p09_monotone_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p10_monotone_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p11_monotone_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p12_monotone_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p13_low_energy_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p14_low_energy_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p15_low_energy_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p16_low_energy_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p17_misplaced_stress_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p18_misplaced_stress_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p19_misplaced_stress_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p20_misplaced_stress_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p21_missing_pause_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p22_missing_pause_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p23_missing_pause_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p24_missing_pause_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p25_hesitation_pause_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p26_hesitation_pause_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p27_hesitation_pause_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p28_hesitation_pause_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p29_mumbling_L1",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p30_mumbling_L2",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p30_mumbling_L2",
+            "label": "dragging",
+            "score": 4.616187175090649,
+            "t_end": 6.48,
+            "t_start": 6.13
+          },
+          {
+            "file_id": "syn_b_p31_mumbling_L3",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p31_mumbling_L3",
+            "label": "low_energy",
+            "score": 5.2535825706665555,
+            "t_end": 6.95,
+            "t_start": 4.4
+          },
+          {
+            "file_id": "syn_b_p31_mumbling_L3",
+            "label": "dragging",
+            "score": 7.179931799159601,
+            "t_end": 6.48,
+            "t_start": 6.13
+          },
+          {
+            "file_id": "syn_b_p32_mumbling_L4",
+            "label": "rushing",
+            "score": 3.8348445107527294,
+            "t_end": 0.6,
+            "t_start": 0.25
+          },
+          {
+            "file_id": "syn_b_p32_mumbling_L4",
+            "label": "low_energy",
+            "score": 7.565911952404102,
+            "t_end": 6.95,
+            "t_start": 3.98
+          },
+          {
+            "file_id": "syn_b_p32_mumbling_L4",
+            "label": "dragging",
+            "score": 10.256425348042347,
+            "t_end": 7.3,
+            "t_start": 3.99
+          }
+        ],
+        "pairs": [
+          {
+            "file_id": "syn_b_p02_rushing_L2",
+            "iou": 0.8032,
+            "label": "rushing",
+            "offset_error_ms": 7.8,
+            "onset_error_ms": 382.3,
+            "pred_end": 5.59,
+            "pred_start": 3.99,
+            "ref_end": 5.582,
+            "ref_start": 3.608,
+            "score": 5.08141586013874
+          },
+          {
+            "file_id": "syn_b_p03_rushing_L3",
+            "iou": 0.9949,
+            "label": "rushing",
+            "offset_error_ms": 7.8,
+            "onset_error_ms": 2.3,
+            "pred_end": 5.59,
+            "pred_start": 3.61,
+            "ref_end": 5.582,
+            "ref_start": 3.608,
+            "score": 9.976884177296254
+          },
+          {
+            "file_id": "syn_b_p04_rushing_L4",
+            "iou": 0.9949,
+            "label": "rushing",
+            "offset_error_ms": 7.8,
+            "onset_error_ms": 2.3,
+            "pred_end": 5.59,
+            "pred_start": 3.61,
+            "ref_end": 5.582,
+            "ref_start": 3.608,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p05_dragging_L1",
+            "iou": 0.5927,
+            "label": "dragging",
+            "offset_error_ms": 390.0,
+            "onset_error_ms": 400.3,
+            "pred_end": 8.49,
+            "pred_start": 6.95,
+            "ref_end": 8.1,
+            "ref_start": 6.55,
+            "score": 4.113448337119124
+          },
+          {
+            "file_id": "syn_b_p06_dragging_L2",
+            "iou": 0.7988,
+            "label": "dragging",
+            "offset_error_ms": 390.0,
+            "onset_error_ms": 0.3,
+            "pred_end": 8.49,
+            "pred_start": 6.55,
+            "ref_end": 8.1,
+            "ref_start": 6.55,
+            "score": 7.7567743395751165
+          },
+          {
+            "file_id": "syn_b_p07_dragging_L3",
+            "iou": 0.7988,
+            "label": "dragging",
+            "offset_error_ms": 390.0,
+            "onset_error_ms": 0.3,
+            "pred_end": 8.49,
+            "pred_start": 6.55,
+            "ref_end": 8.1,
+            "ref_start": 6.55,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p08_dragging_L4",
+            "iou": 0.7988,
+            "label": "dragging",
+            "offset_error_ms": 390.0,
+            "onset_error_ms": 0.3,
+            "pred_end": 8.49,
+            "pred_start": 6.55,
+            "ref_end": 8.1,
+            "ref_start": 6.55,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p11_monotone_L3",
+            "iou": 0.9579,
+            "label": "monotone",
+            "offset_error_ms": -62.2,
+            "onset_error_ms": 40.2,
+            "pred_end": 5.52,
+            "pred_start": 3.19,
+            "ref_end": 5.582,
+            "ref_start": 3.15,
+            "score": 5.822186731216682
+          },
+          {
+            "file_id": "syn_b_p12_monotone_L4",
+            "iou": 0.9579,
+            "label": "monotone",
+            "offset_error_ms": -62.2,
+            "onset_error_ms": 40.2,
+            "pred_end": 5.52,
+            "pred_start": 3.19,
+            "ref_end": 5.582,
+            "ref_start": 3.15,
+            "score": 8.48382417781618
+          },
+          {
+            "file_id": "syn_b_p14_low_energy_L2",
+            "iou": 0.9192,
+            "label": "low_energy",
+            "offset_error_ms": -190.1,
+            "onset_error_ms": 0.0,
+            "pred_end": 8.29,
+            "pred_start": 6.126,
+            "ref_end": 8.48,
+            "ref_start": 6.126,
+            "score": 5.058662042826344
+          },
+          {
+            "file_id": "syn_b_p15_low_energy_L3",
+            "iou": 0.9192,
+            "label": "low_energy",
+            "offset_error_ms": -190.1,
+            "onset_error_ms": 0.0,
+            "pred_end": 8.29,
+            "pred_start": 6.126,
+            "ref_end": 8.48,
+            "ref_start": 6.126,
+            "score": 7.5926289047490965
+          },
+          {
+            "file_id": "syn_b_p16_low_energy_L4",
+            "iou": 0.9192,
+            "label": "low_energy",
+            "offset_error_ms": -190.1,
+            "onset_error_ms": 0.0,
+            "pred_end": 8.29,
+            "pred_start": 6.126,
+            "ref_end": 8.48,
+            "ref_start": 6.126,
+            "score": 10.633389139056401
+          },
+          {
+            "file_id": "syn_b_p18_misplaced_stress_L2",
+            "iou": 0.9782,
+            "label": "misplaced_stress",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 6.8,
+            "pred_end": 2.66,
+            "pred_start": 1.94,
+            "ref_end": 2.651,
+            "ref_start": 1.933,
+            "score": 11.071587780370798
+          },
+          {
+            "file_id": "syn_b_p19_misplaced_stress_L3",
+            "iou": 0.9782,
+            "label": "misplaced_stress",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 6.8,
+            "pred_end": 2.66,
+            "pred_start": 1.94,
+            "ref_end": 2.651,
+            "ref_start": 1.933,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p20_misplaced_stress_L4",
+            "iou": 0.9782,
+            "label": "misplaced_stress",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 6.8,
+            "pred_end": 2.66,
+            "pred_start": 1.94,
+            "ref_end": 2.651,
+            "ref_start": 1.933,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p21_missing_pause_L1",
+            "iou": 0.6319,
+            "label": "missing_pause",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 9.0,
+            "pred_end": 2.7,
+            "pred_start": 2.66,
+            "ref_end": 2.691,
+            "ref_start": 2.651,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p22_missing_pause_L2",
+            "iou": 0.6319,
+            "label": "missing_pause",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 9.0,
+            "pred_end": 2.7,
+            "pred_start": 2.66,
+            "ref_end": 2.691,
+            "ref_start": 2.651,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p23_missing_pause_L3",
+            "iou": 0.6319,
+            "label": "missing_pause",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 9.0,
+            "pred_end": 2.7,
+            "pred_start": 2.66,
+            "ref_end": 2.691,
+            "ref_start": 2.651,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p24_missing_pause_L4",
+            "iou": 0.6319,
+            "label": "missing_pause",
+            "offset_error_ms": 9.0,
+            "onset_error_ms": 9.0,
+            "pred_end": 2.7,
+            "pred_start": 2.66,
+            "ref_end": 2.691,
+            "ref_start": 2.651,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p25_hesitation_pause_L1",
+            "iou": 0.999,
+            "label": "hesitation_pause",
+            "offset_error_ms": 0.3,
+            "onset_error_ms": 0.3,
+            "pred_end": 7.52,
+            "pred_start": 6.9,
+            "ref_end": 7.52,
+            "ref_start": 6.9,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p26_hesitation_pause_L2",
+            "iou": 0.999,
+            "label": "hesitation_pause",
+            "offset_error_ms": 0.3,
+            "onset_error_ms": 0.3,
+            "pred_end": 7.52,
+            "pred_start": 6.9,
+            "ref_end": 7.52,
+            "ref_start": 6.9,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p27_hesitation_pause_L3",
+            "iou": 0.999,
+            "label": "hesitation_pause",
+            "offset_error_ms": 0.3,
+            "onset_error_ms": 0.3,
+            "pred_end": 7.52,
+            "pred_start": 6.9,
+            "ref_end": 7.52,
+            "ref_start": 6.9,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p28_hesitation_pause_L4",
+            "iou": 0.999,
+            "label": "hesitation_pause",
+            "offset_error_ms": 0.3,
+            "onset_error_ms": 0.3,
+            "pred_end": 7.52,
+            "pred_start": 6.9,
+            "ref_end": 7.52,
+            "ref_start": 6.9,
+            "score": 12.0
+          },
+          {
+            "file_id": "syn_b_p30_mumbling_L2",
+            "iou": 0.9827,
+            "label": "mumbling",
+            "offset_error_ms": 50.3,
+            "onset_error_ms": 1.0,
+            "pred_end": 6.95,
+            "pred_start": 3.98,
+            "ref_end": 6.9,
+            "ref_start": 3.979,
+            "score": 3.556140476189887
+          },
+          {
+            "file_id": "syn_b_p31_mumbling_L3",
+            "iou": 0.9827,
+            "label": "mumbling",
+            "offset_error_ms": 50.3,
+            "onset_error_ms": 1.0,
+            "pred_end": 6.95,
+            "pred_start": 3.98,
+            "ref_end": 6.9,
+            "ref_start": 3.979,
+            "score": 5.510730910023563
+          },
+          {
+            "file_id": "syn_b_p32_mumbling_L4",
+            "iou": 0.9827,
+            "label": "mumbling",
+            "offset_error_ms": 50.3,
+            "onset_error_ms": 1.0,
+            "pred_end": 6.95,
+            "pred_start": 3.98,
+            "ref_end": 6.9,
+            "ref_start": 3.979,
+            "score": 7.565911952404102
+          }
+        ]
+      },
+      "event_f1": 0.4421,
+      "events": {
+        "agrees": true,
+        "delta_f1": 0.0,
+        "rostrum": {
+          "collars": {
+            "offset_frac": 0.2,
+            "offset_s": 0.2,
+            "onset_s": 0.2
+          },
+          "f1": 0.4421,
+          "macro_f1": 0.6438,
+          "micro": {
+            "f1": 0.4421,
+            "fn": 11,
+            "fp": 42,
+            "precision": 0.3333,
+            "recall": 0.6562,
+            "tp": 21
+          },
+          "per_label": {
+            "dragging": {
+              "f1": 0.0,
+              "fn": 4,
+              "fp": 7,
+              "precision": 0.0,
+              "recall": 0.0,
+              "tp": 0
+            },
+            "hesitation_pause": {
+              "f1": 1.0,
+              "fn": 0,
+              "fp": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 4
+            },
+            "low_energy": {
+              "f1": 0.6667,
+              "fn": 1,
+              "fp": 2,
+              "precision": 0.6,
+              "recall": 0.75,
+              "tp": 3
+            },
+            "misplaced_stress": {
+              "f1": 0.8571,
+              "fn": 1,
+              "fp": 0,
+              "precision": 1.0,
+              "recall": 0.75,
+              "tp": 3
+            },
+            "missing_pause": {
+              "f1": 1.0,
+              "fn": 0,
+              "fp": 0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "tp": 4
+            },
+            "monotone": {
+              "f1": 0.6667,
+              "fn": 2,
+              "fp": 0,
+              "precision": 1.0,
+              "recall": 0.5,
+              "tp": 2
+            },
+            "mumbling": {
+              "f1": 0.8571,
+              "fn": 1,
+              "fp": 0,
+              "precision": 1.0,
+              "recall": 0.75,
+              "tp": 3
+            },
+            "rushing": {
+              "f1": 0.1026,
+              "fn": 2,
+              "fp": 33,
+              "precision": 0.0571,
+              "recall": 0.5,
+              "tp": 2
+            }
+          }
+        },
+        "sed_eval": {
+          "engine": "sed_eval 0.2.1",
+          "f1": 0.4421,
+          "macro_f1": 0.6438,
+          "per_label": {
+            "dragging": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 4
+            },
+            "hesitation_pause": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 4
+            },
+            "low_energy": {
+              "f1": 0.6667,
+              "precision": 0.6,
+              "recall": 0.75,
+              "support": 4
+            },
+            "misplaced_stress": {
+              "f1": 0.8571,
+              "precision": 1.0,
+              "recall": 0.75,
+              "support": 4
+            },
+            "missing_pause": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 4
+            },
+            "monotone": {
+              "f1": 0.6667,
+              "precision": 1.0,
+              "recall": 0.5,
+              "support": 4
+            },
+            "mumbling": {
+              "f1": 0.8571,
+              "precision": 1.0,
+              "recall": 0.75,
+              "support": 4
+            },
+            "rushing": {
+              "f1": 0.1026,
+              "precision": 0.0571,
+              "recall": 0.5,
+              "support": 4
+            }
+          },
+          "precision": 0.3333,
+          "recall": 0.6562
+        }
+      },
+      "n_files": 32,
+      "n_predicted_events": 63,
+      "n_reference_events": 32,
+      "onset_offset_mae_ms": 65.83,
+      "pr_curve": {
+        "auc": 0.5177,
+        "best_f1": 0.6667,
+        "best_threshold": 5.0587,
+        "n_thresholds": 19,
+        "points": [
+          {
+            "f1": 0.4421,
+            "precision": 0.3333,
+            "recall": 0.6562,
+            "threshold": 3.5561
+          },
+          {
+            "f1": 0.6452,
+            "precision": 0.6667,
+            "recall": 0.625,
+            "threshold": 3.8348
+          },
+          {
+            "f1": 0.6452,
+            "precision": 0.6667,
+            "recall": 0.625,
+            "threshold": 4.1134
+          },
+          {
+            "f1": 0.6557,
+            "precision": 0.6897,
+            "recall": 0.625,
+            "threshold": 4.6162
+          },
+          {
+            "f1": 0.6667,
+            "precision": 0.7143,
+            "recall": 0.625,
+            "threshold": 5.0587
+          },
+          {
+            "f1": 0.6552,
+            "precision": 0.7308,
+            "recall": 0.5938,
+            "threshold": 5.0814
+          },
+          {
+            "f1": 0.6667,
+            "precision": 0.76,
+            "recall": 0.5938,
+            "threshold": 5.2536
+          },
+          {
+            "f1": 0.6429,
+            "precision": 0.75,
+            "recall": 0.5625,
+            "threshold": 5.5107
+          },
+          {
+            "f1": 0.6182,
+            "precision": 0.7391,
+            "recall": 0.5312,
+            "threshold": 5.8222
+          },
+          {
+            "f1": 0.6296,
+            "precision": 0.7727,
+            "recall": 0.5312,
+            "threshold": 7.1799
+          },
+          {
+            "f1": 0.6154,
+            "precision": 0.8,
+            "recall": 0.5,
+            "threshold": 7.5659
+          },
+          {
+            "f1": 0.5882,
+            "precision": 0.7895,
+            "recall": 0.4688,
+            "threshold": 7.5926
+          },
+          {
+            "f1": 0.5882,
+            "precision": 0.7895,
+            "recall": 0.4688,
+            "threshold": 7.7568
+          },
+          {
+            "f1": 0.6,
+            "precision": 0.8333,
+            "recall": 0.4688,
+            "threshold": 8.4838
+          },
+          {
+            "f1": 0.5714,
+            "precision": 0.8235,
+            "recall": 0.4375,
+            "threshold": 9.9769
+          },
+          {
+            "f1": 0.5417,
+            "precision": 0.8125,
+            "recall": 0.4062,
+            "threshold": 10.2564
+          },
+          {
+            "f1": 0.5532,
+            "precision": 0.8667,
+            "recall": 0.4062,
+            "threshold": 10.6334
+          },
+          {
+            "f1": 0.4889,
+            "precision": 0.8462,
+            "recall": 0.3438,
+            "threshold": 11.0716
+          },
+          {
+            "f1": 0.4889,
+            "precision": 0.8462,
+            "recall": 0.3438,
+            "threshold": 12.0
+          }
+        ]
+      },
+      "typing": {
+        "classifier": {
+          "accuracy": 0.34615384615384615,
+          "confusion": {
+            "labels": [
+              "dragging",
+              "hesitation_pause",
+              "low_energy",
+              "misplaced_stress",
+              "missing_pause",
+              "monotone",
+              "mumbling",
+              "rushing"
+            ],
+            "matrix": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                1,
+                0
+              ],
+              [
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0,
+                0
+              ],
+              [
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                2,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                3,
+                0
+              ]
+            ]
+          },
+          "macro_f1": 0.20833333333333331,
+          "n": 26,
+          "per_label": {
+            "dragging": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 4
+            },
+            "hesitation_pause": {
+              "f1": 0.6666666666666666,
+              "precision": 0.5,
+              "recall": 1.0,
+              "support": 4
+            },
+            "low_energy": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 3
+            },
+            "misplaced_stress": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 3
+            },
+            "missing_pause": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 4
+            },
+            "monotone": {
+              "f1": 0.4,
+              "precision": 0.25,
+              "recall": 1.0,
+              "support": 2
+            },
+            "mumbling": {
+              "f1": 0.6,
+              "precision": 0.42857142857142855,
+              "recall": 1.0,
+              "support": 3
+            },
+            "rushing": {
+              "f1": 0.0,
+              "precision": 0.0,
+              "recall": 0.0,
+              "support": 3
+            }
+          },
+          "rule_macro_f1": 0.9571428571428571
+        },
+        "classifier_macro_f1": 0.2083,
+        "macro_f1": 0.9571,
+        "n_examples": 26,
+        "rule": {
+          "accuracy": 0.9615,
+          "confusion": [
+            [
+              4,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              4,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              3,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              3,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              4,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              3
+            ]
+          ],
+          "labels": [
+            "dragging",
+            "hesitation_pause",
+            "low_energy",
+            "misplaced_stress",
+            "missing_pause",
+            "monotone",
+            "mumbling",
+            "rushing"
+          ],
+          "macro_f1": 0.9571,
+          "n": 26,
+          "per_label": {
+            "dragging": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 4
+            },
+            "hesitation_pause": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 4
+            },
+            "low_energy": {
+              "f1": 0.8571,
+              "precision": 0.75,
+              "recall": 1.0,
+              "support": 3
+            },
+            "misplaced_stress": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 3
+            },
+            "missing_pause": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 4
+            },
+            "monotone": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 2
+            },
+            "mumbling": {
+              "f1": 0.8,
+              "precision": 1.0,
+              "recall": 0.6667,
+              "support": 3
+            },
+            "rushing": {
+              "f1": 1.0,
+              "precision": 1.0,
+              "recall": 1.0,
+              "support": 3
+            }
+          }
+        },
+        "rule_macro_f1": 0.9571
+      }
+    }
+  },
+  "train_texts": [
+    "syn_a",
+    "syn_c"
+  ],
+  "variant": {
+    "classifier": true,
+    "description": "the system as specified",
+    "name": "full",
+    "refine": true,
+    "single_reference": false,
+    "speaker_normalisation": true,
+    "tune": true
+  }
+}

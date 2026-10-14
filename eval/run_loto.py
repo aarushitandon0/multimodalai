@@ -972,7 +972,16 @@ def metrics_markdown(payload: Mapping[str, Any]) -> str:
         "Values are mean over folds; the per-fold spread is in `results/fold_<text>.json`.",
         "",
     ]
-    for split, title in (("synthetic", "Synthetic (held-out text)"), ("human", "Human takes")):
+    # The "synthetic" split holds the machine-injected files. On the dataset
+    # corpus those are real recordings carrying injected flaws, not generated
+    # tables, so calling the section "Synthetic" there misreports what was
+    # measured; the heading follows the corpus.
+    injected_title = (
+        "Injected (held-out text)"
+        if payload.get("corpus") == "dataset"
+        else "Synthetic (held-out text)"
+    )
+    for split, title in (("synthetic", injected_title), ("human", "Human takes")):
         rows_key = split
         rows = payload["targets"].get(rows_key, [])
         source = "injected" if split == "synthetic" else "human"

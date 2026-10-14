@@ -1,0 +1,244 @@
+{
+  "code_version": "d997653-dirty",
+  "config_hash": "20a3f11bc1a8f7b0f4840d8e083767f6c8618424d9b69184f3ee519fdc1202a2",
+  "corpus": "synthetic",
+  "metrics": [
+    {
+      "better": "higher",
+      "key": "event_f1_200ms",
+      "label": "Event-F1 @ 200 ms"
+    },
+    {
+      "better": "lower",
+      "key": "onset_offset_mae_ms",
+      "label": "Onset/offset MAE (ms)"
+    },
+    {
+      "better": "higher",
+      "key": "flaw_type_macro_f1",
+      "label": "Macro-F1 (type)"
+    },
+    {
+      "better": "lower",
+      "key": "severity_spearman_rho",
+      "label": "Spearman rho"
+    },
+    {
+      "better": "lower",
+      "key": "false_positives_per_min_on_clean",
+      "label": "FP on clean (per min)"
+    }
+  ],
+  "rows": [
+    {
+      "available": true,
+      "delta": {},
+      "extra": {
+        "n_predicted_events": 124,
+        "typing": {
+          "classifier_macro_f1": 0.3531,
+          "n_folds_with_classifier": 3,
+          "rule_macro_f1": 0.8905
+        }
+      },
+      "metrics": {
+        "event_f1_200ms": 0.5533,
+        "false_positives_per_min_on_clean": 1.7219,
+        "flaw_type_macro_f1": 0.8905,
+        "onset_offset_mae_ms": 87.6367,
+        "severity_spearman_rho": -0.6855
+      },
+      "name": "full",
+      "note": "the baseline every delta is measured against",
+      "overrides": {},
+      "reason": "",
+      "split": "injected",
+      "title": "Full system",
+      "variant": {
+        "classifier": true,
+        "description": "the system as specified",
+        "name": "full",
+        "refine": true,
+        "single_reference": false,
+        "speaker_normalisation": true,
+        "tune": true
+      }
+    },
+    {
+      "available": true,
+      "delta": {
+        "event_f1_200ms": -0.5533,
+        "false_positives_per_min_on_clean": -1.7219,
+        "flaw_type_macro_f1": -0.8905,
+        "onset_offset_mae_ms": null,
+        "severity_spearman_rho": null
+      },
+      "extra": {
+        "n_predicted_events": 0
+      },
+      "metrics": {
+        "event_f1_200ms": 0.0,
+        "false_positives_per_min_on_clean": 0.0,
+        "flaw_type_macro_f1": 0.0,
+        "onset_offset_mae_ms": null,
+        "severity_spearman_rho": null
+      },
+      "name": "single_reference",
+      "note": "gold reading where the corpus has one, else one drawn with a seeded RNG; `min_references` is overridden to 1 so the envelope builder allows it",
+      "overrides": {
+        "envelope": {
+          "min_references": 1
+        }
+      },
+      "reason": "this variant emitted no region at all, so only the F1 is a measurement; the edge error has no matched pair to average and the false-alarm rate no alarm to count",
+      "split": "injected",
+      "title": "1. Single reference (not an envelope)",
+      "variant": {
+        "classifier": true,
+        "description": "one reference reading instead of the envelope",
+        "name": "single_reference",
+        "refine": true,
+        "single_reference": true,
+        "speaker_normalisation": true,
+        "tune": true
+      }
+    },
+    {
+      "available": true,
+      "delta": {
+        "event_f1_200ms": 0.0,
+        "false_positives_per_min_on_clean": 0.0,
+        "flaw_type_macro_f1": 0.0,
+        "onset_offset_mae_ms": 0.0,
+        "severity_spearman_rho": 0.0
+      },
+      "extra": {
+        "n_predicted_events": 124,
+        "typing": {
+          "classifier_macro_f1": null,
+          "n_folds_with_classifier": 0,
+          "rule_macro_f1": 0.8905
+        }
+      },
+      "metrics": {
+        "event_f1_200ms": 0.5533,
+        "false_positives_per_min_on_clean": 1.7219,
+        "flaw_type_macro_f1": 0.8905,
+        "onset_offset_mae_ms": 87.6367,
+        "severity_spearman_rho": -0.6855
+      },
+      "name": "rules_only",
+      "note": "the emitted label is the rule's either way (spec 10.6), so this row shows what the classifier adds as a second opinion, not a changed headline label",
+      "overrides": {},
+      "reason": "",
+      "split": "injected",
+      "title": "2. Rules only (no flaw-type classifier)",
+      "variant": {
+        "classifier": false,
+        "description": "region rules without the GBM flaw-type classifier",
+        "name": "rules_only",
+        "refine": true,
+        "single_reference": false,
+        "speaker_normalisation": true,
+        "tune": true
+      }
+    },
+    {
+      "available": true,
+      "delta": {
+        "event_f1_200ms": 0.0,
+        "false_positives_per_min_on_clean": 0.0,
+        "flaw_type_macro_f1": 0.0,
+        "onset_offset_mae_ms": -19.6,
+        "severity_spearman_rho": -0.001
+      },
+      "extra": {
+        "n_predicted_events": 124
+      },
+      "metrics": {
+        "event_f1_200ms": 0.5533,
+        "false_positives_per_min_on_clean": 1.7219,
+        "flaw_type_macro_f1": 0.8905,
+        "onset_offset_mae_ms": 68.0367,
+        "severity_spearman_rho": -0.6865
+      },
+      "name": "no_refinement",
+      "note": "spec 10.5; expect the onset/offset MAE to move and the F1 to move less",
+      "overrides": {},
+      "reason": "",
+      "split": "injected",
+      "title": "3. No boundary refinement",
+      "variant": {
+        "classifier": true,
+        "description": "hysteresis regions without ruptures refinement",
+        "name": "no_refinement",
+        "refine": false,
+        "single_reference": false,
+        "speaker_normalisation": true,
+        "tune": true
+      }
+    },
+    {
+      "available": true,
+      "delta": {
+        "event_f1_200ms": 0.04,
+        "false_positives_per_min_on_clean": 1.722,
+        "flaw_type_macro_f1": 0.075,
+        "onset_offset_mae_ms": -36.5634,
+        "severity_spearman_rho": 0.1331
+      },
+      "extra": {
+        "n_predicted_events": 127
+      },
+      "metrics": {
+        "event_f1_200ms": 0.5933,
+        "false_positives_per_min_on_clean": 3.4439,
+        "flaw_type_macro_f1": 0.9655,
+        "onset_offset_mae_ms": 51.0733,
+        "severity_spearman_rho": -0.5524
+      },
+      "name": "no_speaker_norm",
+      "note": "SIMULATED on the synthetic corpus: each speaker is given back a habitual pitch, loudness and tempo. On the dataset it would need a second feature pass with normalisation off, which `make features` does not produce",
+      "overrides": {},
+      "reason": "",
+      "split": "injected",
+      "title": "4. No speaker normalisation",
+      "variant": {
+        "classifier": true,
+        "description": "between-speaker offsets left in the comparison",
+        "name": "no_speaker_norm",
+        "refine": true,
+        "single_reference": false,
+        "speaker_normalisation": false,
+        "tune": true
+      }
+    },
+    {
+      "available": false,
+      "delta": {},
+      "extra": {},
+      "metrics": {},
+      "name": "human_test",
+      "note": "the full run's two splits side by side; no separate fit, because human takes are test-only (spec 7.3)",
+      "overrides": {},
+      "reason": "the synthetic corpus has no human takes",
+      "split": "human",
+      "title": "5. Human test takes (vs synthetic)",
+      "variant": {
+        "classifier": true,
+        "description": "the system as specified",
+        "name": "full",
+        "refine": true,
+        "single_reference": false,
+        "speaker_normalisation": true,
+        "tune": true
+      }
+    }
+  ],
+  "schema": "rostrum.eval.ablations.v1",
+  "texts": [
+    "syn_a",
+    "syn_b",
+    "syn_c"
+  ]
+}

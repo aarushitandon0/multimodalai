@@ -51,6 +51,16 @@ dataset/audio/raw/team/*
 results/*
 !results/.gitkeep
 !results/README.md
+# The README quotes these, so a clone has to carry them (section 13).
+!results/metrics.json
+!results/metrics.md
+!results/metrics_synthetic.json
+!results/metrics_synthetic.md
+!results/fold_*.json
+!results/ablations.json
+!results/ablations.md
+!results/failures.json
+!results/failures.md
 
 # --- Python ------------------------------------------------------------------
 __pycache__/

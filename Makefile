@@ -175,6 +175,9 @@ tuning: ## Fit tau_in/tau_out/penalty per fold -> results/tuning.json
 classifier: ## Fit the per-fold flaw-type classifier; macro-F1 + docs/figures/confusion_matrix.png
 	$(PY) -m scripts.clf_report --out results/classifier.json
 
+classifier-all: ## Fit the dashboard's all-texts classifier -> .cache/models/clf_all.joblib
+	$(PY) -m scripts.fit_classifier --out results/classifier_all.json
+
 rubric: ## Calibrate k_c per fold and print the clean/L1-L4 category scores
 	$(PY) -m scripts.score_report --out results/rubric_demo.json
 

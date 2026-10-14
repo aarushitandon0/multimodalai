@@ -1015,6 +1015,19 @@ the region is tagged uncertain so the card can say "the rule reads this as
 quietly asserting the wrong one. A judge can therefore always trace a displayed
 label back to a threshold crossing on a named feature.
 
+**Two models, fitted differently on purpose.** `eval.run_loto` fits one
+classifier per fold on that fold's training texts only, keeps it in memory and
+never writes it, because a fold's model must not see its held-out text. The live
+dashboard has no held-out text - it analyses a file the user just uploaded - so
+`pipeline.load_library` looks for the `fold="all"` model at
+`.cache/models/clf_all.joblib`, which `make classifier-all`
+(`scripts/fit_classifier.py`) fits over every text. Fitting on the whole corpus
+is correct for serving and would be leakage in an evaluation, so the two are kept
+in separate files and the reported metrics never load the dashboard's model.
+Human takes stay out of both: `fit_fold` applies the
+`detection.classifier.train_on` origin filter itself. Without that file the
+dashboard still draws regions, but they carry no severity.
+
 ### 9.4 Severity calibration
 
 The rule produces a region, not a rung of the ladder. An **isotonic regression**
@@ -1247,12 +1260,41 @@ text's own readers, and that clarity is measured but cannot raise a flag. The
 system never shows confident nonsense, and it says which of its own numbers to
 distrust.
 
+### 12.1 Which mode each dataset text actually gets
+
+Four of the five dataset texts resolve to Reference mode and one cannot. The
+measured reader counts are tabulated in 13.3; what matters here is the
+consequence.
+
+`s3_fdr_infamy` is different in kind from the other four. One clean reading is
+below the envelope floor no matter how much alignment or feature work is done, so
+it is a Norm-mode text permanently rather than pending. It and its 32 injected
+children are therefore excluded from the evaluation altogether, which is why the
+dataset LOTO runs over four folds and not five (15.3).
+
+**`clarity` cannot fire anywhere on this corpus.** Invariant 7 confines
+voice-quality features to within-channel comparisons, and every clean reading
+here comes from a different LibriVox speaker, so no recording has a same-channel
+reference. The trigger log records `mumbling:no_same_channel_reference` on every
+case, leaving 8 of the 9 triggers live. This is a structural property of the
+corpus, not merely an absence of human-recorded flawed takes: measuring it needs
+a clean and a flawed take *from the same speaker and channel*.
+
 ---
 
 ## 13. Results and accuracy
 
 All numbers below are reproduced by the `make` target named with each table and are
 read back out of the JSON files in `results/`. Nothing here is hand-entered.
+
+The one exception to "a `make` target" is the dataset leave-one-text-out result in
+13.4, which needs its texts named explicitly because one text cannot form an
+envelope; the exact command is in [15.3](#153-analysis-and-evaluation). Where a
+table reports the generated-table corpus rather than `dataset/`, it says so in its
+own first line. As of this run `results/metrics.{json,md}` are the **dataset**
+result while `results/ablations.*` and `results/failures.*` are still the
+synthetic one, so the ablation table and the failure analysis describe the
+protocol on generated tables, not the real corpus.
 
 ### 13.1 Component validity: pitch extraction
 
@@ -1429,6 +1471,58 @@ silently substituted.*
 *Temporal grounding in one picture: the participant's F0, energy and rate curves
 against the envelope median and its 1.4826·MAD band, with detected flaw regions
 shaded and bounded by exact start and end timestamps.*
+
+**On the real dataset.** Everything above is the generated-table corpus, and it
+is a component test of region formation, not a dataset result. Running the same
+leave-one-text-out protocol on the 234 injected recordings of `dataset/` gives a
+much worse picture, and these are the numbers that count. Four folds
+(`s3_fdr_infamy` is excluded, [12.1](#121-which-mode-each-dataset-text-actually-gets)),
+85.0 minutes of clean audio, config hash `2a4b61dd77f4`, written to
+`results/metrics.json` and `results/metrics.md`:
+
+| Metric | Target | Mean | SD | Per fold (s1, s5, s6, s7) | Verdict |
+|---|---|---|---|---|---|
+| Event-F1 @ 200 ms | >= 0.75 | **0.0083** | 0.0058 | 0.006, 0.014, 0.014, 0.000 | **MISS** |
+| Onset/offset MAE (ms) | <= 150 | **506.7** | 322.4 | 957.8, **65.0**, 594.7, 409.5 | **MISS** |
+| Macro-F1 (type) | >= 0.7 | **0.4455** | 0.2148 | 0.360, 0.286, **0.815**, 0.321 | **MISS** |
+| Severity Spearman rho | <= -0.85 | **-0.0376** | 0.0677 | -0.044, +0.061, -0.130, -0.038 | **MISS** |
+| FP on clean (per min) | <= 1 | **5.978** | 0.4115 | 5.36, 6.52, 5.95, 6.08 | **MISS** |
+
+All five measurable targets are missed. Two individual folds do clear their
+target - `s5` reaches 65 ms onset MAE and `s6` reaches 0.815 macro-F1 - but the
+spread across folds is as informative as the mean: nothing here is stable.
+
+Thresholds in this run are the **config's** `tau_in = 2.5`, `tau_out = 1.5`
+(`--no-tune`), not fitted per fold. That is a deliberate deviation from 9.2 and
+it must be read as config-fit. It is also the *better* setting: the per-fold grid
+search selected the stricter `tau_in = 3.5`, which scored event-F1 0.010 on its
+own training folds and matched fewer regions to truth (9 of 359, against 26 of
+682 at 2.5).
+
+**What is actually wrong, as far as the evidence goes.** The features, the
+envelope and the labels are sound, and each was checked rather than assumed:
+all 17 word, 1 gap and 4 phrase features resolve against the cached tables
+(`rostrum.features.names.resolve_many` maps the config's canonical names onto the
+real column names, so `gap_duration` -> `gap_duration_s`); the envelope builds
+from 12 to 17 readers per text; and the injection labels are internally
+consistent with their time maps. The deviation also lands in the right place -
+over 1,701 injected flaw words, 46.1% exceed `|z| > 2.5` and 24.6% exceed 3.5.
+
+The failure is in region **geometry**. Only about 3% of detected regions overlap
+a truth event at IoU >= 0.3 (26 of 682 in one fold), because hysteresis flags the
+subset of a flaw's words that cross the threshold while the label covers the whole
+injected span (median truth duration 1.61 s). A correctly-located region that
+covers one word of a three-word flaw scores IoU ~0.33 and a narrower one falls
+below the gate, so a hit is scored as both a miss and a false alarm. The
+false-alarm rate of 6 per minute on clean readings has the same cause from the
+other side: a 12-to-17-reader envelope drawn from *different* LibriVox speakers
+has wide enough MAD that ordinary interpretive variation crosses 2.5.
+
+This is a measurement-geometry problem rather than a blind detector, and the
+honest conclusion is that the grounding claim is **not** supported end to end on
+real audio at the pre-registered thresholds. What is supported, and measured, is
+the dataset and the alignment ([13.3](#133-forced-alignment-over-the-clean-corpus)):
+60 of 62 readings aligned, 0 OOV, 0 flagged, unaligned fraction 0.000.
 
 ### 13.5 Severity response of the rubric
 
@@ -1768,6 +1862,7 @@ make envelope            # synthetic-table chain only; for the real corpus this
                          #   dataset envelope path actually lives
 make tuning              # fit tau_in, tau_out and the penalty per fold
 make classifier          # fit the per-fold flaw-type classifier, macro-F1 plus confusion matrix
+make classifier-all      # fit the dashboard's all-texts model -> .cache/models/clf_all.joblib
 make rubric              # calibrate k_c per fold, print clean and L1 to L4 scores
 make cards               # render explanation cards -> results/cards_demo.json
 make components          # pitch, alignment and rate validity -> results/components.json
@@ -1783,6 +1878,23 @@ in every file they write. Point them at the real dataset with
 `EVAL_ARGS="--corpus dataset"`; without a built dataset they refuse and list what
 is missing and the target that produces each piece, rather than reporting a number
 they cannot stand behind.
+
+**On the real corpus, name the texts.** `run_loto` folds over every text the
+corpus reports, and a text that cannot form an envelope aborts the *whole* run:
+`s3_fdr_infamy` has one clean reading against an `envelope.min_references` of 3,
+so the fourth fold exits 2 with `cannot evaluate: ... this fold has no envelope`.
+The aggregate and every `fold_<text>.json` are written only after all folds
+succeed, so there is no checkpoint and no partial credit - a completed fold is
+discarded. Pass the viable texts explicitly:
+
+```bash
+python -m eval.run_loto --corpus dataset   --texts s1_gettysburg s5_im_nobody s6_sunset_lampman s7_sonnet18   --out results/metrics_real.json -v
+```
+
+Use `-u`/`-v`: without them the run prints nothing until it ends. Budget roughly
+12 minutes per fold with a warm feature cache; `--no-tune` substitutes the config
+thresholds for the per-fold grid search, which must then be reported as
+config-fit rather than fitted per fold.
 
 ### 15.4 Ablations
 
