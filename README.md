@@ -1483,14 +1483,28 @@ much worse picture, and these are the numbers that count. Four folds
 | Metric | Target | Mean | SD | Per fold (s1, s5, s6, s7) | Verdict |
 |---|---|---|---|---|---|
 | Event-F1 @ 200 ms | >= 0.75 | **0.0083** | 0.0058 | 0.006, 0.014, 0.014, 0.000 | **MISS** |
-| Onset/offset MAE (ms) | <= 150 | **506.7** | 322.4 | 957.8, **65.0**, 594.7, 409.5 | **MISS** |
-| Macro-F1 (type) | >= 0.7 | **0.4455** | 0.2148 | 0.360, 0.286, **0.815**, 0.321 | **MISS** |
+| Onset/offset MAE (ms) | <= 150 | **506.7** | 322.4 | 957.8, 65.0, 594.7, 409.5 | **MISS** |
+| Macro-F1 (type) | >= 0.7 | **0.4455** | 0.2148 | 0.360, 0.286, 0.815, 0.321 | **MISS** |
 | Severity Spearman rho | <= -0.85 | **-0.0376** | 0.0677 | -0.044, +0.061, -0.130, -0.038 | **MISS** |
 | FP on clean (per min) | <= 1 | **5.978** | 0.4115 | 5.36, 6.52, 5.95, 6.08 | **MISS** |
 
-All five measurable targets are missed. Two individual folds do clear their
-target - `s5` reaches 65 ms onset MAE and `s6` reaches 0.815 macro-F1 - but the
-spread across folds is as informative as the mean: nothing here is stable.
+All five measurable targets are missed, and the confusion counts are the honest
+headline rather than the averages above:
+
+| Fold | TP | FP | FN | Events matched for the MAE |
+|---|---|---|---|---|
+| `s1_gettysburg` | 3 | 971 | 80 | 8 |
+| `s5_im_nobody` | 1 | 71 | 72 | 1 |
+| `s6_sunset_lampman` | 3 | 354 | 83 | 6 |
+| `s7_sonnet18` | 0 | 260 | 80 | 2 |
+| **total** | **7** | **1,656** | **315** | **17** |
+
+**Seven true positives against 1,656 false positives.** Read the per-fold onset
+MAE in that light: `s5`'s 65 ms is computed over a *single* matched event and
+`s7`'s over two, so neither is a pass that cleared the 150 ms target - the
+boundary statistics are conditioned on matches, and with 17 matches across the
+whole corpus they carry no weight. The `iou_matched` mean IoU of 0.52 to 0.82
+says only that *when* a region matches it matches well.
 
 Thresholds in this run are the **config's** `tau_in = 2.5`, `tau_out = 1.5`
 (`--no-tune`), not fitted per fold. That is a deliberate deviation from 9.2 and
