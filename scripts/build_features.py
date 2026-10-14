@@ -53,6 +53,7 @@ from rostrum.features import extract_all as X
 from rostrum.features import pauses as PA
 from rostrum.io.audio import load_any
 from rostrum.io.hashing import sha256_file
+from rostrum.types import Alignment
 
 logger = logging.getLogger("build_features")
 
@@ -101,6 +102,21 @@ def _audio_dirs(cfg: Config, *, sample: bool) -> list[Path]:
     ]
 
 
+def _alignment_path(alignment_dir: Path, file_id: str) -> Path:
+    """The alignment for ``file_id``: MFA TextGrid, else the JSON time-map form.
+
+    Clean recordings are force-aligned by MFA and stored as ``.TextGrid``.
+    Injected recordings never go through MFA - their alignment is derived from
+    the injection time map and serialised with :meth:`Alignment.to_dict`, so it
+    lands as ``.json``. Preferring the TextGrid keeps clean files unchanged.
+    """
+    grid = alignment_dir / f"{file_id}.TextGrid"
+    if grid.is_file():
+        return grid
+    derived = alignment_dir / f"{file_id}.json"
+    return derived if derived.is_file() else grid
+
+
 def collect_targets(cfg: Config, *, sample: bool, only: list[str] | None = None) -> list[Target]:
     """List the recordings to process, newest manifest information attached."""
     manifest_path = cfg.path("sample.dir") / "MANIFEST.csv" if sample else cfg.path("data.manifest")
@@ -125,7 +141,7 @@ def collect_targets(cfg: Config, *, sample: bool, only: list[str] | None = None)
                 Target(
                     file_id=file_id,
                     audio=wav,
-                    alignment=alignment_dir / f"{file_id}.TextGrid",
+                    alignment=_alignment_path(alignment_dir, file_id),
                     text_id=row.text_id if row else "",
                     tier=row.tier if row else "",
                     origin=origin,
@@ -175,15 +191,21 @@ def build_one(
     """
     samples, sr = load_any(target.audio)
     digest = sha256_file(target.audio)
-    alignment = read_textgrid(
-        target.alignment,
-        file_id=target.file_id,
-        text_id=target.text_id or None,
-        speaker_id=target.speaker_id,
-        channel_id=target.channel_id,
-        audio_sha256=digest,
-        duration=len(samples) / float(sr),
-    )
+    if target.alignment.suffix == ".json":
+        alignment = Alignment.from_dict(
+            json.loads(target.alignment.read_text(encoding="utf-8"))
+        )
+        alignment.audio_sha256 = digest
+    else:
+        alignment = read_textgrid(
+            target.alignment,
+            file_id=target.file_id,
+            text_id=target.text_id or None,
+            speaker_id=target.speaker_id,
+            channel_id=target.channel_id,
+            audio_sha256=digest,
+            duration=len(samples) / float(sr),
+        )
     alignment.tier = target.tier or None
 
     labels = _gap_labels(cfg, target.text_id)
